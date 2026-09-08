@@ -90,6 +90,8 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
 
   useEffect(() => {
     window.location.hash = `slide=${currentSlide}`;
+    const titleText = slideTitles[currentSlide - 1] || `Slide ${currentSlide}`;
+    document.title = `Slide ${currentSlide}/22: ${titleText} | SDG 3 & SDG 4 - UEH`;
   }, [currentSlide]);
 
   // Step-by-step advance
