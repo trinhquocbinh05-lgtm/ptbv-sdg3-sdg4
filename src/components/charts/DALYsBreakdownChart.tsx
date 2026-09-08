@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { HeartPulseIcon, LeafIcon } from '../Icons';
 import { AnimatedNumber, AnimatedProgressBar } from '../AnimatedCounter';
 
@@ -44,17 +44,17 @@ export const DALYsBreakdownChart: React.FC = () => {
       {/* Content based on Tab */}
       {activeTab === 'dalys' ? (
         <div>
-          <div className="flex items-center justify-between text-xs mb-2">
-            <span className="text-white/80 font-mono">Công thức DALYs = YLL + YLD</span>
-            <span className="text-emerald-400 font-bold">100% Gánh nặng bệnh tật</span>
+          <div className="flex items-center justify-between text-xs sm:text-sm mb-2.5">
+            <span className="text-white/90 font-mono font-semibold">Công thức: DALYs = YLL + YLD</span>
+            <span className="text-emerald-400 font-bold font-mono">100% Gánh nặng bệnh tật toàn cầu</span>
           </div>
 
           {/* Stacked Animated Bar */}
-          <div className="h-6 w-full bg-black/50 rounded-full overflow-hidden flex p-0.5 border border-white/10 mb-3">
+          <div className="h-8 sm:h-9 w-full bg-black/60 rounded-full overflow-hidden flex p-1 border border-white/10 mb-4 shadow-inner">
             <AnimatedProgressBar
               width="58%"
               duration={1.2}
-              className="h-full bg-gradient-to-r from-rose-500 to-rose-400 rounded-l-full flex items-center justify-center text-[10px] font-bold text-white shadow-lg overflow-hidden"
+              className="h-full bg-gradient-to-r from-rose-500 to-rose-400 rounded-l-full flex items-center justify-center text-xs sm:text-sm font-bold text-white shadow-lg overflow-hidden"
               title="YLL: 58% (Tử vong sớm)"
             >
               YLL <AnimatedNumber text="58%" duration={1200} />
@@ -63,7 +63,7 @@ export const DALYsBreakdownChart: React.FC = () => {
               width="42%"
               duration={1.2}
               delay={0.15}
-              className="h-full bg-gradient-to-r from-emerald-400 to-teal-300 rounded-r-full flex items-center justify-center text-[10px] font-bold text-black shadow-lg overflow-hidden"
+              className="h-full bg-gradient-to-r from-emerald-400 to-teal-300 rounded-r-full flex items-center justify-center text-xs sm:text-sm font-bold text-black shadow-lg overflow-hidden"
               title="YLD: 42% (Sống với tàn tật)"
             >
               YLD <AnimatedNumber text="42%" duration={1200} />
@@ -71,23 +71,23 @@ export const DALYsBreakdownChart: React.FC = () => {
           </div>
 
           {/* Legend Details */}
-          <div className="grid grid-cols-2 gap-3 text-left text-xs">
-            <div className="p-2.5 rounded-xl bg-rose-950/20 border border-rose-500/20">
-              <div className="flex items-center gap-1.5 text-rose-300 font-semibold mb-1">
-                <span className="h-2 w-2 rounded-full bg-rose-400" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 text-left">
+            <div className="p-3.5 rounded-xl bg-rose-950/20 border border-rose-500/30">
+              <div className="flex items-center gap-2 text-rose-300 font-semibold text-sm sm:text-base mb-1.5">
+                <span className="h-2.5 w-2.5 rounded-full bg-rose-400 shrink-0" />
                 <span>YLL (<AnimatedNumber text="58%" duration={1000} />): Tử vong sớm</span>
               </div>
-              <p className="text-[11px] text-white/70 font-light leading-snug">
+              <p className="text-xs sm:text-sm text-white/80 font-light leading-relaxed">
                 Số năm sống mất đi do chết sớm trước tuổi thọ kỳ vọng (Years of Life Lost).
               </p>
             </div>
 
-            <div className="p-2.5 rounded-xl bg-emerald-950/20 border border-emerald-500/20">
-              <div className="flex items-center gap-1.5 text-emerald-300 font-semibold mb-1">
-                <span className="h-2 w-2 rounded-full bg-emerald-400" />
+            <div className="p-3.5 rounded-xl bg-emerald-950/20 border border-emerald-500/30">
+              <div className="flex items-center gap-2 text-emerald-300 font-semibold text-sm sm:text-base mb-1.5">
+                <span className="h-2.5 w-2.5 rounded-full bg-emerald-400 shrink-0" />
                 <span>YLD (<AnimatedNumber text="42%" duration={1000} />): Sống tàn tật</span>
               </div>
-              <p className="text-[11px] text-white/70 font-light leading-snug">
+              <p className="text-xs sm:text-sm text-white/80 font-light leading-relaxed">
                 Số năm sống suy giảm chức năng do thương tật hoặc bệnh mạn tính (Years Lived with Disability).
               </p>
             </div>
@@ -96,15 +96,15 @@ export const DALYsBreakdownChart: React.FC = () => {
       ) : (
         <div>
           {/* HALE Gap Indicator */}
-          <div className="space-y-3">
+          <div className="space-y-4">
             <div>
-              <div className="flex justify-between text-xs mb-1">
-                <span className="text-white/80">Tuổi thọ trung bình toàn cầu</span>
-                <span className="font-bold text-white font-mono">
+              <div className="flex justify-between text-xs sm:text-sm mb-1.5">
+                <span className="text-white/90">Tuổi thọ trung bình toàn cầu (LE)</span>
+                <span className="font-bold text-white font-mono text-sm sm:text-base">
                   <AnimatedNumber text="73.6 năm" duration={1200} />
                 </span>
               </div>
-              <div className="h-3 bg-white/10 rounded-full overflow-hidden">
+              <div className="h-4 sm:h-5 bg-white/10 rounded-full overflow-hidden p-0.5 border border-white/10">
                 <AnimatedProgressBar
                   width="100%"
                   duration={1.2}
@@ -114,13 +114,13 @@ export const DALYsBreakdownChart: React.FC = () => {
             </div>
 
             <div>
-              <div className="flex justify-between text-xs mb-1">
+              <div className="flex justify-between text-xs sm:text-sm mb-1.5">
                 <span className="text-emerald-300 font-medium">Tuổi thọ khỏe mạnh (HALE)</span>
-                <span className="font-bold text-emerald-400 font-mono">
+                <span className="font-bold text-emerald-400 font-mono text-sm sm:text-base">
                   <AnimatedNumber text="65.0 năm" duration={1200} />
                 </span>
               </div>
-              <div className="h-3 bg-white/10 rounded-full overflow-hidden">
+              <div className="h-4 sm:h-5 bg-white/10 rounded-full overflow-hidden p-0.5 border border-white/10">
                 <AnimatedProgressBar
                   width="88%"
                   duration={1.2}
@@ -131,13 +131,13 @@ export const DALYsBreakdownChart: React.FC = () => {
             </div>
 
             {/* Gap box */}
-            <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-400/30 flex items-center justify-between text-xs">
-              <div className="flex items-center gap-2">
-                <LeafIcon className="w-4 h-4 text-amber-400" />
-                <span className="text-white/90">Khoảng cách gánh nặng bệnh tật:</span>
+            <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-400/40 flex items-center justify-between text-xs sm:text-sm">
+              <div className="flex items-center gap-2.5">
+                <LeafIcon className="w-5 h-5 text-amber-400" />
+                <span className="text-white/90 font-medium">Khoảng cách gánh nặng bệnh tật:</span>
               </div>
-              <span className="font-mono text-amber-300 font-bold">
-                ~<AnimatedNumber text="8.6 năm" duration={1200} /> sống yếu
+              <span className="font-mono text-amber-300 font-bold text-sm sm:text-base">
+                ~<AnimatedNumber text="8.6 năm" duration={1200} /> sống chung với bệnh
               </span>
             </div>
           </div>

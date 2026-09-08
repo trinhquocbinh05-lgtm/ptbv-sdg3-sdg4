@@ -7,6 +7,8 @@ export interface ExtendedTargetItem {
   id: string;
   code: string;
   title: string;
+  targetContent: string;
+  focusIndicators: string[];
   shortDesc: string;
   category: 'means';
   sdgGoal: string;
@@ -27,11 +29,13 @@ export const extendedTargetsList: ExtendedTargetItem[] = [
   // NHÓM PHƯƠNG TIỆN THỰC THI (3.a - 3.d)
   {
     id: '3.a',
-    code: 'Phương tiện 3.a',
-    title: 'Kiểm soát Thuốc lá (WHO FCTC)',
-    shortDesc: 'Thực thi Công ước khung WHO về kiểm soát thuốc lá ở tất cả các quốc gia.',
+    code: 'Target 3.a',
+    title: 'Kiểm soát Thuốc lá (WHO-FCTC)',
+    targetContent: 'Thực thi Công ước kiểm soát thuốc lá (WHO-FCTC)',
+    focusIndicators: ['Tỷ lệ sử dụng thuốc lá (người ≥15 tuổi)'],
+    shortDesc: 'Thực thi Công ước kiểm soát thuốc lá (WHO-FCTC).',
     category: 'means',
-    sdgGoal: 'Đẩy mạnh thực thi Công ước Khung WHO FCTC nhằm giảm tỷ lệ sử dụng thuốc lá toàn cầu.',
+    sdgGoal: 'Thực thi Công ước kiểm soát thuốc lá (WHO-FCTC)',
     statusBadge: 'Chính sách can thiệp',
     badgeColor: 'bg-amber-500/20 text-amber-300 border-amber-500/30',
     accentColor: '#F59E0B',
@@ -46,11 +50,13 @@ export const extendedTargetsList: ExtendedTargetItem[] = [
   },
   {
     id: '3.b',
-    code: 'Phương tiện 3.b',
-    title: 'R&D Vaccine & Thuốc Thiết yếu',
-    shortDesc: 'Nghiên cứu & phát triển (R&D) vaccine và thuốc thiết yếu giá rẻ.',
+    code: 'Target 3.b',
+    title: 'Nghiên cứu & phát triển (R&D) Vaccine & Thuốc',
+    targetContent: 'Hỗ trợ nghiên cứu & phát triển (R&D) giúp tiếp cận vaccine/thuốc giá rẻ',
+    focusIndicators: ['Tỷ lệ tiêm chủng quốc gia', 'Dòng vốn ODA y tế'],
+    shortDesc: 'R&D giúp tiếp cận vaccine/thuốc giá rẻ.',
     category: 'means',
-    sdgGoal: 'Hỗ trợ R&D vaccine và thuốc điều trị, bảo đảm tiếp cận thuốc thiết yếu theo Tuyên bố Doha TRIPs.',
+    sdgGoal: 'Hỗ trợ R&D giúp tiếp cận vaccine/thuốc giá rẻ',
     statusBadge: 'Đột phá khoa học',
     badgeColor: 'bg-cyan-500/20 text-cyan-300 border-cyan-500/30',
     accentColor: '#06B6D4',
@@ -65,11 +71,13 @@ export const extendedTargetsList: ExtendedTargetItem[] = [
   },
   {
     id: '3.c',
-    code: 'Phương tiện 3.c',
+    code: 'Target 3.c',
     title: 'Tài chính Y tế & Nhân lực',
-    shortDesc: 'Tăng cường tài chính y tế và đào tạo nhân lực tại các nước đang phát triển.',
+    targetContent: 'Tài chính y tế và nhân lực',
+    focusIndicators: ['Mật độ và phân bổ bác sĩ/nhân viên y tế'],
+    shortDesc: 'Tài chính y tế và nhân lực.',
     category: 'means',
-    sdgGoal: 'Tăng ngân sách y tế và thu hẹp khoảng cách thiếu hụt nhân viên y tế trước 2030.',
+    sdgGoal: 'Tài chính y tế và nhân lực',
     statusBadge: 'Nguồn lực cốt lõi',
     badgeColor: 'bg-teal-500/20 text-teal-300 border-teal-500/30',
     accentColor: '#14B8A6',
@@ -84,11 +92,13 @@ export const extendedTargetsList: ExtendedTargetItem[] = [
   },
   {
     id: '3.d',
-    code: 'Phương tiện 3.d',
-    title: 'Cảnh báo Sớm & Quản trị Rủi ro',
-    shortDesc: 'Nâng cao năng lực cảnh báo sớm, quản lý và kiểm soát rủi ro sức khỏe quốc tế.',
+    code: 'Target 3.d',
+    title: 'Cảnh báo sớm rủi ro (vd: kháng thuốc)',
+    targetContent: 'Cảnh báo sớm rủi ro (vd: kháng thuốc)',
+    focusIndicators: ['Năng lực IHR', 'Tỷ lệ nhiễm trùng do kháng sinh'],
+    shortDesc: 'Cảnh báo sớm rủi ro (vd: kháng thuốc).',
     category: 'means',
-    sdgGoal: 'Tăng cường năng lực cảnh báo sớm và sẵn sàng ứng phó dịch bệnh theo Điều lệ Y tế Quốc tế (IHR).',
+    sdgGoal: 'Cảnh báo sớm rủi ro (vd: kháng thuốc)',
     statusBadge: 'An ninh y tế',
     badgeColor: 'bg-indigo-500/20 text-indigo-300 border-indigo-500/30',
     accentColor: '#818CF8',
@@ -141,7 +151,7 @@ export const SDG3ExtendedTargets: React.FC<SDG3ExtendedTargetsProps> = ({
                 <SparklesIcon className="w-3.5 h-3.5 text-amber-400" />
                 <span>Phương tiện Thực thi (Target 3.a — 3.d)</span>
               </div>
-              <span className="text-[10px] text-white/40 font-mono">4 Phương tiện</span>
+              <span className="text-xs text-white/40 font-mono">4 Phương tiện</span>
             </div>
 
             <div className="space-y-3">
@@ -173,7 +183,7 @@ export const SDG3ExtendedTargets: React.FC<SDG3ExtendedTargetsProps> = ({
                         <div className="text-xs sm:text-sm font-semibold text-white line-clamp-1">
                           {item.title}
                         </div>
-                        <div className="text-[11px] text-white/60 line-clamp-1 mt-0.5">
+                        <div className="text-xs sm:text-sm text-white/60 line-clamp-1 mt-0.5">
                           {item.shortDesc}
                         </div>
                       </div>
@@ -221,7 +231,7 @@ export const SDG3ExtendedTargets: React.FC<SDG3ExtendedTargetsProps> = ({
                       {activeTarget.id}
                     </div>
                     <div>
-                      <span className="text-[11px] font-mono text-white/50 uppercase tracking-wider">
+                      <span className="text-xs sm:text-sm font-mono text-white/50 uppercase tracking-wider">
                         {activeTarget.code} • SDG 3
                       </span>
                       <h3 className="font-heading italic text-xl sm:text-2xl text-white">
@@ -231,25 +241,35 @@ export const SDG3ExtendedTargets: React.FC<SDG3ExtendedTargetsProps> = ({
                   </div>
 
                   <span
-                    className={`text-[11px] px-3 py-0.5 rounded-full font-mono border self-start sm:self-auto ${activeTarget.badgeColor}`}
+                    className={`text-xs sm:text-sm px-3 py-0.5 rounded-full font-mono border self-start sm:self-auto ${activeTarget.badgeColor}`}
                   >
                     {activeTarget.statusBadge}
                   </span>
                 </div>
 
-                {/* SDG Official Target Requirement */}
-                <div className="font-heading italic text-xs sm:text-sm text-emerald-300/90 mb-4 bg-white/[0.03] px-3 py-2 rounded-xl border border-white/5">
-                  Mục tiêu chính thức: <strong className="text-white font-sans font-light not-italic">{activeTarget.sdgGoal}</strong>
-                </div>
-
-                {/* Bold Key Metric Indicator */}
-                <div className="flex items-baseline gap-3 mb-3">
-                  <span className="font-heading italic text-3xl sm:text-4xl text-white">
-                    <AnimatedNumber text={activeTarget.keyMetric} duration={1300} />
-                  </span>
-                  <span className="text-xs text-white/70 font-light">
-                    {activeTarget.metricLabel}
-                  </span>
+                {/* Khung nội dung mục tiêu & chỉ số đo lường trọng tâm theo chuẩn PDF Slide 6 */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 my-3">
+                  <div className="liquid-glass rounded-xl p-3 border border-amber-500/20">
+                    <div className="text-xs font-mono text-amber-300 uppercase tracking-wider mb-1">
+                      Nội dung mục tiêu:
+                    </div>
+                    <p className="text-xs sm:text-sm font-medium text-white">
+                      {activeTarget.targetContent}
+                    </p>
+                  </div>
+                  <div className="liquid-glass rounded-xl p-3 border border-cyan-500/20">
+                    <div className="text-xs font-mono text-cyan-300 uppercase tracking-wider mb-1">
+                      Chỉ số đo lường trọng tâm:
+                    </div>
+                    <div className="text-xs text-white/90 space-y-1 font-light">
+                      {activeTarget.focusIndicators.map((ind, idx) => (
+                        <div key={idx} className="flex items-center gap-1.5">
+                          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 shrink-0" />
+                          <span>{ind}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
 
                 {/* Custom Interactive SVG Mini Data Chart for This Target */}
@@ -261,32 +281,32 @@ export const SDG3ExtendedTargets: React.FC<SDG3ExtendedTargetsProps> = ({
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-4">
                   {/* Global Picture */}
                   <div className="liquid-glass rounded-xl p-3 border border-white/5">
-                    <div className="text-[10px] font-mono text-white/50 uppercase tracking-wider mb-1">
+                    <div className="text-xs font-mono text-white/50 uppercase tracking-wider mb-1">
                       Bức tranh Toàn cầu
                     </div>
-                    <p className="text-[11px] text-white/80 font-light leading-relaxed">
+                    <p className="text-xs sm:text-sm text-white/80 font-light leading-relaxed">
                       {activeTarget.globalStat}
                     </p>
                   </div>
 
                   {/* Vietnam Context */}
                   <div className="liquid-glass rounded-xl p-3 border border-emerald-500/20">
-                    <div className="text-[10px] font-mono text-emerald-300 uppercase tracking-wider mb-1 flex items-center gap-1">
+                    <div className="text-xs font-mono text-emerald-300 uppercase tracking-wider mb-1 flex items-center gap-1">
                       <CheckCircleIcon className="w-3 h-3 text-emerald-400" />
                       <span>Thực trạng Việt Nam</span>
                     </div>
-                    <p className="text-[11px] text-white/85 font-light leading-relaxed">
+                    <p className="text-xs sm:text-sm text-white/85 font-light leading-relaxed">
                       {activeTarget.vietnamStat}
                     </p>
                   </div>
 
                   {/* UN Blueprint Action */}
                   <div className="liquid-glass rounded-xl p-3 border border-amber-500/20">
-                    <div className="text-[10px] font-mono text-amber-300 uppercase tracking-wider mb-1 flex items-center gap-1">
+                    <div className="text-xs font-mono text-amber-300 uppercase tracking-wider mb-1 flex items-center gap-1">
                       <SparklesIcon className="w-3 h-3 text-amber-400" />
                       <span>Hành động UN Blueprint</span>
                     </div>
-                    <p className="text-[11px] text-white/90 font-light leading-relaxed">
+                    <p className="text-xs sm:text-sm text-white/90 font-light leading-relaxed">
                       {activeTarget.insight}
                     </p>
                   </div>
@@ -294,7 +314,7 @@ export const SDG3ExtendedTargets: React.FC<SDG3ExtendedTargetsProps> = ({
               </div>
 
               {/* Bottom Card Footer */}
-              <div className="relative z-10 pt-3 border-t border-white/10 flex items-center justify-between text-[11px] text-white/40 mt-4">
+              <div className="relative z-10 pt-3 border-t border-white/10 flex items-center justify-between text-xs sm:text-sm text-white/40 mt-4">
                 <span className="flex items-center gap-1">
                   <HeartPulseIcon className="w-3.5 h-3.5 text-emerald-400" />
                   Chỉ tiêu Hành động Sức khỏe Bền vững
@@ -320,7 +340,7 @@ function renderExtendedTargetChart(item: ExtendedTargetItem) {
     /* 3.a: Tobacco Tax & Harm Reduction */
     case 'tobacco':
       return (
-        <div className="space-y-1.5 text-[10px] font-mono">
+        <div className="space-y-1.5 text-xs font-mono">
           <div className="flex justify-between text-white/70">
             <span>Thuế thuốc lá VN: <AnimatedNumber text="38.8%" duration={1000} /></span>
             <span className="text-amber-300">Khuyến nghị WHO: 75% giá bán lẻ</span>
@@ -328,7 +348,7 @@ function renderExtendedTargetChart(item: ExtendedTargetItem) {
           <div className="h-2 w-full bg-white/10 rounded-full overflow-hidden flex">
             <AnimatedProgressBar width="38.8%" duration={1.2} className="h-full bg-amber-500 rounded-full" />
           </div>
-          <div className="text-[9px] text-white/50 flex justify-between">
+          <div className="text-xs text-white/50 flex justify-between">
             <span><AnimatedNumber text="8 triệu" duration={1000} /> ca tử vong/năm</span>
             <span className="text-rose-400"><AnimatedNumber text="1.3 triệu" duration={1000} /> do hút thụ động</span>
           </div>
@@ -338,7 +358,7 @@ function renderExtendedTargetChart(item: ExtendedTargetItem) {
     /* 3.b: Vaccine R&D and Coverage Gap */
     case 'rnd':
       return (
-        <div className="space-y-1.5 text-[10px] font-mono">
+        <div className="space-y-1.5 text-xs font-mono">
           <div className="flex justify-between text-white/70">
             <span>Bao phủ tiêm chủng toàn cầu: <AnimatedNumber text="84%" duration={1000} /></span>
             <span className="text-cyan-300">Mục tiêu SDG: 95%</span>
@@ -346,14 +366,14 @@ function renderExtendedTargetChart(item: ExtendedTargetItem) {
           <div className="h-2 w-full bg-white/10 rounded-full overflow-hidden flex">
             <AnimatedProgressBar width="84%" duration={1.2} className="h-full bg-cyan-400 rounded-full" />
           </div>
-          <div className="text-[9px] text-cyan-300/80">Cơ chế TRIPs & Chuyển giao công nghệ mRNA cứu sống tính mạng</div>
+          <div className="text-xs text-cyan-300/80">Cơ chế TRIPs & Chuyển giao công nghệ mRNA cứu sống tính mạng</div>
         </div>
       );
 
     /* 3.c: Health Workforce Shortage */
     case 'workforce':
       return (
-        <div className="space-y-1.5 text-[10px] font-mono">
+        <div className="space-y-1.5 text-xs font-mono">
           <div className="flex justify-between text-white/70">
             <span>Việt Nam: <AnimatedNumber text="12.5" duration={1000} /> bác sĩ / 10k dân</span>
             <span className="text-teal-300 font-bold">Thiếu hụt toàn cầu: <AnimatedNumber text="10 triệu" duration={1000} /> nhân lực</span>
@@ -361,14 +381,14 @@ function renderExtendedTargetChart(item: ExtendedTargetItem) {
           <div className="h-2 w-full bg-white/10 rounded-full overflow-hidden flex">
             <AnimatedProgressBar width="60%" duration={1.2} className="h-full bg-teal-400 rounded-full" />
           </div>
-          <div className="text-[9px] text-white/50">Đầu tư 1 USD vào nhân lực y tế sinh lợi tức kinh tế 9 USD</div>
+          <div className="text-xs text-white/50">Đầu tư 1 USD vào nhân lực y tế sinh lợi tức kinh tế 9 USD</div>
         </div>
       );
 
     /* 3.d: Early Warning IHR 2005 Core Capacity */
     case 'earlywarning':
       return (
-        <div className="space-y-1.5 text-[10px] font-mono">
+        <div className="space-y-1.5 text-xs font-mono">
           <div className="flex justify-between text-white/70">
             <span>Năng lực cốt lõi IHR Toàn cầu: <AnimatedNumber text="65%" duration={1000} /></span>
             <span className="text-indigo-300 font-bold">Việt Nam: Giám sát EBS & <AnimatedNumber text="34M" duration={1000} /> VNeID</span>
@@ -376,7 +396,7 @@ function renderExtendedTargetChart(item: ExtendedTargetItem) {
           <div className="h-2 w-full bg-white/10 rounded-full overflow-hidden flex">
             <AnimatedProgressBar width="65%" duration={1.2} className="h-full bg-indigo-500 rounded-full" />
           </div>
-          <div className="text-[9px] text-indigo-300/80">Mô hình Một Sức Khỏe (One Health) phòng ngừa đại dịch từ sớm</div>
+          <div className="text-xs text-indigo-300/80">Mô hình Một Sức Khỏe (One Health) phòng ngừa đại dịch từ sớm</div>
         </div>
       );
 

@@ -57,7 +57,7 @@ export const VinamilkEcoCycleChart: React.FC = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-center">
         {/* Step Selector Pills (5 cols) */}
-        <div className="md:col-span-5 space-y-2">
+        <div className="md:col-span-5 space-y-2.5">
           {steps.map((s, idx) => {
             const isSel = idx === activeCycle;
             return (
@@ -65,15 +65,15 @@ export const VinamilkEcoCycleChart: React.FC = () => {
                 key={s.title}
                 type="button"
                 onClick={() => setActiveCycle(idx)}
-                className={`w-full p-2.5 rounded-xl text-left transition-all cursor-pointer flex items-center justify-between border ${
+                className={`w-full p-3 sm:p-3.5 rounded-xl text-left transition-all cursor-pointer flex items-center justify-between border ${
                   isSel
                     ? 'bg-white/15 border-emerald-400 shadow-md scale-[1.02]'
                     : 'bg-white/[0.02] border-white/5 hover:bg-white/[0.06]'
                 }`}
               >
-                <div className="flex items-center gap-2.5">
+                <div className="flex items-center gap-3">
                   <span
-                    className="h-6 w-6 rounded-lg flex items-center justify-center font-mono text-xs font-bold"
+                    className="h-7 w-7 rounded-lg flex items-center justify-center font-mono text-xs sm:text-sm font-bold"
                     style={{
                       backgroundColor: isSel ? s.color : 'rgba(255,255,255,0.1)',
                       color: isSel ? '#000' : '#fff',
@@ -82,11 +82,11 @@ export const VinamilkEcoCycleChart: React.FC = () => {
                     0{idx + 1}
                   </span>
                   <div>
-                    <div className="text-xs font-medium text-white">{s.title}</div>
-                    <div className="text-[10px] text-white/50">{s.tag}</div>
+                    <div className="text-sm sm:text-base font-semibold text-white">{s.title}</div>
+                    <div className="text-xs text-white/60 font-mono">{s.tag}</div>
                   </div>
                 </div>
-                <span className="text-[10px] font-mono" style={{ color: s.color }}>
+                <span className="text-xs sm:text-sm font-mono font-bold" style={{ color: s.color }}>
                   {s.kpi}
                 </span>
               </button>
@@ -101,12 +101,12 @@ export const VinamilkEcoCycleChart: React.FC = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.3 }}
-            className="liquid-glass rounded-2xl p-5 border border-white/10 flex flex-col justify-between min-h-[190px]"
+            className="liquid-glass rounded-2xl p-6 sm:p-7 border border-white/10 flex flex-col justify-between min-h-[220px]"
           >
             <div>
-              <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center justify-between mb-3.5">
                 <span
-                  className="text-[10px] font-mono px-2.5 py-0.5 rounded-full font-semibold"
+                  className="text-xs sm:text-sm font-mono px-3 py-1 rounded-full font-semibold"
                   style={{
                     backgroundColor: `${current.color}20`,
                     color: current.color,
@@ -115,22 +115,22 @@ export const VinamilkEcoCycleChart: React.FC = () => {
                   {current.tag}
                 </span>
                 <div
-                  className="h-8 w-8 rounded-lg flex items-center justify-center"
+                  className="h-9 w-9 rounded-lg flex items-center justify-center"
                   style={{ backgroundColor: `${current.color}30`, color: current.color }}
                 >
-                  <IconComponent className="w-4 h-4" />
+                  <IconComponent className="w-5 h-5" />
                 </div>
               </div>
 
-              <h4 className="font-heading italic text-2xl text-white mb-1">{current.title}</h4>
-              <div className="font-mono text-xs font-bold mb-3" style={{ color: current.color }}>
+              <h4 className="font-heading italic text-2xl sm:text-3xl text-white mb-1.5">{current.title}</h4>
+              <div className="font-mono text-sm sm:text-base font-bold mb-3" style={{ color: current.color }}>
                 Chỉ số nổi bật: {current.kpi}
               </div>
-              <p className="text-xs text-white/80 font-light leading-relaxed">{current.desc}</p>
+              <p className="text-sm sm:text-base text-white/90 font-light leading-relaxed">{current.desc}</p>
             </div>
 
-            <div className="pt-3 border-t border-white/5 flex items-center justify-between text-[10px] text-white/40 mt-3">
-              <span>Đóng góp then chốt: SDG 3 (Sức khỏe) & SDG 12 (Sản xuất bền vững)</span>
+            <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs text-white/50 font-mono mt-4">
+              <span>Đóng góp then chốt: SDG 3 & SDG 12</span>
               <span>Lộ trình Net Zero 2050</span>
             </div>
           </motion.div>

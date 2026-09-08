@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { EyeIcon, AlertTriangleIcon, BuildingIcon, NetworkIcon, LeafIcon } from '../Icons';
 import { EducationDeficitInfographic } from '../charts/EducationDeficitInfographic';
 import { SDGLinkageNetworkChart } from '../charts/SDGLinkageNetworkChart';
+import { SDG17ReferenceList } from '../charts/SDG17ReferenceList';
 
 interface CrisisNestleFooterSectionProps {
   onOpenSlide: (slideNum: number) => void;
@@ -281,6 +282,7 @@ export const CrisisNestleFooterSection: React.FC<CrisisNestleFooterSectionProps>
         </p>
 
         <SDGLinkageNetworkChart />
+        <SDG17ReferenceList currentPrimarySDG={4} />
       </div>
 
       {/* Part 5: Doanh nghiệp Nestlé (Slide 21) */}

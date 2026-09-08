@@ -24,10 +24,10 @@ const slideMaxSteps: Record<number, number> = {
   7: 4,  // 0: Header, 1: Tử vong mẹ/bé, 2: Tiêm chủng, 3: Bệnh truyền nhiễm
   8: 5,  // 0: Header, 1: Tai nạn 1.19M, 2: UHC 4.5 Tỷ, 3: NCDs >70%, 4: Nhân lực 10M
   9: 4,  // 0: Header, 1: HDI 0.766, 2: VNeID 34M+, 3: NCDs 80%
-  10: 14, // 0..13: Duyệt 14 mục tiêu (9 Mạnh: SDG 1, 2, 4, 7, 8, 10, 11, 12, 16; 5 Tương hỗ: SDG 5, 6, 13, 14, 15)
+  10: 14, // 0..13: Duyệt 14 mục tiêu (9 Mạnh: SDG 1, 2, 4, 7, 8, 10, 11, 12, 15; 5 Tương hỗ: SDG 5, 6, 13, 14, 16)
   11: 4, // 0: Header, 1: Hành động 1, 2: Hành động 2, 3: Hành động 3
   12: 2, // 0: Header & Icon, 1: Giới thiệu chuyên đề SDG 4
-  13: 3, // 0: Header, 1: Định nghĩa SDG 4, 2: Trụ cột Equity (Công cụ bình đẳng hóa)
+  13: 3, // 0: Header & Định nghĩa SDG 4, 1: Mô hình Bánh cưới SDGs, 2: Nguyên tắc 3Es Benton-Short
   14: 3, // 0: Header, 1: GER vs NER, 2: HDI Giáo dục (EYS 18 năm, MYS 15 năm)
   15: 7, // 0..6: Duyệt tuần tự 7 mục tiêu Target 4.1 — 4.7
   16: 4, // 0: Header, 1: 4.a Hạ tầng, 2: 4.b Học bổng STEM, 3: 4.c Giáo viên
@@ -37,6 +37,7 @@ const slideMaxSteps: Record<number, number> = {
   20: 12, // 0..11: Duyệt 12 mục tiêu (8 Mạnh: SDG 1, 2, 3, 7, 8, 9, 11, 16; 4 Tương hỗ: SDG 5, 6, 10, 12)
   21: 5, // 0: Header, 1: Đào tạo nông dân, 2: Lương đủ sống CLMRS, 3: Yếu thế, 4: Nestlé needs YOUth
   22: 2, // 0: Header & Lời cảm ơn, 1: Thông tin nhóm & Q&A
+  23: 1, // 0: Toàn bộ bảng danh mục trích dẫn nguồn & tài liệu tham khảo
 };
 
 const slideTitles = [
@@ -62,6 +63,7 @@ const slideTitles = [
   'Tính liên kết SDG 4: Sơ đồ mạng lưới tương hỗ SDGs',
   'Vai trò doanh nghiệp: Nestlé (4 Trụ cột hành động)',
   'Bìa kết & Lời tri ân (UEH University)',
+  'Danh mục Trích nguồn & Cơ sở dữ liệu (References)',
 ];
 
 export const SlideDeck: React.FC<SlideDeckProps> = ({
@@ -72,7 +74,7 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
     try {
       const hash = window.location.hash.replace('#', '');
       const num = parseInt(hash.replace('slide=', ''), 10);
-      return num >= 1 && num <= 22 ? num : 1;
+      return num >= 1 && num <= 23 ? num : 1;
     } catch {
       return 1;
     }
@@ -81,22 +83,56 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
   const [direction, setDirection] = useState(1);
   const [showPdfSplit, setShowPdfSplit] = useState(false);
   const [showAllSteps, setShowAllSteps] = useState(false);
-  const [isDockVisible, setIsDockVisible] = useState(false);
+  const [isDockVisible, setIsDockVisible] = useState(true);
   const [isDockPinned, setIsDockPinned] = useState(false);
-  const wheelLockRef = useRef(false);
+  const [isHeaderVisible, setIsHeaderVisible] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [slideZoom, setSlideZoom] = useState<number>(() => {
+    try {
+      const saved = localStorage.getItem('deck_zoom');
+      return saved ? parseFloat(saved) : 1;
+    } catch {
+      return 1;
+    }
+  });
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  const totalSlides = 22;
+  useEffect(() => {
+    const handleFsChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+    document.addEventListener('fullscreenchange', handleFsChange);
+    return () => document.removeEventListener('fullscreenchange', handleFsChange);
+  }, []);
+
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(() => {});
+    } else {
+      document.exitFullscreen().catch(() => {});
+    }
+  };
+
+  const handleZoomChange = (newZoom: number) => {
+    setSlideZoom(newZoom);
+    try {
+      localStorage.setItem('deck_zoom', newZoom.toString());
+    } catch {}
+  };
+
+  const totalSlides = 23;
   const maxStepForCurrentSlide = slideMaxSteps[currentSlide] || 1;
 
   useEffect(() => {
     window.location.hash = `slide=${currentSlide}`;
     const titleText = slideTitles[currentSlide - 1] || `Slide ${currentSlide}`;
-    document.title = `Slide ${currentSlide}/22: ${titleText} | SDG 3 & SDG 4 - UEH`;
+    document.title = `${titleText} | Phát triển bền vững SDG3 và SDG4`;
+    scrollContainerRef.current?.scrollTo({ top: 0, behavior: 'instant' });
   }, [currentSlide]);
 
   // Step-by-step advance
   const handleNext = () => {
-    if (!showAllSteps && currentStep < maxStepForCurrentSlide - 1) {
+    if (currentStep < maxStepForCurrentSlide - 1) {
       setCurrentStep((prev) => prev + 1);
     } else if (currentSlide < totalSlides) {
       setDirection(1);
@@ -107,14 +143,30 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
 
   // Step-by-step back
   const handlePrev = () => {
-    if (!showAllSteps && currentStep > 0) {
+    if (currentStep > 0) {
       setCurrentStep((prev) => prev - 1);
     } else if (currentSlide > 1) {
       setDirection(-1);
       const prevSlide = currentSlide - 1;
       const prevMaxStep = slideMaxSteps[prevSlide] || 1;
       setCurrentSlide(prevSlide);
-      setCurrentStep(showAllSteps ? 0 : prevMaxStep - 1);
+      setCurrentStep(prevMaxStep - 1);
+    }
+  };
+
+  const goToNextSlide = () => {
+    if (currentSlide < totalSlides) {
+      setDirection(1);
+      setCurrentSlide((prev) => prev + 1);
+      setCurrentStep(0);
+    }
+  };
+
+  const goToPrevSlide = () => {
+    if (currentSlide > 1) {
+      setDirection(-1);
+      setCurrentSlide((prev) => prev - 1);
+      setCurrentStep(0);
     }
   };
 
@@ -128,7 +180,21 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+      // Don't intercept when user is typing in an input
+      if (
+        e.target instanceof HTMLInputElement ||
+        e.target instanceof HTMLTextAreaElement
+      ) {
+        return;
+      }
+
+      if (e.shiftKey && (e.key === 'ArrowRight' || e.key === 'PageDown')) {
+        e.preventDefault();
+        goToNextSlide();
+      } else if (e.shiftKey && (e.key === 'ArrowLeft' || e.key === 'PageUp')) {
+        e.preventDefault();
+        goToPrevSlide();
+      } else if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
         e.preventDefault();
         handleNext();
       } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
@@ -145,37 +211,25 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [currentSlide, currentStep, showAllSteps]);
+  }, [currentSlide, currentStep, maxStepForCurrentSlide]);
 
-  // Mouse wheel debounce
-  useEffect(() => {
-    const handleWheel = (e: WheelEvent) => {
-      if (wheelLockRef.current) return;
-      if (Math.abs(e.deltaY) > 30) {
-        wheelLockRef.current = true;
-        if (e.deltaY > 0) {
-          handleNext();
-        } else {
-          handlePrev();
-        }
-        setTimeout(() => {
-          wheelLockRef.current = false;
-        }, 600);
-      }
-    };
-
-    window.addEventListener('wheel', handleWheel, { passive: true });
-    return () => window.removeEventListener('wheel', handleWheel);
-  }, [currentSlide, currentStep, showAllSteps]);
-
-  // Proximity hover detection near the bottom of the screen (last 55px)
+  // Proximity hover detection: Top Header (first 50px) & Bottom Dock (last 55px)
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      if (isDockPinned) return;
-      if (e.clientY >= window.innerHeight - 55) {
-        setIsDockVisible(true);
-      } else if (e.clientY < window.innerHeight - 110) {
-        setIsDockVisible(false);
+      // Top header proximity
+      if (e.clientY <= 50) {
+        setIsHeaderVisible(true);
+      } else if (e.clientY > 90) {
+        setIsHeaderVisible(false);
+      }
+
+      // Bottom dock proximity
+      if (!isDockPinned) {
+        if (e.clientY >= window.innerHeight - 55) {
+          setIsDockVisible(true);
+        } else if (e.clientY < window.innerHeight - 110) {
+          setIsDockVisible(false);
+        }
       }
     };
 
@@ -235,8 +289,39 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
       <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-amber-500/5 rounded-full blur-[120px] pointer-events-none z-[1]" />
       <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/40 to-black/90 pointer-events-none z-[2]" />
 
-      {/* Top Header Bar: UN Blueprint Inspiration */}
-      <header className="relative z-30 px-6 py-3.5 flex items-center justify-between border-b border-white/10 backdrop-blur-md">
+      {/* Top Proximity Hover Trigger Strip */}
+      <div
+        className="fixed top-0 left-0 right-0 h-4 z-40 pointer-events-auto"
+        onMouseEnter={() => setIsHeaderVisible(true)}
+      />
+
+      {/* Subtle Top Peek Pill when Header is Hidden */}
+      <div
+        className={`fixed top-1.5 left-1/2 -translate-x-1/2 z-40 transition-all duration-300 pointer-events-auto ${
+          isHeaderVisible
+            ? 'opacity-0 -translate-y-full pointer-events-none'
+            : 'opacity-85 hover:opacity-100 translate-y-0'
+        }`}
+        onMouseEnter={() => setIsHeaderVisible(true)}
+        onClick={() => setIsHeaderVisible(true)}
+      >
+        <div className="liquid-glass-strong px-4 py-1 rounded-full text-[11px] font-mono text-white/90 border border-white/15 shadow-xl flex items-center gap-2 cursor-pointer hover:scale-105 transition-transform bg-black/85">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+          <span className="font-semibold text-emerald-300">Slide {currentSlide}/{totalSlides}</span>
+          <span className="text-white/40 text-[10px] hidden sm:inline">▼ Rê chuột mở menu</span>
+        </div>
+      </div>
+
+      {/* Top Header Bar: Auto-hide & Hover to Reveal */}
+      <header
+        onMouseEnter={() => setIsHeaderVisible(true)}
+        onMouseLeave={() => setIsHeaderVisible(false)}
+        className={`fixed top-0 left-0 right-0 z-50 px-6 py-2.5 flex items-center justify-between border-b border-white/10 bg-black/90 backdrop-blur-xl shadow-2xl transition-all duration-300 ease-out pointer-events-auto ${
+          isHeaderVisible
+            ? 'translate-y-0 opacity-100'
+            : '-translate-y-full opacity-0 pointer-events-none'
+        }`}
+      >
         {/* Left: UN Global Compact & UEH Badge */}
         <div className="flex items-center gap-3">
           <div className="liquid-glass-natural rounded-full px-3.5 py-1 flex items-center gap-2">
@@ -301,6 +386,16 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
             </span>
           </button>
 
+          {/* Fullscreen Button */}
+          <button
+            type="button"
+            onClick={toggleFullscreen}
+            className="liquid-glass rounded-full px-3 py-1.5 text-xs text-emerald-300 hover:text-white transition-all cursor-pointer flex items-center gap-1.5 border border-emerald-400/30 hover:bg-emerald-500/20"
+            title="Bật/tắt toàn màn hình (F11)"
+          >
+            <span>{isFullscreen ? 'Thu nhỏ' : '⛶ Toàn màn hình (F11)'}</span>
+          </button>
+
           {/* Switch to Scroll Mode */}
           <button
             type="button"
@@ -313,10 +408,13 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
       </header>
 
       {/* Main Slide Canvas */}
-      <div className="relative z-10 flex-1 flex overflow-y-auto p-4 md:p-6 lg:p-8 pb-16 custom-scrollbar">
+      <div
+        ref={scrollContainerRef}
+        className="relative z-10 flex-1 flex flex-col overflow-y-auto px-4 sm:px-6 lg:px-10 pt-4 pb-16 custom-scrollbar"
+      >
         {/* Left Side: Modern Interactive Slide Content */}
         <div
-          className={`flex-1 flex flex-col justify-center min-h-full transition-all duration-300 ${
+          className={`flex-1 flex flex-col items-center w-full min-h-full transition-all duration-300 ${
             showPdfSplit ? 'w-1/2 pr-4 hidden md:flex' : 'w-full'
           }`}
         >
@@ -328,13 +426,19 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
               initial="enter"
               animate="center"
               exit="exit"
-              className="w-full max-w-5xl mx-auto my-auto flex flex-col justify-center min-h-full py-2"
+              className="w-full max-w-7xl 2xl:max-w-[1600px] mx-auto flex flex-col flex-1 py-2 my-auto justify-center"
+              style={{
+                zoom: slideZoom !== 1 ? slideZoom : undefined,
+              }}
             >
               <NaturalSlideContent
                 slideNum={currentSlide}
                 step={currentStep}
                 showAll={showAllSteps}
                 onOpenModal={onOpenSlideModal}
+                onNextStep={handleNext}
+                onSetStep={setCurrentStep}
+                onGoToSlide={goToSlide}
               />
             </motion.div>
           </AnimatePresence>
@@ -374,6 +478,52 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
         )}
       </div>
 
+      {/* Floating Left Navigation Arrow Button */}
+      <button
+        type="button"
+        onClick={handlePrev}
+        disabled={currentSlide <= 1 && currentStep <= 0}
+        aria-label="Slide trước (Lùi)"
+        className="fixed left-2 sm:left-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full liquid-glass-strong border border-white/20 text-white flex items-center justify-center cursor-pointer shadow-2xl backdrop-blur-xl transition-all duration-200 hover:scale-110 active:scale-95 hover:border-emerald-400/60 hover:bg-emerald-500/20 disabled:opacity-0 disabled:pointer-events-none group"
+        title={currentStep > 0 ? (currentSlide === 10 || currentSlide === 20 ? 'SDG trước (←)' : 'Ý trước (←)') : 'Trang trước (←)'}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="w-5 h-5 sm:w-6 sm:h-6 text-white/80 group-hover:text-emerald-300 transition-colors -translate-x-0.5"
+        >
+          <polyline points="15 18 9 12 15 6" />
+        </svg>
+      </button>
+
+      {/* Floating Right Navigation Arrow Button */}
+      <button
+        type="button"
+        onClick={handleNext}
+        disabled={currentSlide >= totalSlides && currentStep >= maxStepForCurrentSlide - 1}
+        aria-label="Slide tiếp theo (Tiến)"
+        className="fixed right-2 sm:right-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full liquid-glass-strong border border-white/20 text-white flex items-center justify-center cursor-pointer shadow-2xl backdrop-blur-xl transition-all duration-200 hover:scale-110 active:scale-95 hover:border-emerald-400/60 hover:bg-emerald-500/20 disabled:opacity-0 disabled:pointer-events-none group"
+        title={currentStep < maxStepForCurrentSlide - 1 ? (currentSlide === 10 || currentSlide === 20 ? 'SDG tiếp theo (→)' : 'Tiếp ý (→ hoặc Space)') : 'Trang sau (→)'}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="w-5 h-5 sm:w-6 sm:h-6 text-white/80 group-hover:text-emerald-300 transition-colors translate-x-0.5"
+        >
+          <polyline points="9 18 15 12 9 6" />
+        </svg>
+      </button>
+
       {/* Bottom Floating Control Dock - Auto-hide & Hover to Reveal */}
       <div
         className={`fixed bottom-0 left-0 right-0 z-40 transition-all duration-300 ease-out pointer-events-auto ${
@@ -409,11 +559,15 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
         <footer className="relative px-6 py-3.5 bg-black/90 backdrop-blur-xl border-t border-white/15 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-[0_-15px_40px_rgba(0,0,0,0.9)]">
           {/* Left: Step Indicator for Presenter */}
           <div className="flex items-center gap-3 text-xs">
-            {!showAllSteps && maxStepForCurrentSlide > 1 && (
+            {maxStepForCurrentSlide > 1 && (
               <div className="liquid-glass-natural rounded-full px-3 py-1 flex items-center gap-2">
                 <SparklesIcon className="w-3.5 h-3.5 text-emerald-400" />
                 <span className="text-white/80">
-                  Nhịp thuyết trình: <strong>Ý {currentStep + 1} / {maxStepForCurrentSlide}</strong>
+                  {currentSlide === 10 || currentSlide === 20 ? (
+                    <>Mục tiêu SDG: <strong>{currentStep + 1} / {maxStepForCurrentSlide}</strong></>
+                  ) : (
+                    <>Nhịp thuyết trình: <strong>Ý {currentStep + 1} / {maxStepForCurrentSlide}</strong></>
+                  )}
                 </span>
                 <div className="flex items-center gap-1 ml-1">
                   {Array.from({ length: maxStepForCurrentSlide }).map((_, i) => (
@@ -473,10 +627,61 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
               className="liquid-glass-strong rounded-full px-5 py-2 text-xs sm:text-sm font-medium text-white flex items-center gap-1.5 hover:brightness-125 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer transition-all shadow-lg border border-emerald-400/40"
             >
               <span>
-                {!showAllSteps && currentStep < maxStepForCurrentSlide - 1
-                  ? 'Tiếp ý →'
+                {currentStep < maxStepForCurrentSlide - 1
+                  ? (currentSlide === 10 || currentSlide === 20 ? 'SDG tiếp theo →' : 'Tiếp ý →')
                   : 'Sang Slide →'}
               </span>
+            </button>
+
+            {/* Zoom / Scale Selector for Projector */}
+            <div className="hidden sm:flex items-center gap-1 bg-black/60 p-1 rounded-full border border-white/10 text-xs font-mono">
+              <span className="text-[10px] text-white/40 px-1.5 hidden md:inline">Thu phóng:</span>
+              <button
+                type="button"
+                onClick={() => handleZoomChange(1)}
+                className={`px-2 py-0.5 rounded-full transition-all cursor-pointer ${
+                  slideZoom === 1
+                    ? 'bg-emerald-500 text-black font-bold shadow-sm'
+                    : 'text-white/60 hover:text-white'
+                }`}
+                title="Cỡ chuẩn 100%"
+              >
+                100%
+              </button>
+              <button
+                type="button"
+                onClick={() => handleZoomChange(1.1)}
+                className={`px-2 py-0.5 rounded-full transition-all cursor-pointer ${
+                  slideZoom === 1.1
+                    ? 'bg-emerald-500 text-black font-bold shadow-sm'
+                    : 'text-white/60 hover:text-white'
+                }`}
+                title="Phóng to 110% (Chiếu màn hình lớp học)"
+              >
+                110%
+              </button>
+              <button
+                type="button"
+                onClick={() => handleZoomChange(1.2)}
+                className={`px-2 py-0.5 rounded-full transition-all cursor-pointer ${
+                  slideZoom === 1.2
+                    ? 'bg-emerald-500 text-black font-bold shadow-sm'
+                    : 'text-white/60 hover:text-white'
+                }`}
+                title="Phóng to 120% (Hội trường lớn / Máy chiếu xa)"
+              >
+                120%
+              </button>
+            </div>
+
+            {/* Fullscreen Button */}
+            <button
+              type="button"
+              onClick={toggleFullscreen}
+              className="liquid-glass rounded-full px-3 py-1.5 text-xs text-white/80 hover:text-white flex items-center gap-1 cursor-pointer hover:border-emerald-400/50"
+              title="Bật/tắt toàn màn hình (Phím F11)"
+            >
+              <span>{isFullscreen ? '⛶ Thu nhỏ' : '⛶ F11'}</span>
             </button>
 
             {/* Pin Toggle Button */}

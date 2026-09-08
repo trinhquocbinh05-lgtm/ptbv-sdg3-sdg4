@@ -21,15 +21,17 @@ interface LinkedNode {
 interface SDG3LinkageNetworkChartProps {
   currentStep?: number;
   showAll?: boolean;
+  onStepChange?: (step: number) => void;
 }
 
 export const SDG3LinkageNetworkChart: React.FC<SDG3LinkageNetworkChartProps> = ({
   currentStep,
-  showAll = false,
+  showAll: _showAll = false,
+  onStepChange,
 }) => {
   const [selectedNodeId, setSelectedNodeId] = useState<string>('SDG 1');
   const [filterRing, setFilterRing] = useState<'all' | 'inner' | 'outer'>('all');
-  const [isAutoTour, setIsAutoTour] = useState<boolean>(true);
+  const [isAutoTour, setIsAutoTour] = useState<boolean>(false);
   const [isHovered, setIsHovered] = useState<boolean>(false);
 
   const nodes: LinkedNode[] = [
@@ -38,7 +40,7 @@ export const SDG3LinkageNetworkChart: React.FC<SDG3LinkageNetworkChartProps> = (
     // =========================================================================
     {
       id: 'SDG 1',
-      title: 'Xóa nghèo bền vững',
+      title: 'Chấm dứt mọi hình thức nghèo ở mọi nơi.',
       ring: 'inner',
       orbitRadius: 98,
       angle: 280, // Top-Right 1
@@ -53,7 +55,7 @@ export const SDG3LinkageNetworkChart: React.FC<SDG3LinkageNetworkChartProps> = (
     },
     {
       id: 'SDG 2',
-      title: 'An ninh Lương thực & Dinh dưỡng',
+      title: 'Xóa đói, bảo đảm an ninh lương thực, cải thiện dinh dưỡng và thúc đẩy phát triển nông nghiệp bền vững.',
       ring: 'inner',
       orbitRadius: 98,
       angle: 305, // Top-Right 2
@@ -68,7 +70,7 @@ export const SDG3LinkageNetworkChart: React.FC<SDG3LinkageNetworkChartProps> = (
     },
     {
       id: 'SDG 4',
-      title: 'Giáo dục có Chất lượng',
+      title: 'Đảm bảo nền giáo dục có chất lượng, công bằng, toàn diện và thúc đẩy các cơ hội học tập suốt đời cho tất cả mọi người.',
       ring: 'inner',
       orbitRadius: 98,
       angle: 335, // Top-Right 3
@@ -83,7 +85,7 @@ export const SDG3LinkageNetworkChart: React.FC<SDG3LinkageNetworkChartProps> = (
     },
     {
       id: 'SDG 7',
-      title: 'Năng lượng Sạch & Bền vững',
+      title: 'Đảm bảo khả năng tiếp cận nguồn năng lượng bền vững, đáng tin cậy và có khả năng chi trả cho tất cả mọi người.',
       ring: 'inner',
       orbitRadius: 98,
       angle: 35, // Bottom-Right 1
@@ -98,7 +100,7 @@ export const SDG3LinkageNetworkChart: React.FC<SDG3LinkageNetworkChartProps> = (
     },
     {
       id: 'SDG 8',
-      title: 'Tăng trưởng & Việc làm Bền vững',
+      title: 'Thúc đẩy tăng trưởng kinh tế bền vững, bao trùm, liên tục; tạo việc làm đầy đủ, năng suất và việc làm tốt cho tất cả mọi người.',
       ring: 'inner',
       orbitRadius: 98,
       angle: 65, // Bottom-Right 2
@@ -113,7 +115,7 @@ export const SDG3LinkageNetworkChart: React.FC<SDG3LinkageNetworkChartProps> = (
     },
     {
       id: 'SDG 10',
-      title: 'Giảm Bất bình đẳng Xã hội',
+      title: 'Giảm bất bình đẳng trong mỗi quốc gia và giữa các quốc gia.',
       ring: 'inner',
       orbitRadius: 98,
       angle: 105, // Bottom
@@ -128,7 +130,7 @@ export const SDG3LinkageNetworkChart: React.FC<SDG3LinkageNetworkChartProps> = (
     },
     {
       id: 'SDG 11',
-      title: 'Đô thị & Cộng đồng Bền vững',
+      title: 'Xây dựng các đô thị và khu dân cư bao trùm, an toàn, có khả năng chống chịu và bền vững.',
       ring: 'inner',
       orbitRadius: 98,
       angle: 135, // Bottom-Left 1
@@ -143,7 +145,7 @@ export const SDG3LinkageNetworkChart: React.FC<SDG3LinkageNetworkChartProps> = (
     },
     {
       id: 'SDG 12',
-      title: 'Tiêu dùng & Sản xuất có Trách nhiệm',
+      title: 'Đảm bảo các mô hình tiêu dùng và sản xuất bền vững.',
       ring: 'inner',
       orbitRadius: 98,
       angle: 165, // Bottom-Left 2
@@ -157,19 +159,19 @@ export const SDG3LinkageNetworkChart: React.FC<SDG3LinkageNetworkChartProps> = (
       keyMetric: '2 Triệu ca do phơi nhiễm độc chất',
     },
     {
-      id: 'SDG 16',
-      title: 'Hòa bình, Công lý & Thể chế Vững mạnh',
+      id: 'SDG 15',
+      title: 'Bảo vệ, khôi phục và thúc đẩy sử dụng bền vững các hệ sinh thái trên cạn, quản lý rừng bền vững, chống sa mạc hóa, ngăn chặn - đảo ngược tình trạng suy thoái đất và mất đa dạng sinh học.',
       ring: 'inner',
       orbitRadius: 98,
-      angle: 240, // Top-Left
+      angle: 225, // West-North-West (Inner Ring)
       color: '#10B981',
       badgeBg: 'bg-emerald-500/20',
       badgeBorder: 'border-emerald-400/60',
       textColor: 'text-emerald-300',
-      impact: 'Chiến tranh xung đột tàn phá bệnh viện, cô lập viện trợ và làm sụp đổ các chương trình tiêm chủng mở rộng.',
-      mechanism: 'Thể chế công minh bạch bảo đảm phân bổ ngân sách công cho y tế, đẩy lùi thuốc giả và duy trì an ninh y tế toàn cầu.',
-      sdgIconName: 'Peace & Justice',
-      keyMetric: 'Bảo vệ cơ sở y tế thời bình & chiến',
+      impact: 'Phá rừng và buôn bán động vật hoang dã làm tăng 75% nguy cơ lây truyền mầm bệnh mới nổi từ động vật sang người (Zoonotic).',
+      mechanism: 'Bảo vệ rừng tự nhiên và đa dạng sinh học tạo vùng đệm sinh thái ngăn chặn virus lạ lây lan thành đại dịch toàn cầu.',
+      sdgIconName: 'Life On Land',
+      keyMetric: '75% bệnh mới nổi có gốc zoonotic',
     },
 
     // =========================================================================
@@ -177,7 +179,7 @@ export const SDG3LinkageNetworkChart: React.FC<SDG3LinkageNetworkChartProps> = (
     // =========================================================================
     {
       id: 'SDG 5',
-      title: 'Bình đẳng giới & Sức khỏe sinh sản',
+      title: 'Đạt được bình đẳng giới, tăng quyền và tạo cơ hội cho tất cả phụ nữ và trẻ em gái.',
       ring: 'outer',
       orbitRadius: 158,
       angle: 12, // East-North-East
@@ -192,7 +194,7 @@ export const SDG3LinkageNetworkChart: React.FC<SDG3LinkageNetworkChartProps> = (
     },
     {
       id: 'SDG 6',
-      title: 'Nước sạch & Vệ sinh môi trường',
+      title: 'Đảm bảo tính sẵn có, quản lý bền vững nguồn nước và điều kiện vệ sinh cho tất cả mọi người.',
       ring: 'outer',
       orbitRadius: 158,
       angle: 45, // East-South-East
@@ -207,7 +209,7 @@ export const SDG3LinkageNetworkChart: React.FC<SDG3LinkageNetworkChartProps> = (
     },
     {
       id: 'SDG 13',
-      title: 'Hành động vì Khí hậu',
+      title: 'Có biện pháp khẩn cấp để ứng phó với biến đổi khí hậu và các tác động của nó.',
       ring: 'outer',
       orbitRadius: 158,
       angle: 180, // West
@@ -222,7 +224,7 @@ export const SDG3LinkageNetworkChart: React.FC<SDG3LinkageNetworkChartProps> = (
     },
     {
       id: 'SDG 14',
-      title: 'Tài nguyên & Môi trường Biển',
+      title: 'Bảo tồn và sử dụng bền vững các đại dương, vùng biển và các nguồn tài nguyên biển vì sự phát triển bền vững.',
       ring: 'outer',
       orbitRadius: 158,
       angle: 205, // West-South-West
@@ -236,19 +238,19 @@ export const SDG3LinkageNetworkChart: React.FC<SDG3LinkageNetworkChartProps> = (
       keyMetric: 'Ngăn độc tố vi nhựa trong thủy sản',
     },
     {
-      id: 'SDG 15',
-      title: 'Bảo tồn Hệ sinh thái trên Cạn',
+      id: 'SDG 16',
+      title: 'Thúc đẩy xã hội hòa bình và bao trùm vì sự phát triển bền vững, cung cấp quyền tiếp cận công lý cho tất cả mọi người, và xây dựng các thể chế hiệu quả, có trách nhiệm giải trình và bao trùm ở mọi cấp độ.',
       ring: 'outer',
       orbitRadius: 158,
-      angle: 228, // West-North-West
+      angle: 250, // Top-Left (Outer Ring)
       color: '#06B6D4',
       badgeBg: 'bg-cyan-500/20',
       badgeBorder: 'border-cyan-400/60',
       textColor: 'text-cyan-300',
-      impact: 'Phá rừng và buôn bán động vật hoang dã làm tăng 75% nguy cơ lây truyền mầm bệnh mới nổi từ động vật sang người (Zoonotic).',
-      mechanism: 'Bảo vệ rừng tự nhiên và đa dạng sinh học tạo vùng đệm sinh thái ngăn chặn virus lạ lây lan thành đại dịch toàn cầu.',
-      sdgIconName: 'Life On Land',
-      keyMetric: '75% bệnh mới nổi có gốc zoonotic',
+      impact: 'Chiến tranh xung đột tàn phá bệnh viện, cô lập viện trợ và làm sụp đổ các chương trình tiêm chủng mở rộng.',
+      mechanism: 'Thể chế công minh bạch bảo đảm phân bổ ngân sách công cho y tế, đẩy lùi thuốc giả và duy trì an ninh y tế toàn cầu.',
+      sdgIconName: 'Peace & Justice',
+      keyMetric: 'Bảo vệ cơ sở y tế thời bình & chiến',
     },
   ];
 
@@ -269,22 +271,26 @@ export const SDG3LinkageNetworkChart: React.FC<SDG3LinkageNetworkChartProps> = (
 
   // Sync with presenter step advancement (Space, Clicker, etc.)
   useEffect(() => {
-    if (!showAll && typeof currentStep === 'number' && currentStep >= 0 && currentStep < nodes.length) {
+    if (typeof currentStep === 'number' && currentStep >= 0 && currentStep < nodes.length) {
       setSelectedNodeId(nodes[currentStep].id);
       setIsAutoTour(false); // Let presenter manual control take precedence
     }
-  }, [currentStep, showAll, nodes]);
+  }, [currentStep, nodes]);
 
   const handlePrevNode = () => {
     const idx = nodes.findIndex((n) => n.id === selectedNodeId);
     const prevIdx = (idx - 1 + nodes.length) % nodes.length;
     setSelectedNodeId(nodes[prevIdx].id);
+    setIsAutoTour(false);
+    onStepChange?.(prevIdx);
   };
 
   const handleNextNode = () => {
     const idx = nodes.findIndex((n) => n.id === selectedNodeId);
     const nextIdx = (idx + 1) % nodes.length;
     setSelectedNodeId(nodes[nextIdx].id);
+    setIsAutoTour(false);
+    onStepChange?.(nextIdx);
   };
 
   const activeNode = nodes.find((n) => n.id === selectedNodeId) || nodes[0];
@@ -401,12 +407,12 @@ export const SDG3LinkageNetworkChart: React.FC<SDG3LinkageNetworkChartProps> = (
         </div>
       )}
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
         {/* Concentric Dual-Orbit SVG Interactive System (7 cols) */}
-        <div className="lg:col-span-7 flex items-center justify-center relative min-h-[340px] select-none">
+        <div className="lg:col-span-7 flex items-center justify-center relative min-h-[400px] lg:min-h-[460px] select-none">
           <svg
             viewBox="0 0 460 380"
-            className="w-full h-full max-h-[360px] overflow-visible"
+            className="w-full h-full max-h-[440px] lg:max-h-[480px] 2xl:max-h-[520px] overflow-visible"
           >
             <defs>
               <filter id="glow-emerald-sdg3" x="-30%" y="-30%" width="160%" height="160%">
@@ -541,12 +547,27 @@ export const SDG3LinkageNetworkChart: React.FC<SDG3LinkageNetworkChartProps> = (
               return (
                 <g
                   key={node.id}
-                  onClick={() => setSelectedNodeId(node.id)}
+                  onClick={() => {
+                    setSelectedNodeId(node.id);
+                    setIsAutoTour(false);
+                    const idx = nodes.findIndex((n) => n.id === node.id);
+                    if (idx !== -1) onStepChange?.(idx);
+                  }}
                   className={`cursor-pointer transition-all duration-300 ${
                     isDimmed ? 'opacity-20 pointer-events-none' : 'opacity-100 hover:scale-110'
                   }`}
                   style={{ transformOrigin: `${nx}px ${ny}px` }}
                 >
+                  {/* Enlarged transparent hit target */}
+                  <circle
+                    cx={nx}
+                    cy={ny}
+                    r="26"
+                    fill="transparent"
+                    pointerEvents="all"
+                    className="cursor-pointer"
+                  />
+
                   {isSelected && (
                     <circle
                       cx={nx}
@@ -561,41 +582,41 @@ export const SDG3LinkageNetworkChart: React.FC<SDG3LinkageNetworkChartProps> = (
                     />
                   )}
 
+                  <defs>
+                    <clipPath id={`clip-sdg3-node-${node.id.replace(/\s+/g, '-')}`}>
+                      <circle cx={nx} cy={ny} r={isSelected ? 16 : 13} />
+                    </clipPath>
+                  </defs>
+
                   <circle
                     cx={nx}
                     cy={ny}
-                    r={isSelected ? '17' : '14'}
+                    r={isSelected ? '18' : '15'}
                     fill="#0A0F0D"
                     stroke={node.ring === 'inner' ? '#10B981' : '#06B6D4'}
                     strokeWidth={isSelected ? '2.5' : '1.5'}
                     filter={node.ring === 'inner' ? 'url(#glow-emerald-sdg3)' : 'url(#glow-cyan-sdg3)'}
                   />
 
-                  <circle
-                    cx={nx}
-                    cy={ny}
-                    r={isSelected ? '12' : '9'}
-                    fill={node.ring === 'inner' ? '#10B981' : '#06B6D4'}
-                    fillOpacity={isSelected ? 0.9 : 0.35}
+                  {/* Official UN Vector Icon */}
+                  <image
+                    href={`/sdg_icons/sdg_${node.id.replace('SDG ', '')}.svg`}
+                    x={nx - (isSelected ? 16 : 13)}
+                    y={ny - (isSelected ? 16 : 13)}
+                    width={(isSelected ? 16 : 13) * 2}
+                    height={(isSelected ? 16 : 13) * 2}
+                    clipPath={`url(#clip-sdg3-node-${node.id.replace(/\s+/g, '-')})`}
+                    preserveAspectRatio="xMidYMid slice"
+                    className="pointer-events-none"
                   />
 
                   <text
                     x={nx}
-                    y={ny + 3.5}
-                    textAnchor="middle"
-                    fill={isSelected ? '#000000' : '#FFFFFF'}
-                    className="text-[9px] font-mono font-bold select-none pointer-events-none"
-                  >
-                    {node.id.replace('SDG ', '')}
-                  </text>
-
-                  <text
-                    x={nx}
-                    y={ny > cy ? ny + 22 : ny - 15}
+                    y={ny > cy ? ny + 25 : ny - 16}
                     textAnchor="middle"
                     fill={isSelected ? (node.ring === 'inner' ? '#6EE7B7' : '#67E8F9') : '#FFFFFF'}
-                    className={`text-[9px] font-sans font-medium select-none pointer-events-none transition-all ${
-                      isSelected ? 'font-bold opacity-100' : 'opacity-65'
+                    className={`text-[9px] font-mono font-bold select-none pointer-events-none transition-all ${
+                      isSelected ? 'font-bold opacity-100' : 'opacity-85'
                     }`}
                   >
                     {node.id}
@@ -606,6 +627,11 @@ export const SDG3LinkageNetworkChart: React.FC<SDG3LinkageNetworkChartProps> = (
 
             {/* Central Sun Hub: SDG 3 */}
             <g className="cursor-pointer">
+              <defs>
+                <clipPath id="clip-center-sdg3">
+                  <circle cx={cx} cy={cy} r="26" />
+                </clipPath>
+              </defs>
               <circle
                 cx={cx}
                 cy={cy}
@@ -615,42 +641,23 @@ export const SDG3LinkageNetworkChart: React.FC<SDG3LinkageNetworkChartProps> = (
                 strokeWidth="2.5"
                 filter="url(#glow-emerald-sdg3)"
               />
-              <circle
-                cx={cx}
-                cy={cy}
-                r="24"
-                fill="#10B981"
-                fillOpacity="0.25"
+              {/* UN SDG 3 Official Icon */}
+              <image
+                href="/sdg_icons/sdg_3.svg"
+                x={cx - 26}
+                y={cy - 26}
+                width="52"
+                height="52"
+                clipPath="url(#clip-center-sdg3)"
+                preserveAspectRatio="xMidYMid slice"
+                className="pointer-events-none"
               />
-
-              {/* HeartPulse SVG Icon centered */}
-              <g transform={`translate(${cx - 10}, ${cy - 10})`}>
-                <path
-                  d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"
-                  fill="none"
-                  stroke="#FFFFFF"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  transform="scale(0.85)"
-                />
-                <path
-                  d="M3.22 12H9.5l1.5-3 2 6 1.5-3h4.28"
-                  fill="none"
-                  stroke="#10B981"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  transform="scale(0.85)"
-                />
-              </g>
-
               <text
                 x={cx}
-                y={cy + 18}
+                y={cy + 42}
                 textAnchor="middle"
-                fill="#FFFFFF"
-                className="text-[9px] font-mono font-bold tracking-wider"
+                fill="#34D399"
+                className="text-[10px] font-mono font-bold tracking-wider select-none pointer-events-none"
               >
                 SDG 3
               </text>
@@ -702,34 +709,44 @@ export const SDG3LinkageNetworkChart: React.FC<SDG3LinkageNetworkChartProps> = (
                   </span>
                 </div>
 
-                <h3 className="text-lg font-bold text-white tracking-tight mt-2">
-                  {activeNode.title}
-                </h3>
-
-                {activeNode.keyMetric && (
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-xl bg-white/5 border border-white/10 text-xs font-mono text-emerald-300">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                    <span>Chỉ số cốt lõi: <strong>{activeNode.keyMetric}</strong></span>
+                <div className="flex items-start gap-3.5 mt-3 mb-2">
+                  <div className="w-14 h-14 min-w-[56px] min-h-[56px] max-w-[56px] max-h-[56px] rounded-xl overflow-hidden border border-white/20 shadow-md bg-black/50 shrink-0 flex items-center justify-center p-0.5">
+                    <img
+                      src={`/sdg_icons/sdg_${activeNode.id.replace('SDG ', '')}.svg`}
+                      alt={activeNode.id}
+                      className="w-full h-full object-contain rounded-lg"
+                    />
                   </div>
-                )}
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-base sm:text-lg font-bold text-white tracking-tight leading-snug">
+                      {activeNode.title}
+                    </h3>
+                    {activeNode.keyMetric && (
+                      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-xs sm:text-sm font-mono text-emerald-300 mt-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0" />
+                        <span>Chỉ số cốt lõi: <strong>{activeNode.keyMetric}</strong></span>
+                      </div>
+                    )}
+                  </div>
+                </div>
 
-                <div className="space-y-3 text-xs text-white/90 font-light leading-relaxed mt-3">
+                <div className="space-y-3.5 text-xs sm:text-sm text-white/90 font-light leading-relaxed mt-3">
                   <div>
-                    <span className="text-white font-medium flex items-center gap-1.5 mb-1">
-                      <CheckCircleIcon className="w-3.5 h-3.5 text-emerald-400" />
+                    <span className="text-white font-medium flex items-center gap-1.5 mb-1.5">
+                      <CheckCircleIcon className="w-4 h-4 text-emerald-400" />
                       <span>Tác động trực tiếp từ SDG 3:</span>
                     </span>
-                    <p className="bg-black/30 p-2.5 rounded-xl border border-white/5">
+                    <p className="bg-black/30 p-3 rounded-xl border border-white/5 leading-relaxed">
                       {activeNode.impact}
                     </p>
                   </div>
 
                   <div className="pt-2 border-t border-white/10">
-                    <span className="text-white font-medium flex items-center gap-1.5 mb-1">
-                      <SparklesIcon className="w-3.5 h-3.5 text-cyan-400" />
+                    <span className="text-white font-medium flex items-center gap-1.5 mb-1.5">
+                      <SparklesIcon className="w-4 h-4 text-cyan-400" />
                       <span>Cơ chế tương hỗ hệ thống:</span>
                     </span>
-                    <p className="text-white/75">
+                    <p className="text-white/80 leading-relaxed">
                       {activeNode.mechanism}
                     </p>
                   </div>
@@ -763,19 +780,26 @@ export const SDG3LinkageNetworkChart: React.FC<SDG3LinkageNetworkChartProps> = (
                     <button
                       key={n.id}
                       type="button"
-                      onClick={() => setSelectedNodeId(n.id)}
-                      className={`h-6 w-6 rounded-md text-[10px] font-mono transition-all flex items-center justify-center cursor-pointer ${
+                      onClick={() => {
+                        setSelectedNodeId(n.id);
+                        setIsAutoTour(false);
+                        const idx = nodes.findIndex((item) => item.id === n.id);
+                        if (idx !== -1) onStepChange?.(idx);
+                      }}
+                      className={`h-7 w-7 rounded-lg overflow-hidden transition-all flex items-center justify-center cursor-pointer border ${
                         n.id === selectedNodeId
                           ? (n.ring === 'inner'
-                              ? 'bg-emerald-400 text-black font-bold scale-110 shadow-md ring-2 ring-emerald-300'
-                              : 'bg-cyan-400 text-black font-bold scale-110 shadow-md ring-2 ring-cyan-300')
-                          : (n.ring === 'inner'
-                              ? 'bg-emerald-500/10 text-emerald-200 hover:bg-emerald-500/25 border border-emerald-500/20'
-                              : 'bg-cyan-500/10 text-cyan-200 hover:bg-cyan-500/25 border border-cyan-500/20')
+                              ? 'border-emerald-400 ring-2 ring-emerald-300 scale-110 shadow-lg'
+                              : 'border-cyan-400 ring-2 ring-cyan-300 scale-110 shadow-lg')
+                          : 'border-white/15 opacity-70 hover:opacity-100 hover:scale-105'
                       }`}
                       title={`${n.id}: ${n.title}`}
                     >
-                      {n.id.replace('SDG ', '')}
+                      <img
+                        src={`/sdg_icons/sdg_${n.id.replace('SDG ', '')}.svg`}
+                        alt={n.id}
+                        className="w-full h-full object-cover pointer-events-none"
+                      />
                     </button>
                   ))}
                 </div>

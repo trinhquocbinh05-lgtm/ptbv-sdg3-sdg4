@@ -4,6 +4,7 @@ import { HeartPulseIcon, AlertTriangleIcon, EyeIcon, NetworkIcon } from '../Icon
 import { DALYsBreakdownChart } from '../charts/DALYsBreakdownChart';
 import { GlobalCrisisBarChart } from '../charts/GlobalCrisisBarChart';
 import { SDG3LinkageNetworkChart } from '../charts/SDG3LinkageNetworkChart';
+import { SDG17ReferenceList } from '../charts/SDG17ReferenceList';
 
 interface SDG3OverviewSectionProps {
   onOpenSlide: (slideNum: number) => void;
@@ -99,6 +100,31 @@ export const SDG3OverviewSection: React.FC<SDG3OverviewSectionProps> = ({ onOpen
             <EyeIcon className="w-3.5 h-3.5 text-emerald-300" />
             <span>Slide 4</span>
           </button>
+        </div>
+      </div>
+
+      {/* Wedding Cake Model & 3Es Theory Card (Slide 3) */}
+      <div className="mt-12 liquid-glass-natural rounded-2xl p-6 border border-emerald-500/20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+          <div className="lg:col-span-7 bg-white/95 rounded-xl p-4 shadow-inner flex flex-col items-center justify-center">
+            <img
+              src="/slides/wedding_cake.png"
+              alt="Mô hình Bánh cưới SDGs - Stockholm Resilience Centre"
+              className="w-full max-h-[240px] object-contain"
+            />
+          </div>
+          <div className="lg:col-span-5 space-y-3">
+            <div className="text-xs font-mono text-emerald-300 uppercase">Khung Lý Thuyết (Slide 3)</div>
+            <h3 className="text-2xl font-heading italic text-white">Mô hình Bánh cưới SDGs (Wedding Cake Model)</h3>
+            <p className="text-xs text-white/80 font-light leading-relaxed space-y-1">
+              <span>• <strong>3Es:</strong> Environment – Equity – Economy (Lisa Benton-Short)</span><br />
+              <span>• <strong>SDG 3:</strong> Sức khỏe là quyền con người, không phải đặc quyền</span><br />
+              <span>• <strong>Phát triển bền vững:</strong> Công bằng y tế + Bảo vệ môi trường</span>
+            </p>
+            <div className="text-[11px] text-emerald-300/80 font-mono pt-1">
+              SDG 3 &amp; SDG 4 nằm tại tầng trung tâm Xã hội (Society), được nâng đỡ bởi nền tảng Sinh quyển (Biosphere).
+            </div>
+          </div>
         </div>
       </div>
 
@@ -265,6 +291,7 @@ export const SDG3OverviewSection: React.FC<SDG3OverviewSectionProps> = ({ onOpen
           </p>
 
           <SDG3LinkageNetworkChart />
+          <SDG17ReferenceList currentPrimarySDG={3} />
         </div>
       </motion.div>
     </section>

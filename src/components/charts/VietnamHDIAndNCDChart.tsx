@@ -31,18 +31,18 @@ export const VietnamHDIAndNCDChart: React.FC = () => {
   const activeItem = causes.find((c) => c.id === selectedCause) || causes[0];
 
   return (
-    <div className="liquid-glass-natural rounded-2xl p-5 border border-white/10 shadow-xl">
+    <div className="liquid-glass-natural rounded-2xl p-5 sm:p-6 lg:p-7 border border-white/10 shadow-xl">
       <div className="flex items-center justify-between pb-3 mb-4 border-b border-white/10">
-        <span className="text-xs font-mono font-bold text-emerald-300 uppercase tracking-wider">
+        <span className="text-xs sm:text-sm font-mono font-bold text-emerald-300 uppercase tracking-wider">
           Biểu đồ Cơ cấu Tử vong & Thách thức Y tế VN
         </span>
-        <span className="text-[11px] text-white/50">WHO & Bộ Y Tế</span>
+        <span className="text-xs text-white/50 font-mono">WHO & Bộ Y Tế</span>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-12 gap-5 items-center">
+      <div className="grid grid-cols-1 sm:grid-cols-12 gap-6 items-center">
         {/* SVG Donut Chart (5 cols) */}
         <div className="sm:col-span-5 flex flex-col items-center justify-center relative">
-          <svg viewBox="0 0 120 120" className="w-36 h-36 transform -rotate-90">
+          <svg viewBox="0 0 120 120" className="w-40 h-40 sm:w-48 sm:h-48 transform -rotate-90">
             {/* Background ring */}
             <circle
               cx="60"
@@ -95,36 +95,36 @@ export const VietnamHDIAndNCDChart: React.FC = () => {
 
           {/* Center Text inside Donut */}
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center pointer-events-none">
-            <span className="font-heading italic text-2xl font-bold text-white leading-none">
+            <span className="font-heading italic text-3xl sm:text-4xl font-bold text-white leading-none">
               {activeItem.pct}%
             </span>
-            <span className="text-[10px] text-white/60 font-mono mt-0.5">Tử vong</span>
+            <span className="text-xs text-white/60 font-mono mt-1">Tử vong</span>
           </div>
         </div>
 
         {/* Breakdown details (7 cols) */}
-        <div className="sm:col-span-7 space-y-2">
+        <div className="sm:col-span-7 space-y-3">
           {causes.map((c) => {
             const isSelected = c.id === selectedCause;
             return (
               <div
                 key={c.id}
                 onClick={() => setSelectedCause(c.id)}
-                className={`p-2.5 rounded-xl border transition-all cursor-pointer ${
+                className={`p-3.5 rounded-xl border transition-all cursor-pointer ${
                   isSelected
                     ? 'bg-white/10 border-white/30 shadow-md'
                     : 'bg-white/[0.02] border-white/5 hover:bg-white/[0.05]'
                 }`}
               >
-                <div className="flex items-center justify-between text-xs mb-1">
-                  <div className="flex items-center gap-2">
+                <div className="flex items-center justify-between text-sm sm:text-base mb-1.5">
+                  <div className="flex items-center gap-2.5">
                     <span
-                      className="h-2.5 w-2.5 rounded-full"
+                      className="h-3 w-3 rounded-full"
                       style={{ backgroundColor: c.color }}
                     />
-                    <span className="font-medium text-white">{c.name}</span>
+                    <span className="font-semibold text-white">{c.name}</span>
                   </div>
-                  <span className="font-mono font-bold" style={{ color: c.color }}>
+                  <span className="font-mono font-bold text-base sm:text-lg" style={{ color: c.color }}>
                     {c.pct}%
                   </span>
                 </div>
@@ -132,7 +132,7 @@ export const VietnamHDIAndNCDChart: React.FC = () => {
                   <motion.p
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: 'auto' }}
-                    className="text-[11px] text-white/75 font-light pl-4 pt-1 border-t border-white/5 mt-1"
+                    className="text-xs sm:text-sm text-white/85 font-light pl-5 pt-1.5 border-t border-white/5 mt-1.5 leading-relaxed"
                   >
                     {c.desc}
                   </motion.p>
