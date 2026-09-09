@@ -39,6 +39,8 @@ const slideMaxSteps: Record<number, number> = {
   22: 5, // 0: Header, 1: Đào tạo nông dân, 2: Lương đủ sống CLMRS, 3: Yếu thế, 4: Nestlé needs YOUth
   23: 2, // 0: Header & Lời cảm ơn, 1: Thông tin nhóm & Q&A
   24: 1, // 0: Toàn bộ bảng danh mục trích dẫn nguồn & tài liệu tham khảo
+  25: 1, // 0: Từ điển thuật ngữ & Kịch bản phản biện Q&A
+  26: 1, // 0: Bộ câu hỏi trắc nghiệm & Minigame 12 câu
 };
 
 const slideTitles = [
@@ -66,6 +68,8 @@ const slideTitles = [
   'Vai trò doanh nghiệp: Nestlé (4 Trụ cột hành động)',
   'Bìa kết & Lời tri ân (UEH University)',
   'Danh mục Trích nguồn & Cơ sở dữ liệu (References)',
+  'Từ điển Thuật ngữ & Kịch bản Phản biện Q&A (Glossary)',
+  'Bộ Câu hỏi Trắc nghiệm & Minigame 12 Câu (Quiz)',
 ];
 
 export const SlideDeck: React.FC<SlideDeckProps> = ({
@@ -76,7 +80,7 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
     try {
       const hash = window.location.hash.replace('#', '');
       const num = parseInt(hash.replace('slide=', ''), 10);
-      return num >= 1 && num <= 24 ? num : 1;
+      return num >= 1 && num <= 26 ? num : 1;
     } catch {
       return 1;
     }
@@ -122,7 +126,7 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
     } catch {}
   };
 
-  const totalSlides = 24;
+  const totalSlides = 26;
   const maxStepForCurrentSlide = slideMaxSteps[currentSlide] || 1;
 
   useEffect(() => {
@@ -461,7 +465,11 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
                   {currentSlide === 2
                     ? 'Bảng điểm & Danh sách nhóm gốc (Nhóm 4: CANDY)'
                     : currentSlide === 24
-                    ? 'Bản trình chiếu gốc (PDF Slide 22)'
+                    ? 'Bản trình chiếu gốc (PDF Slide 22 - Trích nguồn)'
+                    : currentSlide === 25
+                    ? 'Phụ lục Từ điển Thuật ngữ & Kịch bản Q&A'
+                    : currentSlide === 26
+                    ? 'Phụ lục Bộ câu hỏi Trắc nghiệm 12 câu'
                     : `Bản trình chiếu gốc (PDF Slide ${currentSlide > 2 ? currentSlide - 1 : currentSlide})`}
                 </span>
                 <button
@@ -477,7 +485,7 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
                   src={
                     currentSlide === 2
                       ? '/slides/team_candy.png'
-                      : currentSlide === 24
+                      : currentSlide === 24 || currentSlide === 25 || currentSlide === 26
                       ? '/slides/slide_22.png'
                       : currentSlide > 2
                       ? `/slides/slide_${currentSlide - 1}.png`

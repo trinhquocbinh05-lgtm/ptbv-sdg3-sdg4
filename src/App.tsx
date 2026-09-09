@@ -27,7 +27,7 @@ export const App: React.FC = () => {
     if (direction === 'prev') {
       setActiveSlide((prev) => (prev && prev > 1 ? prev - 1 : 1));
     } else {
-      setActiveSlide((prev) => (prev && prev < 24 ? prev + 1 : 24));
+      setActiveSlide((prev) => (prev && prev < 26 ? prev + 1 : 26));
     }
   };
 

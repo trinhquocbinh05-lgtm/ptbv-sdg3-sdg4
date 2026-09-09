@@ -23,6 +23,8 @@ import { SDG3ExtendedTargets } from './charts/SDG3ExtendedTargets';
 import { SDG4TargetsBreakdown } from './charts/SDG4TargetsBreakdown';
 import { SlideReferencesTable } from './charts/SlideReferencesTable';
 import { TeamMembersSlide } from './charts/TeamMembersSlide';
+import { GlossaryAndQASlide } from './charts/GlossaryAndQASlide';
+import { QuizQuestionsSlide } from './charts/QuizQuestionsSlide';
 import { AnimatedNumber } from './AnimatedCounter';
 
 export interface NaturalSlideContentProps {
@@ -2720,14 +2722,30 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
                 </button>
 
                 {onGoToSlide && (
-                  <button
-                    type="button"
-                    onClick={() => onGoToSlide(24)}
-                    className="liquid-glass-strong rounded-full px-5 py-2.5 text-xs sm:text-sm text-emerald-300 hover:text-white flex items-center gap-2 hover:brightness-125 transition-all cursor-pointer border border-emerald-400/40 hover:bg-emerald-500/20 shadow-[0_0_15px_rgba(52,211,153,0.2)]"
-                  >
-                    <GlobeIcon className="w-4 h-4 text-emerald-400" />
-                    <span>Xem Danh mục Trích nguồn (Slide 24) →</span>
-                  </button>
+                  <div className="flex flex-wrap items-center justify-center gap-3">
+                    <button
+                      type="button"
+                      onClick={() => onGoToSlide(24)}
+                      className="liquid-glass-strong rounded-full px-4 py-2 text-xs sm:text-sm text-emerald-300 hover:text-white flex items-center gap-2 hover:brightness-125 transition-all cursor-pointer border border-emerald-400/40 hover:bg-emerald-500/20 shadow-[0_0_15px_rgba(52,211,153,0.2)]"
+                    >
+                      <GlobeIcon className="w-4 h-4 text-emerald-400" />
+                      <span>Trích nguồn (Slide 24) →</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => onGoToSlide(25)}
+                      className="liquid-glass-strong rounded-full px-4 py-2 text-xs sm:text-sm text-amber-300 hover:text-white flex items-center gap-2 hover:brightness-125 transition-all cursor-pointer border border-amber-400/40 hover:bg-amber-500/20 shadow-[0_0_15px_rgba(251,191,36,0.2)]"
+                    >
+                      <span>📖 Thuật ngữ & Q&A (Slide 25) →</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => onGoToSlide(26)}
+                      className="liquid-glass-strong rounded-full px-4 py-2 text-xs sm:text-sm text-pink-300 hover:text-white flex items-center gap-2 hover:brightness-125 transition-all cursor-pointer border border-pink-400/40 hover:bg-pink-500/20 shadow-[0_0_15px_rgba(244,114,182,0.2)]"
+                    >
+                      <span>🎯 Minigame 12 Câu (Slide 26) →</span>
+                    </button>
+                  </div>
                 )}
               </motion.div>
             )}
@@ -2768,6 +2786,18 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
           <SlideReferencesTable onGoToSlide={onGoToSlide} />
         </div>
       );
+
+    /* =========================================================================
+       SLIDE 25: Từ Điển Thuật Ngữ & Kịch Bản Phản Biện Q&A (UEH PTBV)
+       ========================================================================= */
+    case 25:
+      return <GlossaryAndQASlide onGoToSlide={onGoToSlide} />;
+
+    /* =========================================================================
+       SLIDE 26: Bộ Câu Hỏi Trắc Nghiệm & Minigame Đánh Giá Kiến Thức (12 Câu)
+       ========================================================================= */
+    case 26:
+      return <QuizQuestionsSlide onGoToSlide={onGoToSlide} />;
 
     default:
       return null;

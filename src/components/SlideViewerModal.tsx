@@ -54,13 +54,17 @@ export const SlideViewerModal: React.FC<SlideViewerModalProps> = ({
             <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-4">
               <div className="flex items-center gap-3">
                 <span className="liquid-glass rounded-full px-3 py-1 text-xs font-semibold text-white/90">
-                  Slide {slideNumber} / 24
+                  Slide {slideNumber} / 26
                 </span>
                 <h3 className="font-heading italic text-xl md:text-2xl text-white">
                   {slideNumber === 2
                     ? 'Bảng điểm & Danh sách nhóm (UEH)'
                     : slideNumber === 24
                     ? 'Phụ lục Trích nguồn & Cơ sở dữ liệu'
+                    : slideNumber === 25
+                    ? 'Phụ lục Từ điển Thuật ngữ & Kịch bản Q&A'
+                    : slideNumber === 26
+                    ? 'Phụ lục Bộ câu hỏi Trắc nghiệm (12 câu)'
                     : `Bản trình chiếu gốc (PDF Slide ${slideNumber > 2 ? slideNumber - 1 : slideNumber})`}
                 </h3>
               </div>
@@ -112,6 +116,36 @@ export const SlideViewerModal: React.FC<SlideViewerModalProps> = ({
                   </p>
                   <span className="text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-400/30">
                     Bản slide tương tác kỹ thuật số
+                  </span>
+                </div>
+              ) : slideNumber === 25 ? (
+                <div className="text-center max-w-lg p-6 liquid-glass rounded-2xl border border-amber-500/30">
+                  <div className="text-xs font-mono text-amber-300 uppercase tracking-wider mb-2">
+                    Slide 25 • Cẩm Nang Phản Biện & Thuật Ngữ
+                  </div>
+                  <h4 className="font-heading italic text-2xl text-white mb-3">
+                    Từ Điển Thuật Ngữ & Kịch Bản Q&A
+                  </h4>
+                  <p className="text-xs text-white/75 font-light leading-relaxed mb-4">
+                    Slide 25 được bổ sung theo tài liệu học phần nhằm trang bị định nghĩa 11 thuật ngữ cốt lõi và 2 kịch bản hóa giải câu hỏi bẫy của hội đồng bảo vệ.
+                  </p>
+                  <span className="text-[11px] font-mono text-amber-400 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-400/30">
+                    Trích xuất từ Tu_Dien_Thuat_Ngu_PTBV_QA.docx
+                  </span>
+                </div>
+              ) : slideNumber === 26 ? (
+                <div className="text-center max-w-lg p-6 liquid-glass rounded-2xl border border-pink-500/30">
+                  <div className="text-xs font-mono text-pink-300 uppercase tracking-wider mb-2">
+                    Slide 26 • Minigame Đánh Giá Kiến Thức
+                  </div>
+                  <h4 className="font-heading italic text-2xl text-white mb-3">
+                    Bộ Câu Hỏi Trắc Nghiệm 12 Câu
+                  </h4>
+                  <p className="text-xs text-white/75 font-light leading-relaxed mb-4">
+                    Slide 26 tích hợp minigame trắc nghiệm 12 câu hỏi học thuật tương tác trực tiếp, có bấm chọn đáp án và hiển thị giải thích chi tiết.
+                  </p>
+                  <span className="text-[11px] font-mono text-pink-400 bg-pink-500/10 px-3 py-1 rounded-full border border-pink-400/30">
+                    Trích xuất từ Bo_Cau_Hoi_Trac_Nghiem_SDG3_SDG4.docx
                   </span>
                 </div>
               ) : (
