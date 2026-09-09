@@ -54,10 +54,14 @@ export const SlideViewerModal: React.FC<SlideViewerModalProps> = ({
             <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-4">
               <div className="flex items-center gap-3">
                 <span className="liquid-glass rounded-full px-3 py-1 text-xs font-semibold text-white/90">
-                  Slide {slideNumber} / 23
+                  Slide {slideNumber} / 24
                 </span>
                 <h3 className="font-heading italic text-xl md:text-2xl text-white">
-                  Bản trình chiếu gốc (PDF Presentation)
+                  {slideNumber === 2
+                    ? 'Bảng điểm & Danh sách nhóm (UEH)'
+                    : slideNumber === 24
+                    ? 'Phụ lục Trích nguồn & Cơ sở dữ liệu'
+                    : `Bản trình chiếu gốc (PDF Slide ${slideNumber > 2 ? slideNumber - 1 : slideNumber})`}
                 </h3>
               </div>
               <button
@@ -72,16 +76,27 @@ export const SlideViewerModal: React.FC<SlideViewerModalProps> = ({
 
             {/* Image Container */}
             <div className="flex-1 overflow-auto rounded-xl bg-black/50 border border-white/5 flex items-center justify-center p-4">
-              {slideNumber === 23 ? (
+              {slideNumber === 2 ? (
+                <div className="flex flex-col items-center max-h-full">
+                  <img
+                    src="/slides/team_candy.png"
+                    alt="Danh sách Nhóm 4 CANDY"
+                    className="max-h-[60vh] w-auto object-contain rounded-lg shadow-2xl border border-white/20 mb-3"
+                  />
+                  <div className="text-xs font-mono text-emerald-300">
+                    Bảng phân công & danh sách sinh viên lớp 26C3ECO50122002 — Nhóm 4: CANDY
+                  </div>
+                </div>
+              ) : slideNumber === 24 ? (
                 <div className="text-center max-w-lg p-6 liquid-glass rounded-2xl border border-emerald-500/30">
                   <div className="text-xs font-mono text-emerald-300 uppercase tracking-wider mb-2">
-                    Slide 23 • Phụ Lục Nghiên Cứu & Trích Nguồn
+                    Slide 24 • Phụ Lục Nghiên Cứu & Trích Nguồn
                   </div>
                   <h4 className="font-heading italic text-2xl text-white mb-3">
                     Danh Mục Trích Nguồn & Cơ Sở Dữ Liệu
                   </h4>
                   <p className="text-xs text-white/75 font-light leading-relaxed mb-4">
-                    Slide 23 được bổ sung trực tiếp trong bản trình chiếu tương tác nhằm lưu trữ toàn bộ nguồn trích dẫn từ WHO, UNESCO, UNDP, World Bank, Vinamilk và Nestlé theo chuẩn trích dẫn khoa học.
+                    Slide 24 được bổ sung trực tiếp trong bản trình chiếu tương tác nhằm lưu trữ toàn bộ nguồn trích dẫn từ WHO, UNESCO, UNDP, World Bank, Vinamilk và Nestlé theo chuẩn trích dẫn khoa học.
                   </p>
                   <span className="text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-400/30">
                     Bản slide tương tác kỹ thuật số
@@ -89,7 +104,7 @@ export const SlideViewerModal: React.FC<SlideViewerModalProps> = ({
                 </div>
               ) : (
                 <img
-                  src={`/slides/slide_${slideNumber}.png`}
+                  src={`/slides/slide_${slideNumber > 2 ? slideNumber - 1 : slideNumber}.png`}
                   alt={`Slide ${slideNumber}`}
                   className="max-h-[65vh] w-auto object-contain rounded-lg shadow-2xl"
                 />

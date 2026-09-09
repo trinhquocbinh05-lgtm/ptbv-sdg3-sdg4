@@ -22,6 +22,7 @@ import { SDG3TargetsBreakdown } from './charts/SDG3TargetsBreakdown';
 import { SDG3ExtendedTargets } from './charts/SDG3ExtendedTargets';
 import { SDG4TargetsBreakdown } from './charts/SDG4TargetsBreakdown';
 import { SlideReferencesTable } from './charts/SlideReferencesTable';
+import { TeamMembersSlide } from './charts/TeamMembersSlide';
 import { AnimatedNumber } from './AnimatedCounter';
 
 export interface NaturalSlideContentProps {
@@ -105,6 +106,15 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
                     <span>Bắt đầu bài thuyết trình</span>
                     <span className="text-emerald-400">→</span>
                   </button>
+                  {onGoToSlide && (
+                    <button
+                      type="button"
+                      onClick={() => onGoToSlide(2)}
+                      className="liquid-glass rounded-full px-4 py-1.5 text-xs text-pink-300 hover:text-white transition-all flex items-center gap-1.5 border border-pink-400/30 hover:bg-pink-500/20 cursor-pointer"
+                    >
+                      <span>Nhóm 4 — CANDY (13 TV) →</span>
+                    </button>
+                  )}
                   <button
                     type="button"
                     onClick={() => onOpenModal(1)}
@@ -123,7 +133,20 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
     /* =========================================================================
        SLIDE 2: Bìa Phần I — SDG 3
        ========================================================================= */
+    /* =========================================================================
+       SLIDE 2: Danh sách thành viên thực hiện đề tài — Nhóm 4: CANDY
+       ========================================================================= */
     case 2:
+      return (
+        <TeamMembersSlide
+          step={step}
+          showAll={showAll}
+          onOpenModal={onOpenModal}
+          onGoToSlide={onGoToSlide}
+        />
+      );
+
+    case 3:
       return (
         <div className="text-center flex flex-col items-center justify-center my-auto py-16">
           <motion.div
@@ -153,13 +176,13 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
     /* =========================================================================
        SLIDE 3: Định nghĩa & Khung khái niệm (Mô hình Bánh cưới & Nguyên tắc 3Es)
        ========================================================================= */
-    case 3:
+    case 4:
       return (
         <div>
           <div className="flex items-center justify-between mb-3">
             <div className="text-xs font-mono text-emerald-300 uppercase tracking-wider flex items-center gap-2">
               <LeafIcon className="w-4 h-4" />
-              <span>Slide 03 • Khung Khái Niệm & Mô Hình Bánh Cưới SDGs</span>
+              <span>Slide 04 • Khung Khái Niệm & Mô Hình Bánh Cưới SDGs</span>
             </div>
             <button
               type="button"
@@ -322,13 +345,13 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
     /* =========================================================================
        SLIDE 4: Các Công cụ Đo lường Sức khỏe Toàn diện (DALYs, LE, HDI)
        ========================================================================= */
-    case 4:
+    case 5:
       return (
         <div>
           <div className="flex items-center justify-between mb-3">
             <div className="text-xs font-mono text-emerald-300 uppercase tracking-wider flex items-center gap-2">
               <LeafIcon className="w-4 h-4" />
-              <span>Slide 04 • Thước Đo Học Thuật Toàn Diện</span>
+              <span>Slide 05 • Thước Đo Học Thuật Toàn Diện</span>
             </div>
             <button
               type="button"
@@ -505,13 +528,13 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
     /* =========================================================================
        SLIDE 5: A. Nhóm mục tiêu chính (Target 3.1 — 3.9)
        ========================================================================= */
-    case 5:
+    case 6:
       return (
         <div>
           <div className="flex items-center justify-between mb-1">
             <div className="text-xs sm:text-sm sm:text-xs font-mono text-emerald-300 uppercase tracking-wider flex items-center gap-1.5">
               <LeafIcon className="w-3.5 h-3.5" />
-              <span>Slide 05 • A. Nhóm Mục Tiêu Chính (Target 3.1 — 3.9)</span>
+              <span>Slide 06 • A. Nhóm Mục Tiêu Chính (Target 3.1 — 3.9)</span>
             </div>
             <button
               type="button"
@@ -538,13 +561,13 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
     /* =========================================================================
        SLIDE 6: B. Nhóm Phương tiện thực hiện (Target 3.a — 3.d)
        ========================================================================= */
-    case 6:
+    case 7:
       return (
         <div>
           <div className="flex items-center justify-between mb-2">
             <div className="text-xs font-mono text-emerald-300 uppercase tracking-wider flex items-center gap-2">
               <LeafIcon className="w-4 h-4" />
-              <span>Slide 06 • B. Nhóm Phương Tiện Thực Hiện (Target 3.a — 3.d)</span>
+              <span>Slide 07 • B. Nhóm Phương Tiện Thực Hiện (Target 3.a — 3.d)</span>
             </div>
             <button
               type="button"
@@ -571,13 +594,13 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
     /* =========================================================================
        SLIDE 7: Bức tranh toàn cầu I (Tử vong mẹ/bé, Tiêm chủng, Bệnh truyền nhiễm)
        ========================================================================= */
-    case 7:
+    case 8:
       return (
         <div>
           <div className="flex items-center justify-between mb-1">
             <div className="text-xs sm:text-sm sm:text-xs font-mono text-rose-400 uppercase tracking-wider flex items-center gap-1.5">
               <AlertTriangleIcon className="w-3.5 h-3.5 text-rose-400" />
-              <span>Slide 07 • Bức Tranh Toàn Cầu (Phần I)</span>
+              <span>Slide 08 • Bức Tranh Toàn Cầu (Phần I)</span>
             </div>
             <button
               type="button"
@@ -743,13 +766,13 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
     /* =========================================================================
        SLIDE 8: Bức tranh toàn cầu II (Tai nạn 1.19M, UHC 4.5 Tỷ, NCDs >70%, Nhân lực 10M)
        ========================================================================= */
-    case 8:
+    case 9:
       return (
         <div>
           <div className="flex items-center justify-between mb-3">
             <div className="text-xs font-mono text-rose-400 uppercase tracking-wider flex items-center gap-2">
               <AlertTriangleIcon className="w-4 h-4 text-rose-400" />
-              <span>Slide 08 • Bức Tranh Toàn Cầu (Phần II)</span>
+              <span>Slide 09 • Bức Tranh Toàn Cầu (Phần II)</span>
             </div>
             <button
               type="button"
@@ -948,13 +971,13 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
     /* =========================================================================
        SLIDE 9: Thực trạng tại Việt Nam (HDI 0.766, VNeID 34M+, NCDs ~80%)
        ========================================================================= */
-    case 9:
+    case 10:
       return (
         <div>
           <div className="flex items-center justify-between mb-3">
             <div className="text-xs font-mono text-emerald-300 uppercase tracking-wider flex items-center gap-2">
               <LeafIcon className="w-4 h-4" />
-              <span>Slide 09 • Dữ Liệu & Thực Tiễn Quốc Gia</span>
+              <span>Slide 10 • Dữ Liệu & Thực Tiễn Quốc Gia</span>
             </div>
             <button
               type="button"
@@ -1105,13 +1128,13 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
     /* =========================================================================
        SLIDE 10: Tính liên kết SDG 3 (Sơ đồ Mạng lưới Quỹ đạo Đồng tâm)
        ========================================================================= */
-    case 10:
+    case 11:
       return (
         <div>
           <div className="flex items-center justify-between mb-2">
             <div className="text-xs font-mono text-emerald-300 uppercase tracking-wider flex items-center gap-2">
               <NetworkIcon className="w-4 h-4 text-emerald-400" />
-              <span>Slide 10 • Tính Liên Kết Hệ Thống SDG 3</span>
+              <span>Slide 11 • Tính Liên Kết Hệ Thống SDG 3</span>
             </div>
             <button
               type="button"
@@ -1119,7 +1142,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
               className="liquid-glass rounded-full px-3 py-1 text-xs text-white/70 hover:text-white flex items-center gap-1.5 cursor-pointer"
             >
               <EyeIcon className="w-3.5 h-3.5 text-emerald-300" />
-              <span>Slide 10 gốc</span>
+              <span>Slide 11 gốc</span>
             </button>
           </div>
 
@@ -1144,13 +1167,13 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
     /* =========================================================================
        SLIDE 11: Vai trò doanh nghiệp — Vinamilk (3 Hành động & Net Zero 2050)
        ========================================================================= */
-    case 11:
+    case 12:
       return (
         <div>
           <div className="flex items-center justify-between mb-2">
             <div className="text-xs font-mono text-emerald-300 uppercase tracking-wider flex items-center gap-2">
               <BuildingIcon className="w-4 h-4 text-emerald-400" />
-              <span>Slide 11 • Vai Trò Doanh Nghiệp (Case Study Vinamilk)</span>
+              <span>Slide 12 • Vai Trò Doanh Nghiệp (Case Study Vinamilk)</span>
             </div>
             <button
               type="button"
@@ -1158,7 +1181,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
               className="liquid-glass rounded-full px-3 py-1 text-xs text-white/70 hover:text-white flex items-center gap-1.5 cursor-pointer"
             >
               <EyeIcon className="w-3.5 h-3.5 text-emerald-300" />
-              <span>Slide 11 gốc</span>
+              <span>Slide 12 gốc</span>
             </button>
           </div>
 
@@ -1302,7 +1325,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
     /* =========================================================================
        SLIDE 12: Bìa Phần II — SDG 4
        ========================================================================= */
-    case 12:
+    case 13:
       return (
         <div className="text-center flex flex-col items-center justify-center my-auto py-16">
           <motion.div
@@ -1335,13 +1358,13 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
     /* =========================================================================
        SLIDE 13: Định nghĩa & Khung khái niệm (Mô hình Bánh cưới & Nguyên tắc 3Es)
        ========================================================================= */
-    case 13:
+    case 14:
       return (
         <div>
           <div className="flex items-center justify-between mb-2">
             <div className="text-xs font-mono text-rose-300 uppercase tracking-wider flex items-center gap-2">
               <GraduationCapIcon className="w-4 h-4 text-rose-400" />
-              <span>Slide 13 • Khung Khái Niệm & Nền Tảng Lý Thuyết (SDG 4)</span>
+              <span>Slide 14 • Khung Khái Niệm & Nền Tảng Lý Thuyết (SDG 4)</span>
             </div>
             <button
               type="button"
@@ -1349,7 +1372,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
               className="liquid-glass rounded-full px-3 py-1 text-xs text-white/70 hover:text-white flex items-center gap-1.5 cursor-pointer"
             >
               <EyeIcon className="w-3.5 h-3.5 text-rose-400" />
-              <span>Slide 13 gốc</span>
+              <span>Slide 14 gốc</span>
             </button>
           </div>
 
@@ -1518,13 +1541,13 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
     /* =========================================================================
        SLIDE 14: Thước đo Đo lường Giáo dục và Công thức Học thuật
        ========================================================================= */
-    case 14:
+    case 15:
       return (
         <div>
           <div className="flex items-center justify-between mb-3">
             <div className="text-xs sm:text-sm font-mono text-rose-300 uppercase tracking-wider flex items-center gap-2">
               <GraduationCapIcon className="w-4 h-4 text-rose-400" />
-              <span>Slide 14 • Thước Đo Đo Lường Giáo Dục & Công Thức Học Thuật</span>
+              <span>Slide 15 • Thước Đo Đo Lường Giáo Dục & Công Thức Học Thuật</span>
             </div>
             <button
               type="button"
@@ -1532,7 +1555,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
               className="liquid-glass rounded-full px-3.5 py-1.5 text-xs text-white/70 hover:text-white flex items-center gap-1.5 cursor-pointer"
             >
               <EyeIcon className="w-3.5 h-3.5 text-rose-400" />
-              <span>Slide 14 gốc</span>
+              <span>Slide 15 gốc</span>
             </button>
           </div>
 
@@ -1672,13 +1695,13 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
     /* =========================================================================
        SLIDE 15: A. Nhóm mục tiêu chính (Target 4.1 — 4.7)
        ========================================================================= */
-    case 15:
+    case 16:
       return (
         <div>
           <div className="flex items-center justify-between mb-2">
             <div className="text-xs font-mono text-rose-300 uppercase tracking-wider flex items-center gap-2">
               <GraduationCapIcon className="w-4 h-4 text-rose-400" />
-              <span>Slide 15 • A. Nhóm Mục Tiêu Chính (Target 4.1 — 4.7)</span>
+              <span>Slide 16 • A. Nhóm Mục Tiêu Chính (Target 4.1 — 4.7)</span>
             </div>
             <button
               type="button"
@@ -1686,7 +1709,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
               className="liquid-glass rounded-full px-3 py-1 text-xs text-white/70 hover:text-white flex items-center gap-1.5 cursor-pointer"
             >
               <EyeIcon className="w-3.5 h-3.5 text-rose-400" />
-              <span>Slide 15 gốc</span>
+              <span>Slide 16 gốc</span>
             </button>
           </div>
 
@@ -1705,13 +1728,13 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
     /* =========================================================================
        SLIDE 16: B. Nhóm Phương tiện thực hiện (Target 4.a — 4.c)
        ========================================================================= */
-    case 16:
+    case 17:
       return (
         <div>
           <div className="flex items-center justify-between mb-3">
             <div className="text-xs font-mono text-rose-300 uppercase tracking-wider flex items-center gap-2">
               <GraduationCapIcon className="w-4 h-4 text-rose-400" />
-              <span>Slide 16 • B. Nhóm Phương Tiện Thực Hiện (Target 4.a — 4.c)</span>
+              <span>Slide 17 • B. Nhóm Phương Tiện Thực Hiện (Target 4.a — 4.c)</span>
             </div>
             <button
               type="button"
@@ -1719,7 +1742,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
               className="liquid-glass rounded-full px-3 py-1 text-xs text-white/70 hover:text-white flex items-center gap-1.5 cursor-pointer"
             >
               <EyeIcon className="w-3.5 h-3.5 text-rose-400" />
-              <span>Slide 16 gốc</span>
+              <span>Slide 17 gốc</span>
             </button>
           </div>
 
@@ -1894,13 +1917,13 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
     /* =========================================================================
        SLIDE 17: Khủng hoảng học tập toàn cầu (84M trẻ, 300M thiếu kỹ năng, 1/4 trường thiếu hạ tầng)
        ========================================================================= */
-    case 17:
+    case 18:
       return (
         <div>
           <div className="flex items-center justify-between mb-3">
             <div className="text-xs font-mono text-rose-400 uppercase tracking-wider flex items-center gap-2">
               <AlertTriangleIcon className="w-4 h-4 text-rose-400" />
-              <span>Slide 17 • Khủng Hoảng Học Tập Toàn Cầu</span>
+              <span>Slide 18 • Khủng Hoảng Học Tập Toàn Cầu</span>
             </div>
             <button
               type="button"
@@ -1908,7 +1931,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
               className="liquid-glass rounded-full px-3 py-1 text-xs text-white/70 hover:text-white flex items-center gap-1.5 cursor-pointer"
             >
               <EyeIcon className="w-3.5 h-3.5 text-rose-400" />
-              <span>Slide 17 gốc</span>
+              <span>Slide 18 gốc</span>
             </button>
           </div>
 
@@ -2062,13 +2085,13 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
     /* =========================================================================
        SLIDE 18: Các rào cản cốt lõi (Khoảng cách Giới, Số hóa, Bất bình đẳng Hệ thống)
        ========================================================================= */
-    case 18:
+    case 19:
       return (
         <div>
           <div className="flex items-center justify-between mb-3">
             <div className="text-xs font-mono text-rose-300 uppercase tracking-wider flex items-center gap-2">
               <AlertTriangleIcon className="w-4 h-4 text-rose-400" />
-              <span>Slide 18 • Thách Thức Hệ Thống & Cấu Trúc</span>
+              <span>Slide 19 • Thách Thức Hệ Thống & Cấu Trúc</span>
             </div>
             <button
               type="button"
@@ -2076,7 +2099,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
               className="liquid-glass rounded-full px-3 py-1 text-xs text-white/70 hover:text-white flex items-center gap-1.5 cursor-pointer"
             >
               <EyeIcon className="w-3.5 h-3.5 text-rose-400" />
-              <span>Slide 18 gốc</span>
+              <span>Slide 19 gốc</span>
             </button>
           </div>
 
@@ -2247,13 +2270,13 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
     /* =========================================================================
        SLIDE 19: Thực trạng & Giải pháp tại Việt Nam (SDG 4)
        ========================================================================= */
-    case 19:
+    case 20:
       return (
         <div>
           <div className="flex items-center justify-between mb-3">
             <div className="text-xs font-mono text-rose-300 uppercase tracking-wider flex items-center gap-2">
               <GraduationCapIcon className="w-4 h-4 text-rose-400" />
-              <span>Slide 19 • Thực Trạng & Chiến Lược Việt Nam (SDG 4)</span>
+              <span>Slide 20 • Thực Trạng & Chiến Lược Việt Nam (SDG 4)</span>
             </div>
             <button
               type="button"
@@ -2261,7 +2284,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
               className="liquid-glass rounded-full px-3 py-1 text-xs text-white/70 hover:text-white flex items-center gap-1.5 cursor-pointer"
             >
               <EyeIcon className="w-3.5 h-3.5 text-rose-400" />
-              <span>Slide 19 gốc</span>
+              <span>Slide 20 gốc</span>
             </button>
           </div>
 
@@ -2414,13 +2437,13 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
     /* =========================================================================
        SLIDE 20: Tính liên kết SDG 4 (Sơ đồ Mạng lưới Tương hỗ SDGs)
        ========================================================================= */
-    case 20:
+    case 21:
       return (
         <div>
           <div className="flex items-center justify-between mb-2">
             <div className="text-xs font-mono text-rose-300 uppercase tracking-wider flex items-center gap-2">
               <NetworkIcon className="w-4 h-4 text-rose-400" />
-              <span>Slide 20 • Tính Liên Kết Hệ Thống SDG 4</span>
+              <span>Slide 21 • Tính Liên Kết Hệ Thống SDG 4</span>
             </div>
             <button
               type="button"
@@ -2428,7 +2451,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
               className="liquid-glass rounded-full px-3 py-1 text-xs text-white/70 hover:text-white flex items-center gap-1.5 cursor-pointer"
             >
               <EyeIcon className="w-3.5 h-3.5 text-rose-400" />
-              <span>Slide 20 gốc</span>
+              <span>Slide 21 gốc</span>
             </button>
           </div>
 
@@ -2453,13 +2476,13 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
     /* =========================================================================
        SLIDE 21: Vai trò doanh nghiệp — Nestlé (4 Trụ cột hành động)
        ========================================================================= */
-    case 21:
+    case 22:
       return (
         <div>
           <div className="flex items-center justify-between mb-2">
             <div className="text-xs font-mono text-rose-300 uppercase tracking-wider flex items-center gap-2">
               <BuildingIcon className="w-4 h-4 text-rose-400" />
-              <span>Slide 21 • Vai Trò Doanh Nghiệp (Case Study Nestlé)</span>
+              <span>Slide 22 • Vai Trò Doanh Nghiệp (Case Study Nestlé)</span>
             </div>
             <button
               type="button"
@@ -2467,7 +2490,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
               className="liquid-glass rounded-full px-3 py-1 text-xs text-white/70 hover:text-white flex items-center gap-1.5 cursor-pointer"
             >
               <EyeIcon className="w-3.5 h-3.5 text-rose-400" />
-              <span>Slide 21 gốc</span>
+              <span>Slide 22 gốc</span>
             </button>
           </div>
 
@@ -2662,7 +2685,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
     /* =========================================================================
        SLIDE 22: Bìa kết — CẢM ƠN (UEH University)
        ========================================================================= */
-    case 22:
+    case 23:
       return (
         <div className="text-center flex flex-col items-center justify-center my-auto py-16">
           <motion.div
@@ -2699,11 +2722,11 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
                 {onGoToSlide && (
                   <button
                     type="button"
-                    onClick={() => onGoToSlide(23)}
+                    onClick={() => onGoToSlide(24)}
                     className="liquid-glass-strong rounded-full px-5 py-2.5 text-xs sm:text-sm text-emerald-300 hover:text-white flex items-center gap-2 hover:brightness-125 transition-all cursor-pointer border border-emerald-400/40 hover:bg-emerald-500/20 shadow-[0_0_15px_rgba(52,211,153,0.2)]"
                   >
                     <GlobeIcon className="w-4 h-4 text-emerald-400" />
-                    <span>Xem Danh mục Trích nguồn (Slide 23) →</span>
+                    <span>Xem Danh mục Trích nguồn (Slide 24) →</span>
                   </button>
                 )}
               </motion.div>
@@ -2715,21 +2738,21 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
     /* =========================================================================
        SLIDE 23: Danh mục Trích nguồn & Cơ sở Dữ liệu (References & Citations)
        ========================================================================= */
-    case 23:
+    case 24:
       return (
         <div>
           <div className="flex items-center justify-between mb-2">
             <div className="text-xs font-mono text-emerald-300 uppercase tracking-wider flex items-center gap-2">
               <GlobeIcon className="w-4 h-4 text-emerald-400" />
-              <span>Slide 23 • Danh Mục Trích Nguồn & Cơ Sở Dữ Liệu</span>
+              <span>Slide 24 • Danh Mục Trích Nguồn & Cơ Sở Dữ Liệu</span>
             </div>
             {onGoToSlide && (
               <button
                 type="button"
-                onClick={() => onGoToSlide(22)}
+                onClick={() => onGoToSlide(23)}
                 className="liquid-glass rounded-full px-3 py-1 text-xs text-white/70 hover:text-white flex items-center gap-1.5 cursor-pointer hover:border-emerald-400/50 transition-colors"
               >
-                <span>← Bìa kết (Slide 22)</span>
+                <span>← Bìa kết (Slide 23)</span>
               </button>
             )}
           </div>

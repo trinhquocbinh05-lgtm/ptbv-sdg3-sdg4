@@ -16,32 +16,34 @@ interface SlideDeckProps {
 
 const slideMaxSteps: Record<number, number> = {
   1: 2,  // 0: Title, 1: Subtitle & UEH Details
-  2: 2,  // 0: Header & Icon, 1: Giới thiệu chuyên đề SDG 3
-  3: 3,  // 0: Header, 1: Định nghĩa SDG 3, 2: Nguyên tắc 3Es Benton-Short
-  4: 4,  // 0: Header, 1: DALYs, 2: Life Expectancy, 3: HDI Sức khỏe
-  5: 9,  // 0..8: Target 3.1 — 3.9
-  6: 4,  // 0: 3.a, 1: 3.b, 2: 3.c, 3: 3.d
-  7: 4,  // 0: Header, 1: Tử vong mẹ/bé, 2: Tiêm chủng, 3: Bệnh truyền nhiễm
-  8: 5,  // 0: Header, 1: Tai nạn 1.19M, 2: UHC 4.5 Tỷ, 3: NCDs >70%, 4: Nhân lực 10M
-  9: 4,  // 0: Header, 1: HDI 0.766, 2: VNeID 34M+, 3: NCDs 80%
-  10: 14, // 0..13: Duyệt 14 mục tiêu (9 Mạnh: SDG 1, 2, 4, 7, 8, 10, 11, 12, 15; 5 Tương hỗ: SDG 5, 6, 13, 14, 16)
-  11: 4, // 0: Header, 1: Hành động 1, 2: Hành động 2, 3: Hành động 3
-  12: 2, // 0: Header & Icon, 1: Giới thiệu chuyên đề SDG 4
-  13: 3, // 0: Header & Định nghĩa SDG 4, 1: Mô hình Bánh cưới SDGs, 2: Nguyên tắc 3Es Benton-Short
-  14: 3, // 0: Header, 1: GER vs NER, 2: HDI Giáo dục (EYS 18 năm, MYS 15 năm)
-  15: 7, // 0..6: Duyệt tuần tự 7 mục tiêu Target 4.1 — 4.7
-  16: 4, // 0: Header, 1: 4.a Hạ tầng, 2: 4.b Học bổng STEM, 3: 4.c Giáo viên
-  17: 4, // 0: Header, 1: Khủng hoảng học tập 84M, 2: Cơ sở hạ tầng 1/4, 3: Giáo viên >14%
-  18: 4, // 0: Header, 1: Khoảng cách Giới, 2: Khoảng cách Số hóa, 3: Bất bình đẳng Hệ thống
-  19: 3, // 0: Header, 1: Thực trạng Việt Nam, 2: 4 Giải pháp trọng tâm
-  20: 12, // 0..11: Duyệt 12 mục tiêu (8 Mạnh: SDG 1, 2, 3, 7, 8, 9, 11, 16; 4 Tương hỗ: SDG 5, 6, 10, 12)
-  21: 5, // 0: Header, 1: Đào tạo nông dân, 2: Lương đủ sống CLMRS, 3: Yếu thế, 4: Nestlé needs YOUth
-  22: 2, // 0: Header & Lời cảm ơn, 1: Thông tin nhóm & Q&A
-  23: 1, // 0: Toàn bộ bảng danh mục trích dẫn nguồn & tài liệu tham khảo
+  2: 3,  // 0: Header & Leader, 1: 6 thành viên đầu, 2: 6 thành viên sau
+  3: 2,  // 0: Header & Icon, 1: Giới thiệu chuyên đề SDG 3
+  4: 3,  // 0: Header, 1: Định nghĩa SDG 3, 2: Nguyên tắc 3Es Benton-Short
+  5: 4,  // 0: Header, 1: DALYs, 2: Life Expectancy, 3: HDI Sức khỏe
+  6: 9,  // 0..8: Target 3.1 — 3.9
+  7: 4,  // 0: 3.a, 1: 3.b, 2: 3.c, 3: 3.d
+  8: 4,  // 0: Header, 1: Tử vong mẹ/bé, 2: Tiêm chủng, 3: Bệnh truyền nhiễm
+  9: 5,  // 0: Header, 1: Tai nạn 1.19M, 2: UHC 4.5 Tỷ, 3: NCDs >70%, 4: Nhân lực 10M
+  10: 4, // 0: Header, 1: HDI 0.766, 2: VNeID 34M+, 3: NCDs 80%
+  11: 14, // 0..13: Duyệt 14 mục tiêu (9 Mạnh: SDG 1, 2, 4, 7, 8, 10, 11, 12, 15; 5 Tương hỗ: SDG 5, 6, 13, 14, 16)
+  12: 4, // 0: Header, 1: Hành động 1, 2: Hành động 2, 3: Hành động 3
+  13: 2, // 0: Header & Icon, 1: Giới thiệu chuyên đề SDG 4
+  14: 3, // 0: Header & Định nghĩa SDG 4, 1: Mô hình Bánh cưới SDGs, 2: Nguyên tắc 3Es Benton-Short
+  15: 3, // 0: Header, 1: GER vs NER, 2: HDI Giáo dục (EYS 18 năm, MYS 15 năm)
+  16: 7, // 0..6: Duyệt tuần tự 7 mục tiêu Target 4.1 — 4.7
+  17: 4, // 0: Header, 1: 4.a Hạ tầng, 2: 4.b Học bổng STEM, 3: 4.c Giáo viên
+  18: 4, // 0: Header, 1: Khủng hoảng học tập 84M, 2: Cơ sở hạ tầng 1/4, 3: Giáo viên >14%
+  19: 4, // 0: Header, 1: Khoảng cách Giới, 2: Khoảng cách Số hóa, 3: Bất bình đẳng Hệ thống
+  20: 3, // 0: Header, 1: Thực trạng Việt Nam, 2: 4 Giải pháp trọng tâm
+  21: 12, // 0..11: Duyệt 12 mục tiêu (8 Mạnh: SDG 1, 2, 3, 7, 8, 9, 11, 16; 4 Tương hỗ: SDG 5, 6, 10, 12)
+  22: 5, // 0: Header, 1: Đào tạo nông dân, 2: Lương đủ sống CLMRS, 3: Yếu thế, 4: Nestlé needs YOUth
+  23: 2, // 0: Header & Lời cảm ơn, 1: Thông tin nhóm & Q&A
+  24: 1, // 0: Toàn bộ bảng danh mục trích dẫn nguồn & tài liệu tham khảo
 };
 
 const slideTitles = [
   'Trang bìa: SDG 3 & SDG 4 (Nhóm Candy - UEH)',
+  'Thành viên thực hiện: Nhóm 4 — CANDY (13 Thành viên)',
   'Phần I — SDG 3: Sức khỏe tốt & Cuộc sống hạnh phúc',
   'Định nghĩa & Khung khái niệm 3Es (Lisa Benton-Short)',
   'Công cụ đo lường: DALYs, Tuổi thọ LE & HDI Sức khỏe',
@@ -74,7 +76,7 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
     try {
       const hash = window.location.hash.replace('#', '');
       const num = parseInt(hash.replace('slide=', ''), 10);
-      return num >= 1 && num <= 23 ? num : 1;
+      return num >= 1 && num <= 24 ? num : 1;
     } catch {
       return 1;
     }
@@ -120,7 +122,7 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
     } catch {}
   };
 
-  const totalSlides = 23;
+  const totalSlides = 24;
   const maxStepForCurrentSlide = slideMaxSteps[currentSlide] || 1;
 
   useEffect(() => {
@@ -456,7 +458,11 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
             <div className="liquid-glass-strong rounded-2xl p-4 flex flex-col h-full max-h-[75vh] border border-white/15">
               <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-3 text-xs">
                 <span className="font-mono text-emerald-300">
-                  Bản trình chiếu gốc (PDF Slide {currentSlide})
+                  {currentSlide === 2
+                    ? 'Bảng điểm & Danh sách nhóm gốc (Nhóm 4: CANDY)'
+                    : currentSlide === 24
+                    ? 'Bản trình chiếu gốc (PDF Slide 22)'
+                    : `Bản trình chiếu gốc (PDF Slide ${currentSlide > 2 ? currentSlide - 1 : currentSlide})`}
                 </span>
                 <button
                   type="button"
@@ -468,7 +474,15 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
               </div>
               <div className="flex-1 bg-black/60 rounded-xl overflow-hidden flex items-center justify-center p-2">
                 <img
-                  src={`/slides/slide_${currentSlide}.png`}
+                  src={
+                    currentSlide === 2
+                      ? '/slides/team_candy.png'
+                      : currentSlide === 24
+                      ? '/slides/slide_22.png'
+                      : currentSlide > 2
+                      ? `/slides/slide_${currentSlide - 1}.png`
+                      : `/slides/slide_${currentSlide}.png`
+                  }
                   alt={`Slide ${currentSlide}`}
                   className="max-h-full max-w-full object-contain rounded-lg shadow-2xl"
                 />
