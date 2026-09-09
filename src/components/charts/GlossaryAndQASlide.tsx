@@ -277,7 +277,7 @@ export const GlossaryAndQASlide: React.FC<GlossaryAndQASlideProps> = ({ onGoToSl
           <div className="flex items-center gap-2 mb-1">
             <span className="liquid-glass rounded-full px-3 py-0.5 text-xs font-mono text-amber-300 font-semibold uppercase tracking-wider flex items-center gap-1.5 border border-amber-400/30">
               <SparklesIcon className="w-3.5 h-3.5 text-amber-400" />
-              <span>Slide 25 • Phụ Lục Chuyên Môn & Kịch Bản Bảo Vệ</span>
+              <span>Slide 26 • Phụ Lục Chuyên Môn & Kịch Bản Bảo Vệ</span>
             </span>
             <span className="liquid-glass rounded-full px-2.5 py-0.5 text-xs font-mono text-emerald-300 font-bold border border-emerald-400/30">
               UEH • PTBV
@@ -496,17 +496,17 @@ export const GlossaryAndQASlide: React.FC<GlossaryAndQASlideProps> = ({ onGoToSl
             <>
               <button
                 type="button"
-                onClick={() => onGoToSlide(24)}
+                onClick={() => onGoToSlide(25)}
                 className="liquid-glass rounded-xl px-3 py-1.5 text-xs text-white/70 hover:text-white flex items-center gap-1.5 cursor-pointer"
               >
-                <span>← Trích nguồn (Slide 24)</span>
+                <span>← Trích nguồn (Slide 25)</span>
               </button>
               <button
                 type="button"
-                onClick={() => onGoToSlide(26)}
+                onClick={() => onGoToSlide(27)}
                 className="liquid-glass-strong rounded-xl px-4 py-1.5 text-xs sm:text-sm font-medium text-white flex items-center gap-2 hover:brightness-125 transition-all cursor-pointer border border-emerald-400/40 shadow-lg hover:scale-105"
               >
-                <span>Đến Minigame Trắc Nghiệm (Slide 26)</span>
+                <span>Đến Minigame Trắc Nghiệm (Slide 27)</span>
                 <span className="text-emerald-400 font-bold">→</span>
               </button>
             </>

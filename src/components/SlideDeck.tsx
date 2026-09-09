@@ -16,35 +16,37 @@ interface SlideDeckProps {
 }
 
 const slideMaxSteps: Record<number, number> = {
-  1: 2,  // 0: Title, 1: Subtitle & UEH Details
-  2: 3,  // 0: Header & Leader, 1: 6 thành viên đầu, 2: 6 thành viên sau
-  3: 2,  // 0: Header & Icon, 1: Giới thiệu chuyên đề SDG 3
-  4: 3,  // 0: Header, 1: Định nghĩa SDG 3, 2: Nguyên tắc 3Es Benton-Short
-  5: 4,  // 0: Header, 1: DALYs, 2: Life Expectancy, 3: HDI Sức khỏe
-  6: 9,  // 0..8: Target 3.1 — 3.9
-  7: 4,  // 0: 3.a, 1: 3.b, 2: 3.c, 3: 3.d
-  8: 4,  // 0: Header, 1: Tử vong mẹ/bé, 2: Tiêm chủng, 3: Bệnh truyền nhiễm
-  9: 5,  // 0: Header, 1: Tai nạn 1.19M, 2: UHC 4.5 Tỷ, 3: NCDs >70%, 4: Nhân lực 10M
-  10: 4, // 0: Header, 1: HDI 0.766, 2: VNeID 34M+, 3: NCDs 80%
-  11: 14, // 0..13: Duyệt 14 mục tiêu (9 Mạnh: SDG 1, 2, 4, 7, 8, 10, 11, 12, 15; 5 Tương hỗ: SDG 5, 6, 13, 14, 16)
-  12: 4, // 0: Header, 1: Hành động 1, 2: Hành động 2, 3: Hành động 3
-  13: 2, // 0: Header & Icon, 1: Giới thiệu chuyên đề SDG 4
-  14: 3, // 0: Header & Định nghĩa SDG 4, 1: Mô hình Bánh cưới SDGs, 2: Nguyên tắc 3Es Benton-Short
-  15: 3, // 0: Header, 1: GER vs NER, 2: HDI Giáo dục (EYS 18 năm, MYS 15 năm)
-  16: 7, // 0..6: Duyệt tuần tự 7 mục tiêu Target 4.1 — 4.7
-  17: 4, // 0: Header, 1: 4.a Hạ tầng, 2: 4.b Học bổng STEM, 3: 4.c Giáo viên
-  18: 4, // 0: Header, 1: Khủng hoảng học tập 84M, 2: Cơ sở hạ tầng 1/4, 3: Giáo viên >14%
-  19: 4, // 0: Header, 1: Khoảng cách Giới, 2: Khoảng cách Số hóa, 3: Bất bình đẳng Hệ thống
-  20: 3, // 0: Header, 1: Thực trạng Việt Nam, 2: 4 Giải pháp trọng tâm
-  21: 12, // 0..11: Duyệt 12 mục tiêu (8 Mạnh: SDG 1, 2, 3, 7, 8, 9, 11, 16; 4 Tương hỗ: SDG 5, 6, 10, 12)
-  22: 5, // 0: Header, 1: Đào tạo nông dân, 2: Lương đủ sống CLMRS, 3: Yếu thế, 4: Nestlé needs YOUth
-  23: 2, // 0: Header & Lời cảm ơn, 1: Thông tin nhóm & Q&A
-  24: 1, // 0: Toàn bộ bảng danh mục trích dẫn nguồn & tài liệu tham khảo
-  25: 1, // 0: Từ điển thuật ngữ & Kịch bản phản biện Q&A
-  26: 1, // 0: Bộ câu hỏi trắc nghiệm & Minigame 12 câu
+  1: 1,  // 0: Cẩm nang hướng dẫn sử dụng & Thiết lập máy chiếu 100% zoom, F11
+  2: 2,  // 0: Title, 1: Subtitle & UEH Details
+  3: 3,  // 0: Header & Leader, 1: 6 thành viên đầu, 2: 6 thành viên sau
+  4: 2,  // 0: Header & Icon, 1: Giới thiệu chuyên đề SDG 3
+  5: 3,  // 0: Header, 1: Định nghĩa SDG 3, 2: Nguyên tắc 3Es Benton-Short
+  6: 4,  // 0: Header, 1: DALYs, 2: Life Expectancy, 3: HDI Sức khỏe
+  7: 9,  // 0..8: Target 3.1 — 3.9
+  8: 4,  // 0: 3.a, 1: 3.b, 2: 3.c, 3: 3.d
+  9: 4,  // 0: Header, 1: Tử vong mẹ/bé, 2: Tiêm chủng, 3: Bệnh truyền nhiễm
+  10: 5, // 0: Header, 1: Tai nạn 1.19M, 2: UHC 4.5 Tỷ, 3: NCDs >70%, 4: Nhân lực 10M
+  11: 4, // 0: Header, 1: HDI 0.766, 2: VNeID 34M+, 3: NCDs 80%
+  12: 14, // 0..13: Duyệt 14 mục tiêu (9 Mạnh: SDG 1, 2, 4, 7, 8, 10, 11, 12, 15; 5 Tương hỗ: SDG 5, 6, 13, 14, 16)
+  13: 4, // 0: Header, 1: Hành động 1, 2: Hành động 2, 3: Hành động 3
+  14: 2, // 0: Header & Icon, 1: Giới thiệu chuyên đề SDG 4
+  15: 3, // 0: Header & Định nghĩa SDG 4, 1: Mô hình Bánh cưới SDGs, 2: Nguyên tắc 3Es Benton-Short
+  16: 3, // 0: Header, 1: GER vs NER, 2: HDI Giáo dục (EYS 18 năm, MYS 15 năm)
+  17: 7, // 0..6: Duyệt tuần tự 7 mục tiêu Target 4.1 — 4.7
+  18: 4, // 0: Header, 1: 4.a Hạ tầng, 2: 4.b Học bổng STEM, 3: 4.c Giáo viên
+  19: 4, // 0: Header, 1: Khủng hoảng học tập 84M, 2: Cơ sở hạ tầng 1/4, 3: Giáo viên >14%
+  20: 4, // 0: Header, 1: Khoảng cách Giới, 2: Khoảng cách Số hóa, 3: Bất bình đẳng Hệ thống
+  21: 3, // 0: Header, 1: Thực trạng Việt Nam, 2: 4 Giải pháp trọng tâm
+  22: 12, // 0..11: Duyệt 12 mục tiêu (8 Mạnh: SDG 1, 2, 3, 7, 8, 9, 11, 16; 4 Tương hỗ: SDG 5, 6, 10, 12)
+  23: 5, // 0: Header, 1: Đào tạo nông dân, 2: Lương đủ sống CLMRS, 3: Yếu thế, 4: Nestlé needs YOUth
+  24: 2, // 0: Header & Lời cảm ơn, 1: Thông tin nhóm & Q&A
+  25: 1, // 0: Toàn bộ bảng danh mục trích dẫn nguồn & tài liệu tham khảo
+  26: 1, // 0: Từ điển thuật ngữ & Kịch bản phản biện Q&A
+  27: 1, // 0: Bộ câu hỏi trắc nghiệm & Minigame 12 câu
 };
 
 const slideTitles = [
+  'Hướng dẫn sử dụng & Thiết lập trình chiếu (Setup & User Guide)',
   'Trang bìa: SDG 3 & SDG 4 (Nhóm Candy - UEH)',
   'Thành viên thực hiện: Nhóm 4 — CANDY (13 Thành viên)',
   'Phần I — SDG 3: Sức khỏe tốt & Cuộc sống hạnh phúc',
@@ -58,7 +60,7 @@ const slideTitles = [
   'Tính liên kết SDG 3: Hệ sinh thái 17 Mục tiêu SDGs',
   'Vai trò doanh nghiệp: Vinamilk (3 Hành động & Net Zero)',
   'Phần II — SDG 4: Đảm bảo giáo dục có chất lượng',
-  'Định nghĩa & Khung khái niệm: 3Es - Trụ cột Equity',
+  'Định nghĩa & Khung khái niệm: 3Es - Trụ cột Equity & Bánh cưới SDGs',
   'Thước đo đo lường giáo dục: GER vs NER, EYS, MYS & HDI',
   'A. Nhóm mục tiêu chính: Target 4.1 — 4.7',
   'B. Nhóm phương tiện thực hiện: Target 4.a — 4.c',
@@ -81,7 +83,7 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
     try {
       const hash = window.location.hash.replace('#', '');
       const num = parseInt(hash.replace('slide=', ''), 10);
-      return num >= 1 && num <= 26 ? num : 1;
+      return num >= 1 && num <= 27 ? num : 1;
     } catch {
       return 1;
     }
@@ -128,7 +130,7 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
     } catch {}
   };
 
-  const totalSlides = 26;
+  const totalSlides = 27;
   const maxStepForCurrentSlide = slideMaxSteps[currentSlide] || 1;
 
   useEffect(() => {
@@ -208,6 +210,9 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
       } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
         e.preventDefault();
         handlePrev();
+      } else if (e.key === '?' || e.key === 'h' || e.key === 'H') {
+        e.preventDefault();
+        goToSlide(1);
       } else if (e.key === 'Home') {
         e.preventDefault();
         goToSlide(1);
@@ -274,7 +279,7 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
     }),
   };
 
-  const isSDG3 = currentSlide <= 11;
+  const isSDG3 = currentSlide <= 12;
 
   return (
     <div className="fixed inset-0 bg-[#030806] text-white overflow-hidden flex flex-col justify-between select-none">
@@ -475,15 +480,19 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
             <div className="liquid-glass-strong rounded-2xl p-4 flex flex-col h-full max-h-[75vh] border border-white/15">
               <div className="flex items-center justify-between pb-3 border-b border-white/10 mb-3 text-xs">
                 <span className="font-mono text-emerald-300">
-                  {currentSlide === 2
-                    ? 'Bảng điểm & Danh sách nhóm gốc (Nhóm 4: CANDY)'
-                    : currentSlide === 24
-                    ? 'Bản trình chiếu gốc (PDF Slide 22 - Trích nguồn)'
+                  {currentSlide === 1
+                    ? 'Cẩm nang Hướng dẫn sử dụng & Thiết lập trình chiếu'
+                    : currentSlide === 2
+                    ? 'Bản trình chiếu gốc (PDF Slide 1 - Trang bìa)'
+                    : currentSlide === 3
+                    ? 'Bảng phân chia 3 khu vực & Danh sách nhóm (Nhóm 4 CANDY)'
                     : currentSlide === 25
-                    ? 'Phụ lục Từ điển Thuật ngữ & Kịch bản Q&A'
+                    ? 'Bản trình chiếu gốc (PDF Slide 22 - Trích nguồn)'
                     : currentSlide === 26
+                    ? 'Phụ lục Từ điển Thuật ngữ & Kịch bản Q&A'
+                    : currentSlide === 27
                     ? 'Phụ lục Bộ câu hỏi Trắc nghiệm 12 câu'
-                    : `Bản trình chiếu gốc (PDF Slide ${currentSlide > 2 ? currentSlide - 1 : currentSlide})`}
+                    : `Bản trình chiếu gốc (PDF Slide ${currentSlide > 3 ? currentSlide - 2 : currentSlide - 1})`}
                 </span>
                 <button
                   type="button"
@@ -496,13 +505,15 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
               <div className="flex-1 bg-black/60 rounded-xl overflow-hidden flex items-center justify-center p-2">
                 <img
                   src={
-                    currentSlide === 2
+                    currentSlide === 1
+                      ? '/qr_poster.png'
+                      : currentSlide === 2
+                      ? '/slides/slide_1.png'
+                      : currentSlide === 3
                       ? '/slides/team_candy.png'
-                      : currentSlide === 24 || currentSlide === 25 || currentSlide === 26
+                      : currentSlide >= 25
                       ? '/slides/slide_22.png'
-                      : currentSlide > 2
-                      ? `/slides/slide_${currentSlide - 1}.png`
-                      : `/slides/slide_${currentSlide}.png`
+                      : `/slides/slide_${currentSlide - 2}.png`
                   }
                   alt={`Slide ${currentSlide}`}
                   className="max-h-full max-w-full object-contain rounded-lg shadow-2xl"

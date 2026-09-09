@@ -383,14 +383,23 @@ export const TeamMembersSlide: React.FC<TeamMembersSlideProps> = ({
 
         <div className="flex items-center gap-2">
           {onGoToSlide && (
-            <button
-              type="button"
-              onClick={() => onGoToSlide(3)}
+            <>
+              <button
+                type="button"
+                onClick={() => onGoToSlide(2)}
+                className="liquid-glass rounded-xl px-3 py-1.5 text-xs text-white/70 hover:text-white flex items-center gap-1.5 cursor-pointer"
+              >
+                <span>← Trang bìa (Slide 2)</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => onGoToSlide(4)}
               className="liquid-glass-strong rounded-xl px-4 py-1.5 text-xs sm:text-sm font-medium text-white flex items-center gap-2 hover:brightness-125 transition-all cursor-pointer border border-emerald-400/40 shadow-lg hover:scale-105"
             >
               <span>Bắt đầu Phần I — SDG 3</span>
               <span className="text-emerald-400 font-bold">→</span>
             </button>
+            </>
           )}
         </div>
       </div>

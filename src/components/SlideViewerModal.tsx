@@ -54,18 +54,22 @@ export const SlideViewerModal: React.FC<SlideViewerModalProps> = ({
             <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-4">
               <div className="flex items-center gap-3">
                 <span className="liquid-glass rounded-full px-3 py-1 text-xs font-semibold text-white/90">
-                  Slide {slideNumber} / 26
+                  Slide {slideNumber} / 27
                 </span>
                 <h3 className="font-heading italic text-xl md:text-2xl text-white">
-                  {slideNumber === 2
-                    ? 'Bảng điểm & Danh sách nhóm (UEH)'
-                    : slideNumber === 24
-                    ? 'Phụ lục Trích nguồn & Cơ sở dữ liệu'
+                  {slideNumber === 1
+                    ? 'Cẩm nang Hướng dẫn sử dụng & Thiết lập trình chiếu'
+                    : slideNumber === 2
+                    ? 'Bản trình chiếu gốc (PDF Slide 1 - Trang bìa)'
+                    : slideNumber === 3
+                    ? 'Bảng điểm & Danh sách nhóm CANDY (UEH)'
                     : slideNumber === 25
-                    ? 'Phụ lục Từ điển Thuật ngữ & Kịch bản Q&A'
+                    ? 'Phụ lục Trích nguồn & Cơ sở dữ liệu'
                     : slideNumber === 26
+                    ? 'Phụ lục Từ điển Thuật ngữ & Kịch bản Q&A'
+                    : slideNumber === 27
                     ? 'Phụ lục Bộ câu hỏi Trắc nghiệm (12 câu)'
-                    : `Bản trình chiếu gốc (PDF Slide ${slideNumber > 2 ? slideNumber - 1 : slideNumber})`}
+                    : `Bản trình chiếu gốc (PDF Slide ${slideNumber > 3 ? slideNumber - 2 : slideNumber - 1})`}
                 </h3>
               </div>
               <button
@@ -80,7 +84,28 @@ export const SlideViewerModal: React.FC<SlideViewerModalProps> = ({
 
             {/* Image Container */}
             <div className="flex-1 overflow-auto rounded-xl bg-black/50 border border-white/5 flex items-center justify-center p-4">
-              {slideNumber === 2 ? (
+              {slideNumber === 1 ? (
+                <div className="text-center max-w-lg p-6 liquid-glass rounded-2xl border border-emerald-500/30">
+                  <div className="text-xs font-mono text-emerald-300 uppercase tracking-wider mb-2">
+                    Slide 1 • Cẩm Nang Hướng Dẫn & Thiết Lập Trình Chiếu
+                  </div>
+                  <h4 className="font-heading italic text-2xl text-white mb-3">
+                    Hướng Dẫn Sử Dụng & Thiết Lập Máy Chiếu
+                  </h4>
+                  <p className="text-xs text-white/75 font-light leading-relaxed mb-4">
+                    Slide 1 cung cấp hướng dẫn toàn diện: Nhấn phím F11 để bật chế độ Toàn màn hình, đặt Zoom trình duyệt ở 100% (Ctrl+0), sử dụng phím Space / Mũi tên để điều hướng và các điểm chạm tương tác QR, biểu đồ, minigame.
+                  </p>
+                  <span className="text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-400/30">
+                    Thiết lập chuẩn phòng chiếu UEH
+                  </span>
+                </div>
+              ) : slideNumber === 2 ? (
+                <img
+                  src="/slides/slide_1.png"
+                  alt="Slide 2 Trang bìa"
+                  className="max-h-[65vh] w-auto object-contain rounded-lg shadow-2xl"
+                />
+              ) : slideNumber === 3 ? (
                 <div className="flex flex-col lg:flex-row items-center justify-center gap-4 max-h-full overflow-auto p-2">
                   <div className="flex flex-col items-center">
                     <img
@@ -103,46 +128,46 @@ export const SlideViewerModal: React.FC<SlideViewerModalProps> = ({
                     </div>
                   </div>
                 </div>
-              ) : slideNumber === 24 ? (
+              ) : slideNumber === 25 ? (
                 <div className="text-center max-w-lg p-6 liquid-glass rounded-2xl border border-emerald-500/30">
                   <div className="text-xs font-mono text-emerald-300 uppercase tracking-wider mb-2">
-                    Slide 24 • Phụ Lục Nghiên Cứu & Trích Nguồn
+                    Slide 25 • Phụ Lục Nghiên Cứu & Trích Nguồn
                   </div>
                   <h4 className="font-heading italic text-2xl text-white mb-3">
                     Danh Mục Trích Nguồn & Cơ Sở Dữ Liệu
                   </h4>
                   <p className="text-xs text-white/75 font-light leading-relaxed mb-4">
-                    Slide 24 được bổ sung trực tiếp trong bản trình chiếu tương tác nhằm lưu trữ toàn bộ nguồn trích dẫn từ WHO, UNESCO, UNDP, World Bank, Vinamilk và Nestlé theo chuẩn trích dẫn khoa học.
+                    Slide 25 được bổ sung trực tiếp trong bản trình chiếu tương tác nhằm lưu trữ toàn bộ nguồn trích dẫn từ WHO, UNESCO, UNDP, World Bank, Vinamilk và Nestlé theo chuẩn trích dẫn khoa học.
                   </p>
                   <span className="text-[11px] font-mono text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-400/30">
                     Bản slide tương tác kỹ thuật số
                   </span>
                 </div>
-              ) : slideNumber === 25 ? (
+              ) : slideNumber === 26 ? (
                 <div className="text-center max-w-lg p-6 liquid-glass rounded-2xl border border-amber-500/30">
                   <div className="text-xs font-mono text-amber-300 uppercase tracking-wider mb-2">
-                    Slide 25 • Cẩm Nang Phản Biện & Thuật Ngữ
+                    Slide 26 • Cẩm Nang Phản Biện & Thuật Ngữ
                   </div>
                   <h4 className="font-heading italic text-2xl text-white mb-3">
                     Từ Điển Thuật Ngữ & Kịch Bản Q&A
                   </h4>
                   <p className="text-xs text-white/75 font-light leading-relaxed mb-4">
-                    Slide 25 được bổ sung theo tài liệu học phần nhằm trang bị định nghĩa 11 thuật ngữ cốt lõi và 2 kịch bản hóa giải câu hỏi bẫy của hội đồng bảo vệ.
+                    Slide 26 được bổ sung theo tài liệu học phần nhằm trang bị định nghĩa 11 thuật ngữ cốt lõi và 2 kịch bản hóa giải câu hỏi bẫy của hội đồng bảo vệ.
                   </p>
                   <span className="text-[11px] font-mono text-amber-400 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-400/30">
                     Trích xuất từ Tu_Dien_Thuat_Ngu_PTBV_QA.docx
                   </span>
                 </div>
-              ) : slideNumber === 26 ? (
+              ) : slideNumber === 27 ? (
                 <div className="text-center max-w-lg p-6 liquid-glass rounded-2xl border border-pink-500/30">
                   <div className="text-xs font-mono text-pink-300 uppercase tracking-wider mb-2">
-                    Slide 26 • Minigame Đánh Giá Kiến Thức
+                    Slide 27 • Minigame Đánh Giá Kiến Thức
                   </div>
                   <h4 className="font-heading italic text-2xl text-white mb-3">
                     Bộ Câu Hỏi Trắc Nghiệm 12 Câu
                   </h4>
                   <p className="text-xs text-white/75 font-light leading-relaxed mb-4">
-                    Slide 26 tích hợp minigame trắc nghiệm 12 câu hỏi học thuật tương tác trực tiếp, có bấm chọn đáp án và hiển thị giải thích chi tiết.
+                    Slide 27 tích hợp minigame trắc nghiệm 12 câu hỏi học thuật tương tác trực tiếp, có bấm chọn đáp án và hiển thị giải thích chi tiết.
                   </p>
                   <span className="text-[11px] font-mono text-pink-400 bg-pink-500/10 px-3 py-1 rounded-full border border-pink-400/30">
                     Trích xuất từ Bo_Cau_Hoi_Trac_Nghiem_SDG3_SDG4.docx
@@ -150,7 +175,7 @@ export const SlideViewerModal: React.FC<SlideViewerModalProps> = ({
                 </div>
               ) : (
                 <img
-                  src={`/slides/slide_${slideNumber > 2 ? slideNumber - 1 : slideNumber}.png`}
+                  src={`/slides/slide_${slideNumber - 2}.png`}
                   alt={`Slide ${slideNumber}`}
                   className="max-h-[65vh] w-auto object-contain rounded-lg shadow-2xl"
                 />
@@ -180,7 +205,7 @@ export const SlideViewerModal: React.FC<SlideViewerModalProps> = ({
                 <button
                   type="button"
                   onClick={() => onNavigate && onNavigate('next')}
-                  disabled={slideNumber >= 16}
+                  disabled={slideNumber >= 27}
                   className="liquid-glass px-3 py-1 rounded-full text-white/80 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed"
                 >
                   Trang tiếp

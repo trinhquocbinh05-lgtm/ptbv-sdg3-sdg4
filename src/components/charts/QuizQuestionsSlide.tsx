@@ -270,7 +270,7 @@ export const QuizQuestionsSlide: React.FC<QuizQuestionsSlideProps> = ({ onGoToSl
           <div className="flex items-center gap-2 mb-1">
             <span className="liquid-glass rounded-full px-3 py-0.5 text-xs font-mono text-emerald-300 font-semibold uppercase tracking-wider flex items-center gap-1.5 border border-emerald-400/30">
               <SparklesIcon className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Slide 26 • Bộ Câu Hỏi Trắc Nghiệm & Minigame Kiến Thức</span>
+              <span>Slide 27 • Bộ Câu Hỏi Trắc Nghiệm & Minigame Kiến Thức</span>
             </span>
             <span className="liquid-glass rounded-full px-2.5 py-0.5 text-xs font-mono text-pink-300 font-bold border border-pink-400/30">
               12 CÂU HỎI HỌC THUẬT
@@ -480,17 +480,17 @@ export const QuizQuestionsSlide: React.FC<QuizQuestionsSlideProps> = ({ onGoToSl
             <>
               <button
                 type="button"
-                onClick={() => onGoToSlide(25)}
+                onClick={() => onGoToSlide(26)}
                 className="liquid-glass rounded-xl px-3 py-1.5 text-xs text-white/70 hover:text-white flex items-center gap-1.5 cursor-pointer"
               >
-                <span>← Cẩm nang Thuật ngữ (Slide 25)</span>
+                <span>← Cẩm nang Thuật ngữ (Slide 26)</span>
               </button>
               <button
                 type="button"
-                onClick={() => onGoToSlide(23)}
+                onClick={() => onGoToSlide(24)}
                 className="liquid-glass rounded-xl px-3 py-1.5 text-xs text-emerald-300 hover:text-white flex items-center gap-1.5 cursor-pointer border border-emerald-400/30"
               >
-                <span>Về Bìa kết (Slide 23)</span>
+                <span>Về Bìa kết (Slide 24)</span>
               </button>
             </>
           )}
