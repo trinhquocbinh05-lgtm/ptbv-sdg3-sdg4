@@ -207,9 +207,9 @@ export const TeamMembersSlide: React.FC<TeamMembersSlideProps> = ({
   const isVisible = (targetStep: number) => showAll || step >= targetStep;
 
   return (
-    <div className="flex flex-col flex-1 my-auto justify-center max-w-7xl 2xl:max-w-[1600px] mx-auto w-full px-2 sm:px-4 py-2">
+    <div className="flex flex-col flex-1 my-auto justify-center max-w-7xl 2xl:max-w-[1600px] mx-auto w-full px-2 sm:px-3 py-1">
       {/* Header section */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 mb-3 pb-2.5 border-b border-white/10">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-3 mb-1.5 pb-1.5 border-b border-white/10">
         <div>
           <div className="flex items-center gap-2 mb-1">
             <span className="liquid-glass rounded-full px-3 py-0.5 text-xs font-mono text-emerald-300 font-semibold uppercase tracking-wider flex items-center gap-1.5 border border-emerald-400/30">
@@ -220,7 +220,7 @@ export const TeamMembersSlide: React.FC<TeamMembersSlideProps> = ({
               NHÓM 4 — CANDY
             </span>
           </div>
-          <h2 className="text-2xl sm:text-4xl font-heading italic text-white tracking-tight">
+          <h2 className="text-xl sm:text-3xl font-heading italic text-white tracking-tight">
             Phân Công & Danh Sách Thành Viên Thực Hiện
           </h2>
           <p className="text-xs sm:text-sm text-white/70 font-light mt-0.5">
@@ -245,7 +245,7 @@ export const TeamMembersSlide: React.FC<TeamMembersSlideProps> = ({
       </div>
 
       {/* 3 DISTINCT AREAS (Columns) */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3.5 sm:gap-4 my-auto">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-2.5 sm:gap-3 my-auto">
         {TEAM_AREAS.map((area, areaIdx) => {
           const isAreaVisible = isVisible(areaIdx);
 
@@ -259,7 +259,7 @@ export const TeamMembersSlide: React.FC<TeamMembersSlideProps> = ({
                 y: 0,
               }}
               transition={{ duration: 0.35, delay: areaIdx * 0.05 }}
-              className={`liquid-glass-strong rounded-2xl p-3.5 sm:p-4 border flex flex-col justify-between transition-all duration-300 shadow-xl ${
+              className={`liquid-glass-strong rounded-xl p-2.5 sm:p-3 border flex flex-col justify-between transition-all duration-300 shadow-xl ${
                 isAreaVisible
                   ? area.borderGlow
                   : 'border-white/10 opacity-50'
@@ -267,7 +267,7 @@ export const TeamMembersSlide: React.FC<TeamMembersSlideProps> = ({
             >
               {/* Column Header */}
               <div>
-                <div className="flex items-center justify-between gap-2 mb-2 pb-2 border-b border-white/10">
+                <div className="flex items-center justify-between gap-2 mb-1.5 pb-1 border-b border-white/10">
                   <div className="flex items-center gap-2">
                     {area.id === 'synthesis' && <SparklesIcon className="w-4 h-4 text-amber-300" />}
                     {area.id === 'sdg3' && <HeartPulseIcon className="w-4 h-4 text-emerald-300" />}
@@ -281,12 +281,12 @@ export const TeamMembersSlide: React.FC<TeamMembersSlideProps> = ({
                   </span>
                 </div>
 
-                <p className="text-[11px] sm:text-xs text-white/60 mb-3 italic">
+                <p className="text-[11px] sm:text-xs text-white/60 mb-1.5 text-[10px] italic">
                   {area.subTitle}
                 </p>
 
                 {/* Member Cards in this area */}
-                <div className="space-y-2">
+                <div className="space-y-1">
                   {area.members.map((member) => {
                     const isLeader = member.roleType === 'leader';
                     const isAreaLead = member.roleType === 'area-lead';
@@ -294,7 +294,7 @@ export const TeamMembersSlide: React.FC<TeamMembersSlideProps> = ({
                     return (
                       <div
                         key={member.mssv}
-                        className={`liquid-glass rounded-xl p-2.5 border transition-all flex items-center gap-2.5 ${
+                        className={`liquid-glass rounded-lg p-1.5 sm:p-2 border transition-all flex items-center gap-2 ${
                           isLeader
                             ? 'border-amber-400/50 bg-amber-500/10'
                             : isAreaLead
@@ -304,7 +304,7 @@ export const TeamMembersSlide: React.FC<TeamMembersSlideProps> = ({
                       >
                         {/* Initials Avatar */}
                         <div
-                          className={`w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-gradient-to-br ${member.avatarGradient} p-0.5 flex-shrink-0 shadow`}
+                          className={`w-7 h-7 sm:w-8 sm:h-8 rounded-md bg-gradient-to-br ${member.avatarGradient} p-0.5 flex-shrink-0 shadow`}
                         >
                           <div className="w-full h-full bg-black/65 rounded-[6px] flex items-center justify-center">
                             <span className="text-xs font-bold font-mono text-white">

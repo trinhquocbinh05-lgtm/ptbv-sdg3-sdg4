@@ -31,18 +31,18 @@ export const VietnamHDIAndNCDChart: React.FC = () => {
   const activeItem = causes.find((c) => c.id === selectedCause) || causes[0];
 
   return (
-    <div className="liquid-glass-natural rounded-2xl p-5 sm:p-6 lg:p-7 border border-white/10 shadow-xl">
-      <div className="flex items-center justify-between pb-3 mb-4 border-b border-white/10">
+    <div className="liquid-glass-natural rounded-xl p-3 sm:p-3.5 border border-white/10 shadow-xl">
+      <div className="flex items-center justify-between pb-1.5 mb-2 border-b border-white/10">
         <span className="text-xs sm:text-sm font-mono font-bold text-emerald-300 uppercase tracking-wider">
           Biểu đồ Cơ cấu Tử vong & Thách thức Y tế VN
         </span>
         <span className="text-xs text-white/50 font-mono">WHO & Bộ Y Tế</span>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-12 gap-6 items-center">
+      <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center">
         {/* SVG Donut Chart (5 cols) */}
         <div className="sm:col-span-5 flex flex-col items-center justify-center relative">
-          <svg viewBox="0 0 120 120" className="w-40 h-40 sm:w-48 sm:h-48 transform -rotate-90">
+          <svg viewBox="0 0 120 120" className="w-28 h-28 sm:w-32 sm:h-32 transform -rotate-90">
             {/* Background ring */}
             <circle
               cx="60"

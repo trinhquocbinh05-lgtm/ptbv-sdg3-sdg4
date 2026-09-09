@@ -6,9 +6,9 @@ export const DALYsBreakdownChart: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'dalys' | 'hale'>('dalys');
 
   return (
-    <div className="liquid-glass-natural rounded-2xl p-5 border border-emerald-500/20 shadow-xl">
+    <div className="liquid-glass-natural rounded-xl p-3 sm:p-3.5 border border-emerald-500/20 shadow-xl">
       {/* Tab Switcher */}
-      <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/10">
+      <div className="flex items-center justify-between pb-1.5 mb-2 border-b border-white/10">
         <div className="flex items-center gap-2">
           <HeartPulseIcon className="w-4 h-4 text-emerald-400 animate-pulse" />
           <span className="text-xs font-mono font-bold text-emerald-300 uppercase tracking-wider">
@@ -50,7 +50,7 @@ export const DALYsBreakdownChart: React.FC = () => {
           </div>
 
           {/* Stacked Animated Bar */}
-          <div className="h-8 sm:h-9 w-full bg-black/60 rounded-full overflow-hidden flex p-1 border border-white/10 mb-4 shadow-inner">
+          <div className="h-6 sm:h-7 w-full bg-black/60 rounded-full overflow-hidden flex p-0.5 border border-white/10 mb-2 shadow-inner">
             <AnimatedProgressBar
               width="58%"
               duration={1.2}

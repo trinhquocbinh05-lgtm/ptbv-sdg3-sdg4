@@ -433,7 +433,7 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
       {/* Main Slide Canvas */}
       <div
         ref={scrollContainerRef}
-        className="relative z-10 flex-1 flex flex-col overflow-y-auto px-4 sm:px-6 lg:px-10 pt-4 pb-16 custom-scrollbar"
+        className="relative z-10 flex-1 flex flex-col overflow-y-auto px-2 sm:px-4 lg:px-8 pt-1 sm:pt-1.5 pb-6 sm:pb-8 custom-scrollbar"
       >
         {/* Left Side: Modern Interactive Slide Content */}
         <div
@@ -449,7 +449,7 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
               initial="enter"
               animate="center"
               exit="exit"
-              className="w-full max-w-7xl 2xl:max-w-[1600px] mx-auto flex flex-col flex-1 py-2 my-auto justify-center"
+              className="w-full max-w-7xl 2xl:max-w-[1600px] mx-auto flex flex-col flex-1 py-0.5 my-auto justify-center"
               style={{
                 zoom: slideZoom !== 1 ? slideZoom : undefined,
               }}

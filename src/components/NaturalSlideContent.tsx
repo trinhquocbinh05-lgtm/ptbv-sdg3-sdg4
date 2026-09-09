@@ -69,10 +69,10 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
 
     case 2:
       return (
-        <div className="text-center flex flex-col items-center justify-center my-auto py-10">
+        <div className="text-center flex flex-col items-center justify-center my-auto py-3 sm:py-5">
           <BlurText
             text="Phát Triển Bền Vững"
-            className="text-4xl sm:text-6xl lg:text-7xl font-heading italic text-white leading-tight tracking-[-2px] mb-3 max-w-4xl"
+            className="text-4xl sm:text-6xl lg:text-7xl font-heading italic text-white leading-tight tracking-[-2px] mb-1.5 max-w-4xl"
           />
 
           <motion.div
@@ -88,7 +88,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.25 }}
-            className="text-lg sm:text-xl text-white/80 font-light italic tracking-wider mb-8"
+            className="text-lg sm:text-xl text-white/80 font-light italic tracking-wider mb-3 sm:mb-4"
           >
             Phân tích chuyên sâu
           </motion.p>
@@ -101,7 +101,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
                 transition={{ duration: 0.6, ease: 'easeOut' }}
                 className="flex flex-col items-center"
               >
-                <div className="liquid-glass rounded-2xl px-10 py-5 mb-6 border border-emerald-500/20 shadow-xl max-w-md w-full">
+                <div className="liquid-glass rounded-2xl px-8 py-3.5 mb-3.5 border border-emerald-500/20 shadow-xl max-w-md w-full">
                   <div className="text-2xl font-heading italic text-white mb-2">
                     Nhóm: Candy
                   </div>
@@ -156,7 +156,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3 }}
                   onClick={onOpenQRModal}
-                  className="mt-6 flex flex-col sm:flex-row items-center gap-3.5 liquid-glass-natural rounded-2xl px-5 py-3 border border-emerald-400/40 hover:border-emerald-400 hover:bg-white/10 transition-all cursor-pointer shadow-xl group max-w-md"
+                  className="mt-3.5 flex flex-col sm:flex-row items-center gap-2.5 liquid-glass-natural rounded-xl px-4 py-2 border border-emerald-400/40 hover:border-emerald-400 hover:bg-white/10 transition-all cursor-pointer shadow-xl group max-w-md"
                   title="Bấm vào để phóng to mã QR toàn màn hình"
                 >
                   <div className="w-14 h-14 bg-white rounded-xl p-1 shadow-md flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform border border-emerald-400/50">
@@ -313,7 +313,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
                   <button
                     type="button"
                     onClick={onNextStep}
-                    className="w-full liquid-glass rounded-2xl p-6 min-h-[130px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
+                    className="w-full liquid-glass rounded-xl p-4 min-h-[110px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
                     title="Bấm vào đây để mở: Mô hình Bánh cưới"
                   >
                     <div className="flex items-center gap-2">
@@ -374,7 +374,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
                   <button
                     type="button"
                     onClick={onNextStep}
-                    className="w-full liquid-glass rounded-2xl p-6 min-h-[130px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
+                    className="w-full liquid-glass rounded-xl p-4 min-h-[110px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
                     title="Bấm vào đây để mở: Nguyên tắc 3Es"
                   >
                     <div className="flex items-center gap-2">
@@ -416,19 +416,19 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
             </button>
           </div>
 
-          <h2 className="font-heading italic text-3xl sm:text-4xl lg:text-5xl text-white tracking-[-1.5px] mb-6">
+          <h2 className="font-heading italic text-3xl sm:text-4xl lg:text-5xl text-white tracking-[-1.5px] mb-2.5">
             Các Công cụ Đo lường Sức khỏe Toàn diện
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6 mb-5">
             {/* Card 1: DALYs */}
-            <div className="min-h-[260px]">
+            <div className="min-h-[185px]">
               <AnimatePresence>
                 {isVisible(1) ? (
                   <motion.div
                     initial={{ opacity: 0, filter: 'blur(10px)', y: 20 }}
                     animate={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
-                    className="liquid-glass-natural rounded-3xl p-6 sm:p-7 h-full flex flex-col justify-between border-t-2 border-emerald-400 shadow-xl"
+                    className="liquid-glass-natural rounded-2xl p-4 sm:p-5 h-full flex flex-col justify-between border-t-2 border-emerald-400 shadow-xl"
                   >
                     <div>
                       <div className="flex items-center justify-between mb-1.5">
@@ -454,7 +454,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
                   <button
                     type="button"
                     onClick={() => (onSetStep ? onSetStep(1) : onNextStep?.())}
-                    className="w-full liquid-glass rounded-3xl p-6 min-h-[160px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2.5 text-xs sm:text-sm text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
+                    className="w-full liquid-glass rounded-3xl p-6 min-h-[120px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2.5 text-xs sm:text-sm text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
                     title="Bấm vào đây để mở: DALYs"
                   >
                     <div className="flex items-center gap-2">
@@ -473,13 +473,13 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
             </div>
 
             {/* Card 2: LE (Life Expectancy) */}
-            <div className="min-h-[260px]">
+            <div className="min-h-[185px]">
               <AnimatePresence>
                 {isVisible(2) ? (
                   <motion.div
                     initial={{ opacity: 0, filter: 'blur(10px)', y: 20 }}
                     animate={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
-                    className="liquid-glass-natural rounded-3xl p-6 sm:p-7 h-full flex flex-col justify-between border-t-2 border-teal-400 shadow-xl"
+                    className="liquid-glass-natural rounded-2xl p-4 sm:p-5 h-full flex flex-col justify-between border-t-2 border-teal-400 shadow-xl"
                   >
                     <div>
                       <div className="flex items-center justify-between mb-1.5">
@@ -503,7 +503,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
                   <button
                     type="button"
                     onClick={() => (onSetStep ? onSetStep(2) : onNextStep?.())}
-                    className="w-full liquid-glass rounded-3xl p-6 min-h-[160px] border border-dashed border-teal-500/40 hover:border-teal-400 bg-teal-950/20 hover:bg-teal-500/10 flex flex-col items-center justify-center gap-2.5 text-xs sm:text-sm text-teal-300/80 hover:text-teal-200 cursor-pointer transition-all duration-200 group shadow-md"
+                    className="w-full liquid-glass rounded-3xl p-6 min-h-[120px] border border-dashed border-teal-500/40 hover:border-teal-400 bg-teal-950/20 hover:bg-teal-500/10 flex flex-col items-center justify-center gap-2.5 text-xs sm:text-sm text-teal-300/80 hover:text-teal-200 cursor-pointer transition-all duration-200 group shadow-md"
                     title="Bấm vào đây để mở: LE"
                   >
                     <div className="flex items-center gap-2">
@@ -522,13 +522,13 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
             </div>
 
             {/* Card 3: HDI Sức khỏe */}
-            <div className="min-h-[260px]">
+            <div className="min-h-[185px]">
               <AnimatePresence>
                 {isVisible(3) ? (
                   <motion.div
                     initial={{ opacity: 0, filter: 'blur(10px)', y: 20 }}
                     animate={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
-                    className="liquid-glass-natural rounded-3xl p-6 sm:p-7 h-full flex flex-col justify-between border-t-2 border-amber-400 shadow-xl"
+                    className="liquid-glass-natural rounded-2xl p-4 sm:p-5 h-full flex flex-col justify-between border-t-2 border-amber-400 shadow-xl"
                   >
                     <div>
                       <div className="flex items-center justify-between mb-1.5">
@@ -552,7 +552,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
                   <button
                     type="button"
                     onClick={() => (onSetStep ? onSetStep(3) : onNextStep?.())}
-                    className="w-full liquid-glass rounded-3xl p-6 min-h-[160px] border border-dashed border-amber-500/40 hover:border-amber-400 bg-amber-950/20 hover:bg-amber-500/10 flex flex-col items-center justify-center gap-2.5 text-xs sm:text-sm text-amber-300/80 hover:text-amber-200 cursor-pointer transition-all duration-200 group shadow-md"
+                    className="w-full liquid-glass rounded-3xl p-6 min-h-[120px] border border-dashed border-amber-500/40 hover:border-amber-400 bg-amber-950/20 hover:bg-amber-500/10 flex flex-col items-center justify-center gap-2.5 text-xs sm:text-sm text-amber-300/80 hover:text-amber-200 cursor-pointer transition-all duration-200 group shadow-md"
                     title="Bấm vào đây để mở: HDI Sức khỏe"
                   >
                     <div className="flex items-center gap-2">
@@ -847,7 +847,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {/* Card 1: Tai nạn giao thông */}
-            <div className="min-h-[220px]">
+            <div className="min-h-[160px]">
               <AnimatePresence>
                 {isVisible(1) ? (
                   <motion.div
@@ -870,7 +870,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
                   <button
                     type="button"
                     onClick={onNextStep}
-                    className="w-full liquid-glass rounded-2xl p-6 min-h-[130px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
+                    className="w-full liquid-glass rounded-xl p-4 min-h-[110px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
                     title="Bấm vào đây để mở: Tai nạn"
                   >
                     <div className="flex items-center gap-2">
@@ -889,7 +889,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
             </div>
 
             {/* Card 2: Bất bình đẳng bao phủ Y tế */}
-            <div className="min-h-[220px]">
+            <div className="min-h-[160px]">
               <AnimatePresence>
                 {isVisible(2) ? (
                   <motion.div
@@ -914,7 +914,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
                   <button
                     type="button"
                     onClick={onNextStep}
-                    className="w-full liquid-glass rounded-2xl p-6 min-h-[130px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
+                    className="w-full liquid-glass rounded-xl p-4 min-h-[110px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
                     title="Bấm vào đây để mở: UHC"
                   >
                     <div className="flex items-center gap-2">
@@ -933,7 +933,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
             </div>
 
             {/* Card 3: NCDs & Sức khỏe tâm thần */}
-            <div className="min-h-[220px]">
+            <div className="min-h-[160px]">
               <AnimatePresence>
                 {isVisible(3) ? (
                   <motion.div
@@ -958,7 +958,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
                   <button
                     type="button"
                     onClick={onNextStep}
-                    className="w-full liquid-glass rounded-2xl p-6 min-h-[130px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
+                    className="w-full liquid-glass rounded-xl p-4 min-h-[110px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
                     title="Bấm vào đây để mở: NCDs"
                   >
                     <div className="flex items-center gap-2">
@@ -977,7 +977,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
             </div>
 
             {/* Card 4: Khủng hoảng nhân lực y tế */}
-            <div className="min-h-[220px]">
+            <div className="min-h-[160px]">
               <AnimatePresence>
                 {isVisible(4) ? (
                   <motion.div
@@ -1000,7 +1000,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
                   <button
                     type="button"
                     onClick={onNextStep}
-                    className="w-full liquid-glass rounded-2xl p-6 min-h-[130px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
+                    className="w-full liquid-glass rounded-xl p-4 min-h-[110px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
                     title="Bấm vào đây để mở: Nhân lực"
                   >
                     <div className="flex items-center gap-2">
@@ -1048,7 +1048,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
             {/* Card 1: HDI */}
-            <div className="min-h-[200px]">
+            <div className="min-h-[145px]">
               <AnimatePresence>
                 {isVisible(1) ? (
                   <motion.div
@@ -1071,7 +1071,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
                   <button
                     type="button"
                     onClick={onNextStep}
-                    className="w-full liquid-glass rounded-2xl p-6 min-h-[130px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
+                    className="w-full liquid-glass rounded-xl p-4 min-h-[110px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
                     title="Bấm vào đây để mở: HDI Việt Nam"
                   >
                     <div className="flex items-center gap-2">
@@ -1090,7 +1090,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
             </div>
 
             {/* Card 2: VNeID */}
-            <div className="min-h-[200px]">
+            <div className="min-h-[145px]">
               <AnimatePresence>
                 {isVisible(2) ? (
                   <motion.div
@@ -1113,7 +1113,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
                   <button
                     type="button"
                     onClick={onNextStep}
-                    className="w-full liquid-glass rounded-2xl p-6 min-h-[130px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
+                    className="w-full liquid-glass rounded-xl p-4 min-h-[110px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
                     title="Bấm vào đây để mở: VNeID Chuyển đổi số"
                   >
                     <div className="flex items-center gap-2">
@@ -1132,7 +1132,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
             </div>
 
             {/* Card 3: NCDs */}
-            <div className="min-h-[200px]">
+            <div className="min-h-[145px]">
               <AnimatePresence>
                 {isVisible(3) ? (
                   <motion.div
@@ -1155,7 +1155,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
                   <button
                     type="button"
                     onClick={onNextStep}
-                    className="w-full liquid-glass rounded-2xl p-6 min-h-[130px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
+                    className="w-full liquid-glass rounded-xl p-4 min-h-[110px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
                     title="Bấm vào đây để mở: Gánh nặng NCDs"
                   >
                     <div className="flex items-center gap-2">
@@ -1244,7 +1244,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
             {/* Card 1: Hành động 1 */}
-            <div className="min-h-[240px]">
+            <div className="min-h-[165px]">
               <AnimatePresence>
                 {isVisible(1) ? (
                   <motion.div
@@ -1268,7 +1268,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
                   <button
                     type="button"
                     onClick={onNextStep}
-                    className="w-full liquid-glass rounded-2xl p-6 min-h-[130px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
+                    className="w-full liquid-glass rounded-xl p-4 min-h-[110px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
                     title="Bấm vào đây để mở: Hành động 1"
                   >
                     <div className="flex items-center gap-2">
@@ -1287,7 +1287,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
             </div>
 
             {/* Card 2: Hành động 2 */}
-            <div className="min-h-[240px]">
+            <div className="min-h-[165px]">
               <AnimatePresence>
                 {isVisible(2) ? (
                   <motion.div
@@ -1310,7 +1310,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
                   <button
                     type="button"
                     onClick={onNextStep}
-                    className="w-full liquid-glass rounded-2xl p-6 min-h-[130px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
+                    className="w-full liquid-glass rounded-xl p-4 min-h-[110px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
                     title="Bấm vào đây để mở: Hành động 2"
                   >
                     <div className="flex items-center gap-2">
@@ -1329,7 +1329,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
             </div>
 
             {/* Card 3: Hành động 3 */}
-            <div className="min-h-[240px]">
+            <div className="min-h-[165px]">
               <AnimatePresence>
                 {isVisible(3) ? (
                   <motion.div
@@ -1352,7 +1352,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
                   <button
                     type="button"
                     onClick={onNextStep}
-                    className="w-full liquid-glass rounded-2xl p-6 min-h-[130px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
+                    className="w-full liquid-glass rounded-xl p-4 min-h-[110px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
                     title="Bấm vào đây để mở: Hành động 3"
                   >
                     <div className="flex items-center gap-2">
@@ -1612,13 +1612,13 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
             </button>
           </div>
 
-          <h2 className="font-heading italic text-3xl sm:text-4xl lg:text-5xl text-white tracking-[-1.5px] mb-6">
+          <h2 className="font-heading italic text-3xl sm:text-4xl lg:text-5xl text-white tracking-[-1.5px] mb-2.5">
             Thước đo Đo lường Giáo dục và Công thức Học thuật
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
             {/* Box 1: Tỉ lệ ghi danh GER vs NER */}
-            <div className="min-h-[280px]">
+            <div className="min-h-[190px]">
               <AnimatePresence>
                 {isVisible(1) ? (
                   <motion.div
@@ -1660,7 +1660,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
                   <button
                     type="button"
                     onClick={() => (onSetStep ? onSetStep(1) : onNextStep?.())}
-                    className="w-full liquid-glass rounded-3xl p-8 min-h-[160px] border border-dashed border-rose-500/40 hover:border-rose-400 bg-rose-950/20 hover:bg-rose-500/10 flex flex-col items-center justify-center gap-3 text-sm text-rose-300/80 hover:text-rose-200 cursor-pointer transition-all duration-200 group shadow-md"
+                    className="w-full liquid-glass rounded-3xl p-8 min-h-[120px] border border-dashed border-rose-500/40 hover:border-rose-400 bg-rose-950/20 hover:bg-rose-500/10 flex flex-col items-center justify-center gap-3 text-sm text-rose-300/80 hover:text-rose-200 cursor-pointer transition-all duration-200 group shadow-md"
                     title="Bấm vào đây để mở: GER vs NER"
                   >
                     <div className="flex items-center gap-2">
@@ -1679,7 +1679,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
             </div>
 
             {/* Box 2: Chỉ số HDI Giáo dục (EYS & MYS) */}
-            <div className="min-h-[280px]">
+            <div className="min-h-[190px]">
               <AnimatePresence>
                 {isVisible(2) ? (
                   <motion.div
@@ -1724,7 +1724,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
                   <button
                     type="button"
                     onClick={() => (onSetStep ? onSetStep(2) : onNextStep?.())}
-                    className="w-full liquid-glass rounded-3xl p-8 min-h-[160px] border border-dashed border-amber-400/40 hover:border-amber-400 bg-amber-950/20 hover:bg-amber-500/10 flex flex-col items-center justify-center gap-3 text-sm text-amber-300/80 hover:text-amber-200 cursor-pointer transition-all duration-200 group shadow-md"
+                    className="w-full liquid-glass rounded-3xl p-8 min-h-[120px] border border-dashed border-amber-400/40 hover:border-amber-400 bg-amber-950/20 hover:bg-amber-500/10 flex flex-col items-center justify-center gap-3 text-sm text-amber-300/80 hover:text-amber-200 cursor-pointer transition-all duration-200 group shadow-md"
                     title="Bấm vào đây để mở: HDI Giáo dục"
                   >
                     <div className="flex items-center gap-2">
@@ -1809,7 +1809,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {/* Card 1: Target 4.a */}
-            <div className="min-h-[240px]">
+            <div className="min-h-[165px]">
               <AnimatePresence>
                 {isVisible(1) ? (
                   <motion.div
@@ -1842,7 +1842,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
                   <button
                     type="button"
                     onClick={onNextStep}
-                    className="w-full liquid-glass rounded-2xl p-6 min-h-[130px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
+                    className="w-full liquid-glass rounded-xl p-4 min-h-[110px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
                     title="Bấm vào đây để mở: Target 4.a"
                   >
                     <div className="flex items-center gap-2">
@@ -1861,7 +1861,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
             </div>
 
             {/* Card 2: Target 4.b */}
-            <div className="min-h-[240px]">
+            <div className="min-h-[165px]">
               <AnimatePresence>
                 {isVisible(2) ? (
                   <motion.div
@@ -1894,7 +1894,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
                   <button
                     type="button"
                     onClick={onNextStep}
-                    className="w-full liquid-glass rounded-2xl p-6 min-h-[130px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
+                    className="w-full liquid-glass rounded-xl p-4 min-h-[110px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
                     title="Bấm vào đây để mở: Target 4.b"
                   >
                     <div className="flex items-center gap-2">
@@ -1913,7 +1913,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
             </div>
 
             {/* Card 3: Target 4.c */}
-            <div className="min-h-[240px]">
+            <div className="min-h-[165px]">
               <AnimatePresence>
                 {isVisible(3) ? (
                   <motion.div
@@ -1946,7 +1946,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
                   <button
                     type="button"
                     onClick={onNextStep}
-                    className="w-full liquid-glass rounded-2xl p-6 min-h-[130px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
+                    className="w-full liquid-glass rounded-xl p-4 min-h-[110px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
                     title="Bấm vào đây để mở: Target 4.c"
                   >
                     <div className="flex items-center gap-2">
@@ -1998,7 +1998,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
             {/* Card 1: Nghịch lý đi học và chất lượng */}
-            <div className="min-h-[220px]">
+            <div className="min-h-[160px]">
               <AnimatePresence>
                 {isVisible(1) ? (
                   <motion.div
@@ -2024,7 +2024,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
                   <button
                     type="button"
                     onClick={onNextStep}
-                    className="w-full liquid-glass rounded-2xl p-6 min-h-[130px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
+                    className="w-full liquid-glass rounded-xl p-4 min-h-[110px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
                     title="Bấm vào đây để mở: 84M & 300M"
                   >
                     <div className="flex items-center gap-2">
@@ -2043,7 +2043,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
             </div>
 
             {/* Card 2: Khủng hoảng cơ sở hạ tầng học đường */}
-            <div className="min-h-[220px]">
+            <div className="min-h-[160px]">
               <AnimatePresence>
                 {isVisible(2) ? (
                   <motion.div
@@ -2069,7 +2069,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
                   <button
                     type="button"
                     onClick={onNextStep}
-                    className="w-full liquid-glass rounded-2xl p-6 min-h-[130px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
+                    className="w-full liquid-glass rounded-xl p-4 min-h-[110px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
                     title="Bấm vào đây để mở: 1/4 trường học"
                   >
                     <div className="flex items-center gap-2">
@@ -2088,7 +2088,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
             </div>
 
             {/* Card 3: Chất lượng giáo viên */}
-            <div className="min-h-[220px]">
+            <div className="min-h-[160px]">
               <AnimatePresence>
                 {isVisible(3) ? (
                   <motion.div
@@ -2114,7 +2114,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
                   <button
                     type="button"
                     onClick={onNextStep}
-                    className="w-full liquid-glass rounded-2xl p-6 min-h-[130px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
+                    className="w-full liquid-glass rounded-xl p-4 min-h-[110px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
                     title="Bấm vào đây để mở: Giáo viên &gt;14%"
                   >
                     <div className="flex items-center gap-2">
@@ -2390,7 +2390,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
                   <button
                     type="button"
                     onClick={onNextStep}
-                    className="w-full liquid-glass rounded-2xl p-6 min-h-[130px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
+                    className="w-full liquid-glass rounded-xl p-4 min-h-[110px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
                     title="Bấm vào đây để mở: Thực trạng"
                   >
                     <div className="flex items-center gap-2">
@@ -2466,7 +2466,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
                   <button
                     type="button"
                     onClick={onNextStep}
-                    className="w-full liquid-glass rounded-2xl p-6 min-h-[130px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
+                    className="w-full liquid-glass rounded-xl p-4 min-h-[110px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
                     title="Bấm vào đây để mở: Giải pháp"
                   >
                     <div className="flex items-center gap-2">
@@ -2553,7 +2553,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {/* Pillar 1 */}
-            <div className="min-h-[240px]">
+            <div className="min-h-[165px]">
               <AnimatePresence>
                 {isVisible(1) ? (
                   <motion.div
@@ -2579,7 +2579,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
                   <button
                     type="button"
                     onClick={onNextStep}
-                    className="w-full liquid-glass rounded-2xl p-6 min-h-[130px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
+                    className="w-full liquid-glass rounded-xl p-4 min-h-[110px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
                     title="Bấm vào đây để mở: Trụ cột 1"
                   >
                     <div className="flex items-center gap-2">
@@ -2598,7 +2598,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
             </div>
 
             {/* Pillar 2 */}
-            <div className="min-h-[240px]">
+            <div className="min-h-[165px]">
               <AnimatePresence>
                 {isVisible(2) ? (
                   <motion.div
@@ -2624,7 +2624,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
                   <button
                     type="button"
                     onClick={onNextStep}
-                    className="w-full liquid-glass rounded-2xl p-6 min-h-[130px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
+                    className="w-full liquid-glass rounded-xl p-4 min-h-[110px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
                     title="Bấm vào đây để mở: Trụ cột 2"
                   >
                     <div className="flex items-center gap-2">
@@ -2643,7 +2643,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
             </div>
 
             {/* Pillar 3 */}
-            <div className="min-h-[240px]">
+            <div className="min-h-[165px]">
               <AnimatePresence>
                 {isVisible(3) ? (
                   <motion.div
@@ -2669,7 +2669,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
                   <button
                     type="button"
                     onClick={onNextStep}
-                    className="w-full liquid-glass rounded-2xl p-6 min-h-[130px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
+                    className="w-full liquid-glass rounded-xl p-4 min-h-[110px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
                     title="Bấm vào đây để mở: Trụ cột 3"
                   >
                     <div className="flex items-center gap-2">
@@ -2688,7 +2688,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
             </div>
 
             {/* Pillar 4 */}
-            <div className="min-h-[240px]">
+            <div className="min-h-[165px]">
               <AnimatePresence>
                 {isVisible(4) ? (
                   <motion.div
@@ -2714,7 +2714,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
                   <button
                     type="button"
                     onClick={onNextStep}
-                    className="w-full liquid-glass rounded-2xl p-6 min-h-[130px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
+                    className="w-full liquid-glass rounded-xl p-4 min-h-[110px] border border-dashed border-emerald-500/40 hover:border-emerald-400 bg-emerald-950/20 hover:bg-emerald-500/10 flex flex-col items-center justify-center gap-2 text-xs text-emerald-300/80 hover:text-emerald-200 cursor-pointer transition-all duration-200 group shadow-md"
                     title="Bấm vào đây để mở: Trụ cột 4"
                   >
                     <div className="flex items-center gap-2">
@@ -2744,7 +2744,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="liquid-glass-natural rounded-full px-6 py-2 text-xs font-mono tracking-widest text-emerald-300 mb-8 border border-emerald-500/30 flex items-center gap-2"
+            className="liquid-glass-natural rounded-full px-6 py-2 text-xs font-mono tracking-widest text-emerald-300 mb-3 sm:mb-4 border border-emerald-500/30 flex items-center gap-2"
           >
             <LeafIcon className="w-4 h-4 text-emerald-400" />
             <span>UEH UNIVERSITY</span>
@@ -2752,7 +2752,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
 
           <BlurText
             text="CẢM ƠN"
-            className="text-6xl sm:text-8xl lg:text-9xl font-heading italic text-white tracking-tight mb-8"
+            className="text-6xl sm:text-8xl lg:text-9xl font-heading italic text-white tracking-tight mb-3 sm:mb-4"
           />
 
           <AnimatePresence>
