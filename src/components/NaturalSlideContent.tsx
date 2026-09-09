@@ -35,6 +35,7 @@ export interface NaturalSlideContentProps {
   onNextStep?: () => void;
   onSetStep?: (step: number) => void;
   onGoToSlide?: (slideNum: number) => void;
+  onOpenQRModal?: () => void;
 }
 
 export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
@@ -45,6 +46,7 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
   onNextStep,
   onSetStep,
   onGoToSlide,
+  onOpenQRModal,
 }) => {
   const isVisible = (targetStep: number) => showAll || step >= targetStep;
 
@@ -126,6 +128,34 @@ export const NaturalSlideContent: React.FC<NaturalSlideContentProps> = ({
                     <span>Xem slide 1 gốc</span>
                   </button>
                 </div>
+
+                {/* QR Code Interactive Badge on Slide 1 */}
+                <motion.div
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                  onClick={onOpenQRModal}
+                  className="mt-6 flex flex-col sm:flex-row items-center gap-3.5 liquid-glass-natural rounded-2xl px-5 py-3 border border-emerald-400/40 hover:border-emerald-400 hover:bg-white/10 transition-all cursor-pointer shadow-xl group max-w-md"
+                  title="Bấm vào để phóng to mã QR toàn màn hình"
+                >
+                  <div className="w-14 h-14 bg-white rounded-xl p-1 shadow-md flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform border border-emerald-400/50">
+                    <img src="/qr_code.png" alt="QR Code" className="w-full h-full object-contain" />
+                  </div>
+                  <div className="text-left">
+                    <div className="text-xs sm:text-sm font-semibold text-white flex items-center gap-1.5">
+                      <span>Quét QR xem slide trên điện thoại</span>
+                      <span className="text-[10px] text-emerald-300 font-mono px-1.5 py-0.5 rounded bg-emerald-500/20 border border-emerald-400/30">
+                        🔍 Phóng to
+                      </span>
+                    </div>
+                    <div className="text-xs font-mono text-emerald-300 font-medium truncate mt-0.5">
+                      https://ptbv-sdg3-sdg4.vercel.app
+                    </div>
+                    <div className="text-[10px] text-white/50 font-light mt-0.5">
+                      Đồng bộ trực tiếp • Thuyết trình hội trường UEH
+                    </div>
+                  </div>
+                </motion.div>
               </motion.div>
             )}
           </AnimatePresence>

@@ -8,6 +8,7 @@ import {
   CloseIcon,
 } from './Icons';
 import { NaturalSlideContent } from './NaturalSlideContent';
+import { QRCodeModal } from './QRCodeModal';
 
 interface SlideDeckProps {
   onSwitchToScrollMode: () => void;
@@ -93,6 +94,7 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
   const [isDockPinned, setIsDockPinned] = useState(false);
   const [isHeaderVisible, setIsHeaderVisible] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [showQRModal, setShowQRModal] = useState(false);
   const [slideZoom, setSlideZoom] = useState<number>(() => {
     try {
       const saved = localStorage.getItem('deck_zoom');
@@ -392,6 +394,16 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
             </span>
           </button>
 
+          {/* QR Code Button */}
+          <button
+            type="button"
+            onClick={() => setShowQRModal(true)}
+            className="liquid-glass rounded-full px-3 py-1.5 text-xs text-emerald-300 hover:text-white transition-all cursor-pointer flex items-center gap-1.5 border border-emerald-400/30 hover:bg-emerald-500/20"
+            title="Phóng to mã QR để quét trên điện thoại"
+          >
+            <span>📱 Mã QR</span>
+          </button>
+
           {/* Fullscreen Button */}
           <button
             type="button"
@@ -445,6 +457,7 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
                 onNextStep={handleNext}
                 onSetStep={setCurrentStep}
                 onGoToSlide={goToSlide}
+                onOpenQRModal={() => setShowQRModal(true)}
               />
             </motion.div>
           </AnimatePresence>
@@ -696,6 +709,16 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
               </button>
             </div>
 
+            {/* QR Code Button */}
+            <button
+              type="button"
+              onClick={() => setShowQRModal(true)}
+              className="liquid-glass rounded-full px-2.5 py-1.5 text-xs text-emerald-300 hover:text-white flex items-center gap-1 cursor-pointer border border-emerald-400/30 hover:bg-emerald-500/20"
+              title="Mở mã QR chia sẻ bài thuyết trình"
+            >
+              <span>📱 QR</span>
+            </button>
+
             {/* Fullscreen Button */}
             <button
               type="button"
@@ -722,6 +745,8 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
           </div>
         </footer>
       </div>
+      {/* Big QR Code Modal */}
+      <QRCodeModal isOpen={showQRModal} onClose={() => setShowQRModal(false)} />
     </div>
   );
 };
