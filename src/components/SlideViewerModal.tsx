@@ -77,14 +77,26 @@ export const SlideViewerModal: React.FC<SlideViewerModalProps> = ({
             {/* Image Container */}
             <div className="flex-1 overflow-auto rounded-xl bg-black/50 border border-white/5 flex items-center justify-center p-4">
               {slideNumber === 2 ? (
-                <div className="flex flex-col items-center max-h-full">
-                  <img
-                    src="/slides/team_candy.png"
-                    alt="Danh sách Nhóm 4 CANDY"
-                    className="max-h-[60vh] w-auto object-contain rounded-lg shadow-2xl border border-white/20 mb-3"
-                  />
-                  <div className="text-xs font-mono text-emerald-300">
-                    Bảng phân công & danh sách sinh viên lớp 26C3ECO50122002 — Nhóm 4: CANDY
+                <div className="flex flex-col lg:flex-row items-center justify-center gap-4 max-h-full overflow-auto p-2">
+                  <div className="flex flex-col items-center">
+                    <img
+                      src="/slides/division_work.png"
+                      alt="Phân công nhiệm vụ 3 khu vực"
+                      className="max-h-[48vh] w-auto object-contain rounded-lg shadow-2xl border border-white/20 mb-2"
+                    />
+                    <div className="text-xs font-mono text-amber-300 text-center">
+                      Bảng phân chia 3 khu vực nhiệm vụ (Deadline 31/8)
+                    </div>
+                  </div>
+                  <div className="flex flex-col items-center">
+                    <img
+                      src="/slides/team_candy.png"
+                      alt="Danh sách Nhóm 4 CANDY"
+                      className="max-h-[48vh] w-auto object-contain rounded-lg shadow-2xl border border-white/20 mb-2"
+                    />
+                    <div className="text-xs font-mono text-emerald-300 text-center">
+                      Danh sách 13 sinh viên & MSSV lớp 26C3ECO50122002
+                    </div>
                   </div>
                 </div>
               ) : slideNumber === 24 ? (
