@@ -99,10 +99,10 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
   const [showQRModal, setShowQRModal] = useState(false);
   const [slideZoom, setSlideZoom] = useState<number>(() => {
     try {
-      const saved = localStorage.getItem('deck_zoom');
-      return saved ? parseFloat(saved) : 1;
+      const saved = localStorage.getItem('deck_zoom_v90');
+      return saved ? parseFloat(saved) : 0.9;
     } catch {
-      return 1;
+      return 0.9;
     }
   });
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -126,7 +126,7 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
   const handleZoomChange = (newZoom: number) => {
     setSlideZoom(newZoom);
     try {
-      localStorage.setItem('deck_zoom', newZoom.toString());
+      localStorage.setItem('deck_zoom_v90', newZoom.toString());
     } catch {}
   };
 
@@ -451,7 +451,7 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
               exit="exit"
               className="w-full max-w-7xl 2xl:max-w-[1600px] mx-auto flex flex-col flex-1 py-0.5 my-auto justify-center"
               style={{
-                zoom: slideZoom !== 1 ? slideZoom : undefined,
+                zoom: slideZoom,
               }}
             >
               <NaturalSlideContent
@@ -684,13 +684,26 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
               <span className="text-[10px] text-white/40 px-1.5 hidden md:inline">Thu phóng:</span>
               <button
                 type="button"
+                onClick={() => handleZoomChange(0.9)}
+                className={`px-2.5 py-0.5 rounded-full transition-all cursor-pointer flex items-center gap-1 ${
+                  slideZoom === 0.9
+                    ? 'bg-emerald-500 text-black font-bold shadow-sm'
+                    : 'text-white/60 hover:text-white'
+                }`}
+                title="Cỡ 90% (Khuyến nghị chuẩn UEH - Vừa vặn toàn diện mọi màn hình)"
+              >
+                <span>90%</span>
+                <span className="text-[9px] opacity-75">(Chuẩn)</span>
+              </button>
+              <button
+                type="button"
                 onClick={() => handleZoomChange(1)}
                 className={`px-2 py-0.5 rounded-full transition-all cursor-pointer ${
                   slideZoom === 1
                     ? 'bg-emerald-500 text-black font-bold shadow-sm'
                     : 'text-white/60 hover:text-white'
                 }`}
-                title="Cỡ chuẩn 100%"
+                title="Cỡ 100%"
               >
                 100%
               </button>
@@ -702,21 +715,9 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
                     ? 'bg-emerald-500 text-black font-bold shadow-sm'
                     : 'text-white/60 hover:text-white'
                 }`}
-                title="Phóng to 110% (Chiếu màn hình lớp học)"
+                title="Phóng to 110%"
               >
                 110%
-              </button>
-              <button
-                type="button"
-                onClick={() => handleZoomChange(1.2)}
-                className={`px-2 py-0.5 rounded-full transition-all cursor-pointer ${
-                  slideZoom === 1.2
-                    ? 'bg-emerald-500 text-black font-bold shadow-sm'
-                    : 'text-white/60 hover:text-white'
-                }`}
-                title="Phóng to 120% (Hội trường lớn / Máy chiếu xa)"
-              >
-                120%
               </button>
             </div>
 

@@ -98,7 +98,7 @@ export const UserGuideSlide: React.FC<UserGuideSlideProps> = ({
           </div>
           <div className="hidden md:flex items-center gap-1 text-cyan-300">
             <span>💡</span>
-            <span>Reset Zoom 100%: <kbd className="px-1 py-0.2 rounded bg-white/15 text-[10px] text-white">Ctrl + 0</kbd></span>
+            <span>Thu phóng: <strong className="text-emerald-300">Mặc định 90% (Chuẩn UEH)</strong></span>
           </div>
           <div className="flex items-center gap-1 text-emerald-300 font-semibold">
             <span>📚 27 Slides</span>
@@ -143,13 +143,13 @@ export const UserGuideSlide: React.FC<UserGuideSlideProps> = ({
 
               <div className="bg-black/30 rounded-lg p-2 border border-white/5">
                 <div className="flex items-center justify-between mb-0.5">
-                  <span className="font-semibold text-cyan-300 text-xs">Thu Phóng 100%:</span>
+                  <span className="font-semibold text-cyan-300 text-xs">Thu Phóng 90% (Mặc định):</span>
                   <kbd className="px-1.5 py-0.2 rounded bg-cyan-500/20 border border-cyan-400/40 text-cyan-200 font-mono text-[10px] font-bold">
                     Ctrl + 0
                   </kbd>
                 </div>
                 <p className="text-[10px] text-white/70 leading-snug">
-                  Đưa zoom trình duyệt về chuẩn 100% để hệ thống Liquid Glass co giãn sắc nét, không vỡ khung.
+                  Hệ thống đã tự động thiết lập 90% ngay khi truy cập, giúp hiển thị trọn vẹn 100% đồ họa mà không cần lăn chuột.
                 </p>
               </div>
             </div>
