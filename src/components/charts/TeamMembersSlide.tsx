@@ -53,18 +53,18 @@ const TEAM_AREAS: AreaGroup[] = [
         stt: 3,
         name: 'Trịnh Quốc Bình',
         mssv: '89254020098',
-        roleBadge: '💻 Làm slide & Kỹ thuật',
+        roleBadge: '💻 Tổng hợp, Slide & Kỹ thuật',
         roleType: 'member',
-        taskDetail: 'Thiết kế slide & Trực quan số liệu',
+        taskDetail: 'Tổng hợp thông tin, thiết kế Slide & Trực quan số liệu',
         avatarGradient: 'from-emerald-400 to-teal-500',
       },
       {
         stt: 4,
         name: 'Hoàng Anh',
         mssv: '33254020121',
-        roleBadge: '🎙️ Thuyết trình & Quiz',
+        roleBadge: '🎙️ Tổng hợp, Thuyết trình & Quiz',
         roleType: 'member',
-        taskDetail: 'Thuyết trình & Soạn bộ câu hỏi Q&A',
+        taskDetail: 'Tổng hợp thông tin, chuẩn bị thuyết trình & Bộ câu hỏi Q&A',
         avatarGradient: 'from-cyan-400 to-blue-500',
       },
     ],
@@ -77,6 +77,12 @@ const TEAM_AREAS: AreaGroup[] = [
     headerColor: 'from-emerald-400 to-teal-400',
     borderGlow: 'border-emerald-400/40 shadow-emerald-500/10',
     badgeBg: 'bg-emerald-500/15 text-emerald-300 border-emerald-400/30',
+    tasksSummary: [
+      'Nghiên cứu định nghĩa 3Es, DALYs, LE & HDI Sức khỏe',
+      'Phân tích chi tiết 9 mục tiêu chính & 4 phương tiện thực hiện',
+      'Đánh giá bức tranh toàn cầu & thực trạng tại Việt Nam',
+      'Xây dựng ma trận mạng lưới liên kết & Case Study Vinamilk',
+    ],
     members: [
       {
         stt: 12,
@@ -133,6 +139,12 @@ const TEAM_AREAS: AreaGroup[] = [
     headerColor: 'from-rose-400 to-pink-500',
     borderGlow: 'border-rose-400/40 shadow-rose-500/10',
     badgeBg: 'bg-rose-500/15 text-rose-300 border-rose-400/30',
+    tasksSummary: [
+      'Khung 3Es, mô hình Bánh cưới & hệ thống chỉ số GER/NER',
+      'Phân tích chi tiết 7 mục tiêu chính & 3 phương tiện thực hiện',
+      'Đánh giá khủng hoảng 84M trẻ, rào cản số hóa & hạ tầng',
+      'Thực trạng & 4 giải pháp tại VN & Case Study Nestlé CSV',
+    ],
     members: [
       {
         stt: 2,
@@ -341,15 +353,21 @@ export const TeamMembersSlide: React.FC<TeamMembersSlideProps> = ({
                               {member.roleBadge}
                             </span>
                           </div>
+
+                          {/* Phân công công việc cụ thể */}
+                          <div className="mt-1 pt-1 border-t border-white/10 flex items-center gap-1.5 text-[10px] text-white/85">
+                            <span className="text-emerald-400 text-[10px] flex-shrink-0 font-bold">↳</span>
+                            <span className="truncate font-body">{member.taskDetail}</span>
+                          </div>
                         </div>
                       </div>
                     );
                   })}
                 </div>
 
-                {/* Optional Task Checklist box for Synthesis group to balance column height */}
+                {/* Optional Task Checklist box */}
                 {area.tasksSummary && (
-                  <div className="mt-3 p-2.5 rounded-xl bg-white/5 border border-white/10 text-[11px] text-white/75 space-y-1">
+                  <div className="mt-2.5 p-2 rounded-xl bg-white/5 border border-white/10 text-[11px] text-white/75 space-y-1">
                     <div className="font-mono text-[10px] uppercase text-amber-300 font-semibold mb-1 flex items-center gap-1">
                       <span>📌</span>
                       <span>Nhiệm vụ phân công cụ thể:</span>
