@@ -87,6 +87,18 @@ export const UserGuideSlide: React.FC<UserGuideSlideProps> = ({
             <span>⛶</span>
             <span>{isFullscreen ? 'Thoát F11' : 'Bật F11 Ngay'}</span>
           </button>
+
+          <a
+            href="/Bao_Cao_Thuyet_Trinh_SDG3_SDG4_Nhom4_CANDY.pdf"
+            download="Bao_Cao_Thuyet_Trinh_SDG3_SDG4_Nhom4_CANDY.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-2.5 py-0.5 rounded-md text-[11px] font-mono font-semibold liquid-glass border border-amber-400/50 text-amber-300 hover:bg-amber-500/20 hover:border-amber-300 transition-all cursor-pointer flex items-center gap-1 shadow-sm"
+            title="Tải toàn bộ 27 trang PDF bài thuyết trình nộp bài"
+          >
+            <span>📥</span>
+            <span>Tải PDF Nộp Bài</span>
+          </a>
         </div>
 
         <div className="flex items-center gap-3 font-mono text-white/70 text-[11px]">
@@ -362,6 +374,17 @@ export const UserGuideSlide: React.FC<UserGuideSlideProps> = ({
               </button>
             </>
           )}
+
+          <a
+            href="/Bao_Cao_Thuyet_Trinh_SDG3_SDG4_Nhom4_CANDY.pdf"
+            download="Bao_Cao_Thuyet_Trinh_SDG3_SDG4_Nhom4_CANDY.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="liquid-glass-strong rounded-full px-3.5 py-1.5 text-xs font-semibold text-amber-300 hover:text-white border border-amber-400/50 hover:bg-amber-500/20 transition-all cursor-pointer flex items-center gap-1.5 shadow-md"
+            title="Tải file PDF trọn bộ 27 trang phục vụ nộp bài và chấm điểm"
+          >
+            <span>📥 Tải File PDF Nộp Bài (16:9)</span>
+          </a>
 
           <button
             type="button"

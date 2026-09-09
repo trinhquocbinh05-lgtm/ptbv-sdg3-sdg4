@@ -79,11 +79,22 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
   onSwitchToScrollMode,
   onOpenSlideModal,
 }) => {
+  const isCleanMode = typeof window !== 'undefined' && (
+    window.location.search.includes('clean=1') ||
+    window.location.search.includes('export=1') ||
+    window.location.hash.includes('clean=1') ||
+    window.location.hash.includes('export=1')
+  );
+
   const [currentSlide, setCurrentSlide] = useState(() => {
     try {
       const hash = window.location.hash.replace('#', '');
-      const num = parseInt(hash.replace('slide=', ''), 10);
-      return num >= 1 && num <= 27 ? num : 1;
+      const match = hash.match(/slide=(\d+)/);
+      if (match) {
+        const num = parseInt(match[1], 10);
+        return num >= 1 && num <= 27 ? num : 1;
+      }
+      return 1;
     } catch {
       return 1;
     }
@@ -134,10 +145,26 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
   const maxStepForCurrentSlide = slideMaxSteps[currentSlide] || 1;
 
   useEffect(() => {
-    window.location.hash = `slide=${currentSlide}`;
+    const isClean = window.location.search.includes('clean=1') || window.location.hash.includes('clean=1');
+    window.location.hash = isClean ? `slide=${currentSlide}&clean=1` : `slide=${currentSlide}`;
     const titleText = slideTitles[currentSlide - 1] || `Slide ${currentSlide}`;
     document.title = `${titleText} | Phát triển bền vững SDG3 và SDG4`;
     scrollContainerRef.current?.scrollTo({ top: 0, behavior: 'instant' });
+  }, [currentSlide]);
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      const match = window.location.hash.match(/slide=(\d+)/);
+      if (match) {
+        const num = parseInt(match[1], 10);
+        if (num >= 1 && num <= totalSlides && num !== currentSlide) {
+          setCurrentSlide(num);
+          setCurrentStep(0);
+        }
+      }
+    };
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
   }, [currentSlide]);
 
   // Step-by-step advance
@@ -250,34 +277,40 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, [isDockPinned]);
 
-  const slideVariants = {
-    enter: (dir: number) => ({
-      x: dir > 0 ? 60 : -60,
-      opacity: 0,
-      filter: 'blur(10px)',
-      scale: 0.98,
-    }),
-    center: {
-      x: 0,
-      opacity: 1,
-      filter: 'blur(0px)',
-      scale: 1,
-      transition: {
-        duration: 0.4,
-        ease: 'easeInOut' as const,
-      },
-    },
-    exit: (dir: number) => ({
-      x: dir > 0 ? -60 : 60,
-      opacity: 0,
-      filter: 'blur(10px)',
-      scale: 0.98,
-      transition: {
-        duration: 0.3,
-        ease: 'easeInOut' as const,
-      },
-    }),
-  };
+  const slideVariants = isCleanMode
+    ? {
+        enter: { x: 0, opacity: 1, filter: 'none', scale: 1 },
+        center: { x: 0, opacity: 1, filter: 'none', scale: 1, transition: { duration: 0 } },
+        exit: { x: 0, opacity: 1, filter: 'none', scale: 1, transition: { duration: 0 } },
+      }
+    : {
+        enter: (dir: number) => ({
+          x: dir > 0 ? 60 : -60,
+          opacity: 0,
+          filter: 'blur(10px)',
+          scale: 0.98,
+        }),
+        center: {
+          x: 0,
+          opacity: 1,
+          filter: 'blur(0px)',
+          scale: 1,
+          transition: {
+            duration: 0.4,
+            ease: 'easeInOut' as const,
+          },
+        },
+        exit: (dir: number) => ({
+          x: dir > 0 ? -60 : 60,
+          opacity: 0,
+          filter: 'blur(10px)',
+          scale: 0.98,
+          transition: {
+            duration: 0.3,
+            ease: 'easeInOut' as const,
+          },
+        }),
+      };
 
   const isSDG3 = currentSlide <= 12;
 
@@ -302,138 +335,159 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
       <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-amber-500/5 rounded-full blur-[120px] pointer-events-none z-[1]" />
       <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/40 to-black/90 pointer-events-none z-[2]" />
 
-      {/* Top Proximity Hover Trigger Strip */}
-      <div
-        className="fixed top-0 left-0 right-0 h-4 z-40 pointer-events-auto"
-        onMouseEnter={() => setIsHeaderVisible(true)}
-      />
+      {/* Top Controls (Hidden in Clean Export Mode) */}
+      {!isCleanMode && (
+        <>
+          {/* Top Proximity Hover Trigger Strip */}
+          <div
+            className="fixed top-0 left-0 right-0 h-4 z-40 pointer-events-auto"
+            onMouseEnter={() => setIsHeaderVisible(true)}
+          />
 
-      {/* Subtle Top Peek Pill when Header is Hidden */}
-      <div
-        className={`fixed top-1.5 left-1/2 -translate-x-1/2 z-40 transition-all duration-300 pointer-events-auto ${
-          isHeaderVisible
-            ? 'opacity-0 -translate-y-full pointer-events-none'
-            : 'opacity-85 hover:opacity-100 translate-y-0'
-        }`}
-        onMouseEnter={() => setIsHeaderVisible(true)}
-        onClick={() => setIsHeaderVisible(true)}
-      >
-        <div className="liquid-glass-strong px-4 py-1 rounded-full text-[11px] font-mono text-white/90 border border-white/15 shadow-xl flex items-center gap-2 cursor-pointer hover:scale-105 transition-transform bg-black/85">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="font-semibold text-emerald-300">Slide {currentSlide}/{totalSlides}</span>
-          <span className="text-white/40 text-[10px] hidden sm:inline">▼ Rê chuột mở menu</span>
-        </div>
-      </div>
-
-      {/* Top Header Bar: Auto-hide & Hover to Reveal */}
-      <header
-        onMouseEnter={() => setIsHeaderVisible(true)}
-        onMouseLeave={() => setIsHeaderVisible(false)}
-        className={`fixed top-0 left-0 right-0 z-50 px-6 py-2.5 flex items-center justify-between border-b border-white/10 bg-black/90 backdrop-blur-xl shadow-2xl transition-all duration-300 ease-out pointer-events-auto ${
-          isHeaderVisible
-            ? 'translate-y-0 opacity-100'
-            : '-translate-y-full opacity-0 pointer-events-none'
-        }`}
-      >
-        {/* Left: UN Global Compact & UEH Badge */}
-        <div className="flex items-center gap-3">
-          <div className="liquid-glass-natural rounded-full px-3.5 py-1 flex items-center gap-2">
-            <LeafIcon className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
-            <span className="font-heading italic text-sm text-white">UN Global Compact Blueprint</span>
-            <span className="text-white/40 text-xs hidden sm:inline">• UEH</span>
-          </div>
-          <span className="text-white/40 text-xs hidden md:inline">|</span>
-          <span className="text-xs sm:text-sm text-white/90 font-medium font-body hidden lg:inline truncate max-w-sm">
-            Slide {currentSlide}: {slideTitles[currentSlide - 1]}
-          </span>
-        </div>
-
-        {/* Center: Slide Progress Pill */}
-        <div className="liquid-glass-strong rounded-full px-4 py-1.5 flex items-center gap-3">
-          <span className="font-mono text-xs font-bold text-emerald-300">
-            {currentSlide < 10 ? `0${currentSlide}` : currentSlide}
-          </span>
-          <div className="w-24 sm:w-36 h-1.5 bg-white/10 rounded-full overflow-hidden">
-            <div
-              className={`h-full transition-all duration-300 ease-out ${
-                isSDG3
-                  ? 'bg-gradient-to-r from-emerald-400 to-teal-300'
-                  : 'bg-gradient-to-r from-rose-400 to-amber-300'
-              }`}
-              style={{ width: `${(currentSlide / totalSlides) * 100}%` }}
-            />
-          </div>
-          <span className="font-mono text-xs text-white/50">{totalSlides}</span>
-        </div>
-
-        {/* Right: Controls & Modes */}
-        <div className="flex items-center gap-2">
-          {/* Toggle Step-by-Step vs Show All */}
-          <button
-            type="button"
-            onClick={() => setShowAllSteps((prev) => !prev)}
-            className={`liquid-glass rounded-full px-3 py-1.5 text-xs font-medium flex items-center gap-1.5 transition-all cursor-pointer ${
-              showAllSteps
-                ? 'bg-amber-400/20 border border-amber-400 text-amber-300'
-                : 'text-white/80 hover:text-white'
+          {/* Subtle Top Peek Pill when Header is Hidden */}
+          <div
+            className={`fixed top-1.5 left-1/2 -translate-x-1/2 z-40 transition-all duration-300 pointer-events-auto ${
+              isHeaderVisible
+                ? 'opacity-0 -translate-y-full pointer-events-none'
+                : 'opacity-85 hover:opacity-100 translate-y-0'
             }`}
-            title="Bật/Tắt chế độ hiện từng ý theo nhịp bấm người thuyết trình"
+            onMouseEnter={() => setIsHeaderVisible(true)}
+            onClick={() => setIsHeaderVisible(true)}
           >
-            <span>{showAllSteps ? 'Đang Hiện Đầy Đủ' : 'Nhịp Thuyết Trình'}</span>
-          </button>
+            <div className="liquid-glass-strong px-4 py-1 rounded-full text-[11px] font-mono text-white/90 border border-white/15 shadow-xl flex items-center gap-2 cursor-pointer hover:scale-105 transition-transform bg-black/85">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="font-semibold text-emerald-300">Slide {currentSlide}/{totalSlides}</span>
+              <span className="text-white/40 text-[10px] hidden sm:inline">▼ Rê chuột mở menu</span>
+            </div>
+          </div>
 
-          {/* Toggle PDF Comparison */}
-          <button
-            type="button"
-            onClick={() => setShowPdfSplit((prev) => !prev)}
-            className={`liquid-glass rounded-full px-3 py-1.5 text-xs font-medium flex items-center gap-1.5 transition-all cursor-pointer ${
-              showPdfSplit
-                ? 'bg-white/20 border border-emerald-400 text-emerald-300'
-                : 'text-white/80 hover:text-white'
+          {/* Top Header Bar: Auto-hide & Hover to Reveal */}
+          <header
+            onMouseEnter={() => setIsHeaderVisible(true)}
+            onMouseLeave={() => setIsHeaderVisible(false)}
+            className={`fixed top-0 left-0 right-0 z-50 px-6 py-2.5 flex items-center justify-between border-b border-white/10 bg-black/90 backdrop-blur-xl shadow-2xl transition-all duration-300 ease-out pointer-events-auto ${
+              isHeaderVisible
+                ? 'translate-y-0 opacity-100'
+                : '-translate-y-full opacity-0 pointer-events-none'
             }`}
-            title="So sánh với slide gốc từ PDF"
           >
-            <EyeIcon className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">
-              {showPdfSplit ? 'Ẩn Slide gốc' : 'So sánh'}
-            </span>
-          </button>
+            {/* Left: UN Global Compact & UEH Badge */}
+            <div className="flex items-center gap-3">
+              <div className="liquid-glass-natural rounded-full px-3.5 py-1 flex items-center gap-2">
+                <LeafIcon className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
+                <span className="font-heading italic text-sm text-white">UN Global Compact Blueprint</span>
+                <span className="text-white/40 text-xs hidden sm:inline">• UEH</span>
+              </div>
+              <span className="text-white/40 text-xs hidden md:inline">|</span>
+              <span className="text-xs sm:text-sm text-white/90 font-medium font-body hidden lg:inline truncate max-w-sm">
+                Slide {currentSlide}: {slideTitles[currentSlide - 1]}
+              </span>
+            </div>
 
-          {/* QR Code Button */}
-          <button
-            type="button"
-            onClick={() => setShowQRModal(true)}
-            className="liquid-glass rounded-full px-3 py-1.5 text-xs text-emerald-300 hover:text-white transition-all cursor-pointer flex items-center gap-1.5 border border-emerald-400/30 hover:bg-emerald-500/20"
-            title="Phóng to mã QR để quét trên điện thoại"
-          >
-            <span>📱 Mã QR</span>
-          </button>
+            {/* Center: Slide Progress Pill */}
+            <div className="liquid-glass-strong rounded-full px-4 py-1.5 flex items-center gap-3">
+              <span className="font-mono text-xs font-bold text-emerald-300">
+                {currentSlide < 10 ? `0${currentSlide}` : currentSlide}
+              </span>
+              <div className="w-24 sm:w-36 h-1.5 bg-white/10 rounded-full overflow-hidden">
+                <div
+                  className={`h-full transition-all duration-300 ease-out ${
+                    isSDG3
+                      ? 'bg-gradient-to-r from-emerald-400 to-teal-300'
+                      : 'bg-gradient-to-r from-rose-400 to-amber-300'
+                  }`}
+                  style={{ width: `${(currentSlide / totalSlides) * 100}%` }}
+                />
+              </div>
+              <span className="font-mono text-xs text-white/50">{totalSlides}</span>
+            </div>
 
-          {/* Fullscreen Button */}
-          <button
-            type="button"
-            onClick={toggleFullscreen}
-            className="liquid-glass rounded-full px-3 py-1.5 text-xs text-emerald-300 hover:text-white transition-all cursor-pointer flex items-center gap-1.5 border border-emerald-400/30 hover:bg-emerald-500/20"
-            title="Bật/tắt toàn màn hình (F11)"
-          >
-            <span>{isFullscreen ? 'Thu nhỏ' : '⛶ Toàn màn hình (F11)'}</span>
-          </button>
+            {/* Right: Controls & Modes */}
+            <div className="flex items-center gap-2">
+              {/* Download PDF Button */}
+              <a
+                href="/Bao_Cao_Thuyet_Trinh_SDG3_SDG4_Nhom4_CANDY.pdf"
+                download="Bao_Cao_Thuyet_Trinh_SDG3_SDG4_Nhom4_CANDY.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="liquid-glass rounded-full px-3 py-1.5 text-xs text-amber-300 hover:text-white transition-all cursor-pointer flex items-center gap-1.5 border border-amber-400/30 hover:bg-amber-500/20"
+                title="Tải toàn bộ slide bản PDF chuẩn 16:9 để nộp bài hoặc in ấn"
+              >
+                <span>📥 Tải PDF</span>
+              </a>
 
-          {/* Switch to Scroll Mode */}
-          <button
-            type="button"
-            onClick={onSwitchToScrollMode}
-            className="liquid-glass rounded-full px-3 py-1.5 text-xs text-white/80 hover:text-white transition-all cursor-pointer"
-          >
-            Dạng Cuộn
-          </button>
-        </div>
-      </header>
+              {/* Toggle Step-by-Step vs Show All */}
+              <button
+                type="button"
+                onClick={() => setShowAllSteps((prev) => !prev)}
+                className={`liquid-glass rounded-full px-3 py-1.5 text-xs font-medium flex items-center gap-1.5 transition-all cursor-pointer ${
+                  showAllSteps
+                    ? 'bg-amber-400/20 border border-amber-400 text-amber-300'
+                    : 'text-white/80 hover:text-white'
+                }`}
+                title="Bật/Tắt chế độ hiện từng ý theo nhịp bấm người thuyết trình"
+              >
+                <span>{showAllSteps ? 'Đang Hiện Đầy Đủ' : 'Nhịp Thuyết Trình'}</span>
+              </button>
+
+              {/* Toggle PDF Comparison */}
+              <button
+                type="button"
+                onClick={() => setShowPdfSplit((prev) => !prev)}
+                className={`liquid-glass rounded-full px-3 py-1.5 text-xs font-medium flex items-center gap-1.5 transition-all cursor-pointer ${
+                  showPdfSplit
+                    ? 'bg-white/20 border border-emerald-400 text-emerald-300'
+                    : 'text-white/80 hover:text-white'
+                }`}
+                title="So sánh với slide gốc từ PDF"
+              >
+                <EyeIcon className="w-3.5 h-3.5" />
+                <span className="hidden sm:inline">
+                  {showPdfSplit ? 'Ẩn Slide gốc' : 'So sánh'}
+                </span>
+              </button>
+
+              {/* QR Code Button */}
+              <button
+                type="button"
+                onClick={() => setShowQRModal(true)}
+                className="liquid-glass rounded-full px-3 py-1.5 text-xs text-emerald-300 hover:text-white transition-all cursor-pointer flex items-center gap-1.5 border border-emerald-400/30 hover:bg-emerald-500/20"
+                title="Phóng to mã QR để quét trên điện thoại"
+              >
+                <span>📱 Mã QR</span>
+              </button>
+
+              {/* Fullscreen Button */}
+              <button
+                type="button"
+                onClick={toggleFullscreen}
+                className="liquid-glass rounded-full px-3 py-1.5 text-xs text-emerald-300 hover:text-white transition-all cursor-pointer flex items-center gap-1.5 border border-emerald-400/30 hover:bg-emerald-500/20"
+                title="Bật/tắt toàn màn hình (F11)"
+              >
+                <span>{isFullscreen ? 'Thu nhỏ' : '⛶ Toàn màn hình (F11)'}</span>
+              </button>
+
+              {/* Switch to Scroll Mode */}
+              <button
+                type="button"
+                onClick={onSwitchToScrollMode}
+                className="liquid-glass rounded-full px-3 py-1.5 text-xs text-white/80 hover:text-white transition-all cursor-pointer"
+              >
+                Dạng Cuộn
+              </button>
+            </div>
+          </header>
+        </>
+      )}
 
       {/* Main Slide Canvas */}
       <div
         ref={scrollContainerRef}
-        className="relative z-10 flex-1 flex flex-col overflow-y-auto px-2 sm:px-4 lg:px-8 pt-1 sm:pt-1.5 pb-6 sm:pb-8 custom-scrollbar"
+        className={`relative z-10 flex-1 flex flex-col ${
+          isCleanMode
+            ? 'overflow-hidden px-4 py-2 justify-center'
+            : 'overflow-y-auto px-2 sm:px-4 lg:px-8 pt-1 sm:pt-1.5 pb-6 sm:pb-8'
+        } custom-scrollbar`}
       >
         {/* Left Side: Modern Interactive Slide Content */}
         <div
@@ -451,13 +505,13 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
               exit="exit"
               className="w-full max-w-7xl 2xl:max-w-[1600px] mx-auto flex flex-col flex-1 py-0.5 my-auto justify-center"
               style={{
-                zoom: slideZoom,
+                zoom: isCleanMode ? 0.9 : slideZoom,
               }}
             >
               <NaturalSlideContent
                 slideNum={currentSlide}
                 step={currentStep}
-                showAll={showAllSteps}
+                showAll={showAllSteps || isCleanMode}
                 onOpenModal={onOpenSlideModal}
                 onNextStep={handleNext}
                 onSetStep={setCurrentStep}
@@ -524,239 +578,256 @@ export const SlideDeck: React.FC<SlideDeckProps> = ({
         )}
       </div>
 
-      {/* Floating Left Navigation Arrow Button */}
-      <button
-        type="button"
-        onClick={handlePrev}
-        disabled={currentSlide <= 1 && currentStep <= 0}
-        aria-label="Slide trước (Lùi)"
-        className="fixed left-2 sm:left-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full liquid-glass-strong border border-white/20 text-white flex items-center justify-center cursor-pointer shadow-2xl backdrop-blur-xl transition-all duration-200 hover:scale-110 active:scale-95 hover:border-emerald-400/60 hover:bg-emerald-500/20 disabled:opacity-0 disabled:pointer-events-none group"
-        title={currentStep > 0 ? (currentSlide === 10 || currentSlide === 20 ? 'SDG trước (←)' : 'Ý trước (←)') : 'Trang trước (←)'}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="w-5 h-5 sm:w-6 sm:h-6 text-white/80 group-hover:text-emerald-300 transition-colors -translate-x-0.5"
-        >
-          <polyline points="15 18 9 12 15 6" />
-        </svg>
-      </button>
-
-      {/* Floating Right Navigation Arrow Button */}
-      <button
-        type="button"
-        onClick={handleNext}
-        disabled={currentSlide >= totalSlides && currentStep >= maxStepForCurrentSlide - 1}
-        aria-label="Slide tiếp theo (Tiến)"
-        className="fixed right-2 sm:right-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full liquid-glass-strong border border-white/20 text-white flex items-center justify-center cursor-pointer shadow-2xl backdrop-blur-xl transition-all duration-200 hover:scale-110 active:scale-95 hover:border-emerald-400/60 hover:bg-emerald-500/20 disabled:opacity-0 disabled:pointer-events-none group"
-        title={currentStep < maxStepForCurrentSlide - 1 ? (currentSlide === 10 || currentSlide === 20 ? 'SDG tiếp theo (→)' : 'Tiếp ý (→ hoặc Space)') : 'Trang sau (→)'}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="w-5 h-5 sm:w-6 sm:h-6 text-white/80 group-hover:text-emerald-300 transition-colors translate-x-0.5"
-        >
-          <polyline points="9 18 15 12 9 6" />
-        </svg>
-      </button>
-
-      {/* Bottom Floating Control Dock - Auto-hide & Hover to Reveal */}
-      <div
-        className={`fixed bottom-0 left-0 right-0 z-40 transition-all duration-300 ease-out pointer-events-auto ${
-          isDockVisible || isDockPinned
-            ? 'translate-y-0 opacity-100'
-            : 'translate-y-[calc(100%-10px)] opacity-50 hover:opacity-100 hover:translate-y-0'
-        }`}
-        onMouseEnter={() => setIsDockVisible(true)}
-        onMouseLeave={() => {
-          if (!isDockPinned) setIsDockVisible(false);
-        }}
-      >
-        {/* Subtle Peek Pill when Collapsed */}
-        <div className="flex justify-center -translate-y-2.5 pointer-events-auto">
+      {/* Floating Left/Right Navigation Arrow Buttons (Hidden in Clean Export Mode) */}
+      {!isCleanMode && (
+        <>
           <button
             type="button"
-            onClick={() => setIsDockVisible((prev) => !prev)}
-            className={`liquid-glass-strong px-4 py-1 rounded-full text-[11px] font-mono flex items-center gap-2 transition-all cursor-pointer border border-white/15 shadow-xl ${
-              isDockVisible || isDockPinned
-                ? 'opacity-0 pointer-events-none scale-95 h-0 py-0 overflow-hidden -my-1'
-                : 'opacity-85 hover:opacity-100 hover:scale-105 bg-black/90'
-            }`}
-            title="Bấm hoặc rê chuột vào đây để mở thanh điều khiển"
+            onClick={handlePrev}
+            disabled={currentSlide <= 1 && currentStep <= 0}
+            aria-label="Slide trước (Lùi)"
+            className="fixed left-2 sm:left-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full liquid-glass-strong border border-white/20 text-white flex items-center justify-center cursor-pointer shadow-2xl backdrop-blur-xl transition-all duration-200 hover:scale-110 active:scale-95 hover:border-emerald-400/60 hover:bg-emerald-500/20 disabled:opacity-0 disabled:pointer-events-none group"
+            title={currentStep > 0 ? (currentSlide === 10 || currentSlide === 20 ? 'SDG trước (←)' : 'Ý trước (←)') : 'Trang trước (←)'}
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-white/80">Điều khiển Slide</span>
-            <span className="text-emerald-300 font-bold">{currentSlide}/{totalSlides}</span>
-            <span className="text-white/40 text-[10px]">▲ Rê chuột để mở</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="w-5 h-5 sm:w-6 sm:h-6 text-white/80 group-hover:text-emerald-300 transition-colors -translate-x-0.5"
+            >
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
           </button>
-        </div>
 
-        {/* Floating Dock Body */}
-        <footer className="relative px-6 py-3.5 bg-black/90 backdrop-blur-xl border-t border-white/15 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-[0_-15px_40px_rgba(0,0,0,0.9)]">
-          {/* Left: Step Indicator for Presenter */}
-          <div className="flex items-center gap-3 text-xs">
-            {maxStepForCurrentSlide > 1 && (
-              <div className="liquid-glass-natural rounded-full px-3 py-1 flex items-center gap-2">
-                <SparklesIcon className="w-3.5 h-3.5 text-emerald-400" />
-                <span className="text-white/80">
-                  {currentSlide === 10 || currentSlide === 20 ? (
-                    <>Mục tiêu SDG: <strong>{currentStep + 1} / {maxStepForCurrentSlide}</strong></>
-                  ) : (
-                    <>Nhịp thuyết trình: <strong>Ý {currentStep + 1} / {maxStepForCurrentSlide}</strong></>
-                  )}
-                </span>
-                <div className="flex items-center gap-1 ml-1">
-                  {Array.from({ length: maxStepForCurrentSlide }).map((_, i) => (
-                    <span
-                      key={i}
-                      className={`h-1.5 rounded-full transition-all duration-300 ${
-                        i <= currentStep ? 'w-3 bg-emerald-400' : 'w-1.5 bg-white/20'
-                      }`}
-                    />
-                  ))}
-                </div>
-              </div>
-            )}
-
-            <div className="hidden lg:flex items-center gap-1.5 text-white/40 text-[11px]">
-              <span>Phím</span>
-              <kbd className="px-1.5 py-0.5 rounded bg-white/10 text-white/80 text-[10px]">Space</kbd>
-              <kbd className="px-1.5 py-0.5 rounded bg-white/10 text-white/80 text-[10px]">→</kbd>
-              <span>để mở ý tiếp theo</span>
-            </div>
-          </div>
-
-          {/* Center: Slide Numbers Quick Selector */}
-          <div className="flex items-center gap-1 sm:gap-1.5 overflow-x-auto max-w-full py-1">
-            {Array.from({ length: totalSlides }, (_, i) => i + 1).map((num) => (
-              <button
-                key={num}
-                type="button"
-                onClick={() => goToSlide(num)}
-                className={`h-7 w-7 sm:h-8 sm:w-8 rounded-lg text-xs font-mono font-medium transition-all flex items-center justify-center cursor-pointer ${
-                  num === currentSlide
-                    ? 'bg-white text-black font-bold scale-110 shadow-lg'
-                    : 'liquid-glass text-white/70 hover:text-white hover:bg-white/10'
-                }`}
-                title={`Slide ${num}: ${slideTitles[num - 1]}`}
-              >
-                {num}
-              </button>
-            ))}
-          </div>
-
-          {/* Right: Prev & Next Action Buttons + Pin Toggle */}
-          <div className="flex items-center gap-3">
-            <button
-              type="button"
-              onClick={handlePrev}
-              disabled={currentSlide <= 1 && currentStep <= 0}
-              className="liquid-glass rounded-full px-4 py-2 text-xs sm:text-sm font-medium text-white flex items-center gap-1.5 hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer transition-all"
+          <button
+            type="button"
+            onClick={handleNext}
+            disabled={currentSlide >= totalSlides && currentStep >= maxStepForCurrentSlide - 1}
+            aria-label="Slide tiếp theo (Tiến)"
+            className="fixed right-2 sm:right-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-12 sm:h-12 rounded-full liquid-glass-strong border border-white/20 text-white flex items-center justify-center cursor-pointer shadow-2xl backdrop-blur-xl transition-all duration-200 hover:scale-110 active:scale-95 hover:border-emerald-400/60 hover:bg-emerald-500/20 disabled:opacity-0 disabled:pointer-events-none group"
+            title={currentStep < maxStepForCurrentSlide - 1 ? (currentSlide === 10 || currentSlide === 20 ? 'SDG tiếp theo (→)' : 'Tiếp ý (→ hoặc Space)') : 'Trang sau (→)'}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="w-5 h-5 sm:w-6 sm:h-6 text-white/80 group-hover:text-emerald-300 transition-colors translate-x-0.5"
             >
-              <span>← Lùi</span>
-            </button>
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </button>
+        </>
+      )}
 
+      {/* Bottom Floating Control Dock - Auto-hide & Hover to Reveal (Hidden in Clean Export Mode) */}
+      {!isCleanMode && (
+        <div
+          className={`fixed bottom-0 left-0 right-0 z-40 transition-all duration-300 ease-out pointer-events-auto ${
+            isDockVisible || isDockPinned
+              ? 'translate-y-0 opacity-100'
+              : 'translate-y-[calc(100%-10px)] opacity-50 hover:opacity-100 hover:translate-y-0'
+          }`}
+          onMouseEnter={() => setIsDockVisible(true)}
+          onMouseLeave={() => {
+            if (!isDockPinned) setIsDockVisible(false);
+          }}
+        >
+          {/* Subtle Peek Pill when Collapsed */}
+          <div className="flex justify-center -translate-y-2.5 pointer-events-auto">
             <button
               type="button"
-              onClick={handleNext}
-              disabled={currentSlide >= totalSlides && currentStep >= maxStepForCurrentSlide - 1}
-              className="liquid-glass-strong rounded-full px-5 py-2 text-xs sm:text-sm font-medium text-white flex items-center gap-1.5 hover:brightness-125 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer transition-all shadow-lg border border-emerald-400/40"
-            >
-              <span>
-                {currentStep < maxStepForCurrentSlide - 1
-                  ? (currentSlide === 10 || currentSlide === 20 ? 'SDG tiếp theo →' : 'Tiếp ý →')
-                  : 'Sang Slide →'}
-              </span>
-            </button>
-
-            {/* Zoom / Scale Selector for Projector */}
-            <div className="hidden sm:flex items-center gap-1 bg-black/60 p-1 rounded-full border border-white/10 text-xs font-mono">
-              <span className="text-[10px] text-white/40 px-1.5 hidden md:inline">Thu phóng:</span>
-              <button
-                type="button"
-                onClick={() => handleZoomChange(0.9)}
-                className={`px-2.5 py-0.5 rounded-full transition-all cursor-pointer flex items-center gap-1 ${
-                  slideZoom === 0.9
-                    ? 'bg-emerald-500 text-black font-bold shadow-sm'
-                    : 'text-white/60 hover:text-white'
-                }`}
-                title="Cỡ 90% (Khuyến nghị chuẩn UEH - Vừa vặn toàn diện mọi màn hình)"
-              >
-                <span>90%</span>
-                <span className="text-[9px] opacity-75">(Chuẩn)</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => handleZoomChange(1)}
-                className={`px-2 py-0.5 rounded-full transition-all cursor-pointer ${
-                  slideZoom === 1
-                    ? 'bg-emerald-500 text-black font-bold shadow-sm'
-                    : 'text-white/60 hover:text-white'
-                }`}
-                title="Cỡ 100%"
-              >
-                100%
-              </button>
-              <button
-                type="button"
-                onClick={() => handleZoomChange(1.1)}
-                className={`px-2 py-0.5 rounded-full transition-all cursor-pointer ${
-                  slideZoom === 1.1
-                    ? 'bg-emerald-500 text-black font-bold shadow-sm'
-                    : 'text-white/60 hover:text-white'
-                }`}
-                title="Phóng to 110%"
-              >
-                110%
-              </button>
-            </div>
-
-            {/* QR Code Button */}
-            <button
-              type="button"
-              onClick={() => setShowQRModal(true)}
-              className="liquid-glass rounded-full px-2.5 py-1.5 text-xs text-emerald-300 hover:text-white flex items-center gap-1 cursor-pointer border border-emerald-400/30 hover:bg-emerald-500/20"
-              title="Mở mã QR chia sẻ bài thuyết trình"
-            >
-              <span>📱 QR</span>
-            </button>
-
-            {/* Fullscreen Button */}
-            <button
-              type="button"
-              onClick={toggleFullscreen}
-              className="liquid-glass rounded-full px-3 py-1.5 text-xs text-white/80 hover:text-white flex items-center gap-1 cursor-pointer hover:border-emerald-400/50"
-              title="Bật/tắt toàn màn hình (Phím F11)"
-            >
-              <span>{isFullscreen ? '⛶ Thu nhỏ' : '⛶ F11'}</span>
-            </button>
-
-            {/* Pin Toggle Button */}
-            <button
-              type="button"
-              onClick={() => setIsDockPinned((prev) => !prev)}
-              className={`liquid-glass h-8 w-8 rounded-full flex items-center justify-center text-xs transition-all cursor-pointer ${
-                isDockPinned
-                  ? 'text-amber-300 bg-amber-400/20 border border-amber-400/50 shadow-md'
-                  : 'text-white/40 hover:text-white hover:bg-white/10'
+              onClick={() => setIsDockVisible((prev) => !prev)}
+              className={`liquid-glass-strong px-4 py-1 rounded-full text-[11px] font-mono flex items-center gap-2 transition-all cursor-pointer border border-white/15 shadow-xl ${
+                isDockVisible || isDockPinned
+                  ? 'opacity-0 pointer-events-none scale-95 h-0 py-0 overflow-hidden -my-1'
+                  : 'opacity-85 hover:opacity-100 hover:scale-105 bg-black/90'
               }`}
-              title={isDockPinned ? 'Bỏ ghim (tự động ẩn khi không rê chuột)' : 'Ghim cố định thanh điều khiển'}
+              title="Bấm hoặc rê chuột vào đây để mở thanh điều khiển"
             >
-              <span>{isDockPinned ? '📌' : '📍'}</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="text-white/80">Điều khiển Slide</span>
+              <span className="text-emerald-300 font-bold">{currentSlide}/{totalSlides}</span>
+              <span className="text-white/40 text-[10px]">▲ Rê chuột để mở</span>
             </button>
           </div>
-        </footer>
-      </div>
+
+          {/* Floating Dock Body */}
+          <footer className="relative px-6 py-3.5 bg-black/90 backdrop-blur-xl border-t border-white/15 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-[0_-15px_40px_rgba(0,0,0,0.9)]">
+            {/* Left: Step Indicator for Presenter */}
+            <div className="flex items-center gap-3 text-xs">
+              {maxStepForCurrentSlide > 1 && (
+                <div className="liquid-glass-natural rounded-full px-3 py-1 flex items-center gap-2">
+                  <SparklesIcon className="w-3.5 h-3.5 text-emerald-400" />
+                  <span className="text-white/80">
+                    {currentSlide === 10 || currentSlide === 20 ? (
+                      <>Mục tiêu SDG: <strong>{currentStep + 1} / {maxStepForCurrentSlide}</strong></>
+                    ) : (
+                      <>Nhịp thuyết trình: <strong>Ý {currentStep + 1} / {maxStepForCurrentSlide}</strong></>
+                    )}
+                  </span>
+                  <div className="flex items-center gap-1 ml-1">
+                    {Array.from({ length: maxStepForCurrentSlide }).map((_, i) => (
+                      <span
+                        key={i}
+                        className={`h-1.5 rounded-full transition-all duration-300 ${
+                          i <= currentStep ? 'w-3 bg-emerald-400' : 'w-1.5 bg-white/20'
+                        }`}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <div className="hidden lg:flex items-center gap-1.5 text-white/40 text-[11px]">
+                <span>Phím</span>
+                <kbd className="px-1.5 py-0.5 rounded bg-white/10 text-white/80 text-[10px]">Space</kbd>
+                <kbd className="px-1.5 py-0.5 rounded bg-white/10 text-white/80 text-[10px]">→</kbd>
+                <span>để mở ý tiếp theo</span>
+              </div>
+            </div>
+
+            {/* Center: Slide Numbers Quick Selector */}
+            <div className="flex items-center gap-1 sm:gap-1.5 overflow-x-auto max-w-full py-1">
+              {Array.from({ length: totalSlides }, (_, i) => i + 1).map((num) => (
+                <button
+                  key={num}
+                  type="button"
+                  onClick={() => goToSlide(num)}
+                  className={`h-7 w-7 sm:h-8 sm:w-8 rounded-lg text-xs font-mono font-medium transition-all flex items-center justify-center cursor-pointer ${
+                    num === currentSlide
+                      ? 'bg-white text-black font-bold scale-110 shadow-lg'
+                      : 'liquid-glass text-white/70 hover:text-white hover:bg-white/10'
+                  }`}
+                  title={`Slide ${num}: ${slideTitles[num - 1]}`}
+                >
+                  {num}
+                </button>
+              ))}
+            </div>
+
+            {/* Right: Prev & Next Action Buttons + Pin Toggle */}
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={handlePrev}
+                disabled={currentSlide <= 1 && currentStep <= 0}
+                className="liquid-glass rounded-full px-4 py-2 text-xs sm:text-sm font-medium text-white flex items-center gap-1.5 hover:bg-white/10 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer transition-all"
+              >
+                <span>← Lùi</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={handleNext}
+                disabled={currentSlide >= totalSlides && currentStep >= maxStepForCurrentSlide - 1}
+                className="liquid-glass-strong rounded-full px-5 py-2 text-xs sm:text-sm font-medium text-white flex items-center gap-1.5 hover:brightness-125 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer transition-all shadow-lg border border-emerald-400/40"
+              >
+                <span>
+                  {currentStep < maxStepForCurrentSlide - 1
+                    ? (currentSlide === 10 || currentSlide === 20 ? 'SDG tiếp theo →' : 'Tiếp ý →')
+                    : 'Sang Slide →'}
+                </span>
+              </button>
+
+              {/* Zoom / Scale Selector for Projector */}
+              <div className="hidden sm:flex items-center gap-1 bg-black/60 p-1 rounded-full border border-white/10 text-xs font-mono">
+                <span className="text-[10px] text-white/40 px-1.5 hidden md:inline">Thu phóng:</span>
+                <button
+                  type="button"
+                  onClick={() => handleZoomChange(0.9)}
+                  className={`px-2.5 py-0.5 rounded-full transition-all cursor-pointer flex items-center gap-1 ${
+                    slideZoom === 0.9
+                      ? 'bg-emerald-500 text-black font-bold shadow-sm'
+                      : 'text-white/60 hover:text-white'
+                  }`}
+                  title="Cỡ 90% (Khuyến nghị chuẩn UEH - Vừa vặn toàn diện mọi màn hình)"
+                >
+                  <span>90%</span>
+                  <span className="text-[9px] opacity-75">(Chuẩn)</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleZoomChange(1)}
+                  className={`px-2 py-0.5 rounded-full transition-all cursor-pointer ${
+                    slideZoom === 1
+                      ? 'bg-emerald-500 text-black font-bold shadow-sm'
+                      : 'text-white/60 hover:text-white'
+                  }`}
+                  title="Cỡ 100%"
+                >
+                  100%
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleZoomChange(1.1)}
+                  className={`px-2 py-0.5 rounded-full transition-all cursor-pointer ${
+                    slideZoom === 1.1
+                      ? 'bg-emerald-500 text-black font-bold shadow-sm'
+                      : 'text-white/60 hover:text-white'
+                  }`}
+                  title="Phóng to 110%"
+                >
+                  110%
+                </button>
+              </div>
+
+              {/* Download PDF Button */}
+              <a
+                href="/Bao_Cao_Thuyet_Trinh_SDG3_SDG4_Nhom4_CANDY.pdf"
+                download="Bao_Cao_Thuyet_Trinh_SDG3_SDG4_Nhom4_CANDY.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="liquid-glass rounded-full px-2.5 py-1.5 text-xs text-amber-300 hover:text-white flex items-center gap-1 cursor-pointer border border-amber-400/30 hover:bg-amber-500/20"
+                title="Tải toàn bộ bài thuyết trình dạng file PDF 16:9 nộp bài"
+              >
+                <span>📥 PDF</span>
+              </a>
+
+              {/* QR Code Button */}
+              <button
+                type="button"
+                onClick={() => setShowQRModal(true)}
+                className="liquid-glass rounded-full px-2.5 py-1.5 text-xs text-emerald-300 hover:text-white flex items-center gap-1 cursor-pointer border border-emerald-400/30 hover:bg-emerald-500/20"
+                title="Mở mã QR chia sẻ bài thuyết trình"
+              >
+                <span>📱 QR</span>
+              </button>
+
+              {/* Fullscreen Button */}
+              <button
+                type="button"
+                onClick={toggleFullscreen}
+                className="liquid-glass rounded-full px-3 py-1.5 text-xs text-white/80 hover:text-white flex items-center gap-1 cursor-pointer hover:border-emerald-400/50"
+                title="Bật/tắt toàn màn hình (Phím F11)"
+              >
+                <span>{isFullscreen ? '⛶ Thu nhỏ' : '⛶ F11'}</span>
+              </button>
+
+              {/* Pin Toggle Button */}
+              <button
+                type="button"
+                onClick={() => setIsDockPinned((prev) => !prev)}
+                className={`liquid-glass h-8 w-8 rounded-full flex items-center justify-center text-xs transition-all cursor-pointer ${
+                  isDockPinned
+                    ? 'text-amber-300 bg-amber-400/20 border border-amber-400/50 shadow-md'
+                    : 'text-white/40 hover:text-white hover:bg-white/10'
+                }`}
+                title={isDockPinned ? 'Bỏ ghim (tự động ẩn khi không rê chuột)' : 'Ghim cố định thanh điều khiển'}
+              >
+                <span>{isDockPinned ? '📌' : '📍'}</span>
+              </button>
+            </div>
+          </footer>
+        </div>
+      )}
       {/* Big QR Code Modal */}
       <QRCodeModal isOpen={showQRModal} onClose={() => setShowQRModal(false)} />
     </div>
